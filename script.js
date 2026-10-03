@@ -5317,6 +5317,20 @@ getDestinationCards = function(){
   }).join("");
 };
 
+// The production image map is declared after the core boot sequence.
+// Re-render once here so the final high-resolution image URLs are actually
+// applied to the first visible Destination Studio paint.
+if(document.readyState !== "loading"){
+  setTimeout(function(){
+    if(typeof renderDestinations === "function"){
+      renderDestinations();
+    }
+    if(typeof installTravelImageFallbacks === "function"){
+      installTravelImageFallbacks();
+    }
+  },0);
+}
+
 var LIVE_CACHE_KEY = "trippilot_live_cache_v1";
 var LIVE_CACHE_TTL = 10 * 60 * 1000;
 var liveMapInstance = null;
