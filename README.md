@@ -287,3 +287,22 @@ Reference: https://frankfurter.dev/
 Live Travel can also use Open-Meteo air-quality data for US AQI and particulate matter variables. Open-Meteo documents current air-quality conditions and five-day forecasts for these variables.
 
 Reference: https://open-meteo.com/en/docs/air-quality-api
+
+
+## 🖼️ Travel Inspiration
+
+A visual inspiration layer has been added to make destination discovery feel closer to a modern travel product:
+
+- Large destination hero cards
+- Smaller visual destination cards
+- One-click planning from inspiration
+- Local saved-idea state
+- Saved-idea counter
+- Image hover motion and cinematic overlays
+
+Destination imagery is loaded remotely and lazily.
+
+## 🔁 Search persistence
+
+Travel Desk searches can now retain their form values locally. Selecting a recent search can restore its search fields so the user can continue planning without rebuilding the form.
+
