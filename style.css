@@ -8686,3 +8686,14 @@ body.light-mode .destination-card.featured-city::after{
 @media(max-width:520px){
   .destination-grid{grid-template-columns:1fr;}
 }
+
+/* Final destination image reliability: dedicated fallbacks for featured cities. */
+.destination-image.hyderabad{
+  background-image:url("https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=88&w=2200");
+}
+.destination-image.mumbai{
+  background-image:url("https://images.unsplash.com/photo-1666856647637-dbc11915f258?auto=format&fit=crop&fm=jpg&q=88&w=2200");
+}
+.destination-image.bengaluru{
+  background-image:url("https://images.unsplash.com/photo-1741375870964-093181f9993a?auto=format&fit=crop&fm=jpg&q=88&w=2200");
+}
