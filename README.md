@@ -318,3 +318,20 @@ The home hero keeps the travel photography visible while a theme-aware contrast 
 Remote destination photography is requested at high resolution, the inspiration gallery contains additional travel scenes, and image fallbacks prevent a failed remote image from breaking the layout.
 
 The Travel Desk, live travel context, planner, itinerary, stays, budget, packing, saved trips, settings, theme switching and local reset remain part of the same GitHub Pages-friendly HTML/CSS/JavaScript application.
+
+
+## 🖼️ 2026 Visual Refresh — Destination Studio & Stay Finder
+
+The latest production visual pass strengthens the two image-led discovery areas:
+
+- **Destination Studio** has a cinematic backdrop plus refreshed destination photography, with dedicated featured visuals for **Hyderabad, Mumbai and Bengaluru**.
+- **Stay Finder** has a hospitality-focused backdrop plus refreshed accommodation photography for Budget, Comfort and Premium sample stays.
+- Remote images are requested up to **3840px wide** for high-resolution desktop presentation while remaining responsive through `cover` rendering.
+- The planner behavior remains unchanged: choosing a destination or sample stay can still move the selection into the trip planner.
+
+The Hyderabad Charminar source photo and the hotel-room source photographs used in this pass are identified by Unsplash as free to use under the Unsplash License. Source pages are documented here:
+
+- https://unsplash.com/photos/the-charminar-a-historical-monument-in-india-LDYbI5R6vaM
+- https://unsplash.com/photos/luxurious-hotel-room-with-a-large-bed-and-balcony-view-uZoA9WaygLQ
+- https://unsplash.com/photos/a-well-lit-hotel-room-with-seating-and-a-desk-xQbmc2FnK3Y
+- https://unsplash.com/photos/luxurious-hotel-room-with-two-beds-and-city-view-jbwrqHBZPUY
