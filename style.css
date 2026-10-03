@@ -10520,3 +10520,79 @@ body:not(.light-mode) #authGate .auth-panel h2{
     animation:none !important;
   }
 }
+
+
+/* =========================================================
+   FINAL FIXED NAV — always visible while scrolling
+   ========================================================= */
+#tripAppShell{
+  min-height:100vh;
+}
+#tripAppShell #header{
+  position:fixed !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  width:100% !important;
+  z-index:9990 !important;
+  transform:translate3d(0,0,0) !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  will-change:background,box-shadow,backdrop-filter;
+  padding-top:max(10px,env(safe-area-inset-top)) !important;
+  padding-bottom:10px !important;
+  backdrop-filter:blur(20px) saturate(130%) !important;
+  -webkit-backdrop-filter:blur(20px) saturate(130%) !important;
+}
+#tripAppShell main{
+  scroll-margin-top:90px;
+}
+#tripAppShell .page-group-section{
+  scroll-margin-top:94px;
+}
+#tripAppShell .page-group-section > [data-subsection]{
+  scroll-margin-top:94px;
+}
+body:not(.light-mode) #tripAppShell #header{
+  background:rgba(9,13,11,.88) !important;
+  border-bottom:1px solid rgba(255,255,255,.10) !important;
+  box-shadow:0 10px 34px rgba(0,0,0,.24) !important;
+}
+body.light-mode #tripAppShell #header{
+  background:rgba(255,255,255,.94) !important;
+  border-bottom:1px solid rgba(11,15,13,.10) !important;
+  box-shadow:0 10px 30px rgba(11,15,13,.10) !important;
+}
+#tripAppShell #header.scrolled,
+body:not(.light-mode) #tripAppShell #header.scrolled,
+body.light-mode #tripAppShell #header.scrolled{
+  transform:translate3d(0,0,0) !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+#tripAppShell .navlist{
+  overflow-x:auto !important;
+  scrollbar-width:none !important;
+  -ms-overflow-style:none;
+}
+#tripAppShell .navlist::-webkit-scrollbar{
+  display:none !important;
+}
+@media(max-width:780px){
+  #tripAppShell #header{
+    padding-inline:14px !important;
+    gap:8px !important;
+  }
+  #tripAppShell .header-left .product-badge{
+    display:none;
+  }
+  #tripAppShell .navlist{
+    justify-content:flex-start !important;
+    max-width:calc(100vw - 150px) !important;
+  }
+  #tripAppShell .navlist a{
+    flex:0 0 auto;
+    padding-inline:9px !important;
+  }
+}
