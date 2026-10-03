@@ -6048,3 +6048,65 @@ body.light-mode .trip-map{background:linear-gradient(135deg,#edf1ee,#dfe8e1)}.tr
 }
 @media(max-width:420px){.travel-gallery-ribbon,.inspiration-strip,.stay-feature-rail{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+
+/* =========================================================
+   FINAL POST-COMMIT CONTRAST / RESPONSIVE CHECK
+   ========================================================= */
+.panel{
+  background:linear-gradient(145deg,rgba(18,24,20,.96),rgba(15,21,18,.92)) !important;
+}
+body.light-mode .panel{
+  background:linear-gradient(145deg,#ffffff,#fbfcfb) !important;
+}
+.planner-preview{
+  background:
+    radial-gradient(circle at 92% 10%,rgba(47,187,120,.08),transparent 28%),
+    linear-gradient(145deg,#151b17,#101512) !important;
+}
+body.light-mode .planner-preview{
+  background:
+    radial-gradient(circle at 92% 10%,rgba(31,138,90,.08),transparent 28%),
+    linear-gradient(145deg,#ffffff,#fbfcfb) !important;
+}
+.transport-switch.active{
+  color:#fff !important;
+  background:var(--travel-green-deep) !important;
+  border-color:var(--travel-green-deep) !important;
+}
+.secondary-btn:hover{
+  color:#fff !important;
+  background:var(--travel-green-deep) !important;
+  border-color:var(--travel-green-deep) !important;
+}
+.danger-btn:hover{
+  color:#fff !important;
+  background:var(--travel-red) !important;
+  border-color:var(--travel-red) !important;
+}
+select option{
+  background:var(--surface) !important;
+  color:var(--text) !important;
+}
+.site-footer{
+  background:rgba(10,15,12,.82) !important;
+}
+body.light-mode .site-footer{
+  background:rgba(255,255,255,.94) !important;
+}
+.toast{
+  background:rgba(12,17,14,.96) !important;
+}
+body.light-mode .toast{
+  background:rgba(255,255,255,.98) !important;
+  color:#0b0f0d !important;
+}
+@media(max-width:900px){
+  #tripAppShell .navlist{
+    top:68px;
+  }
+}
+@media(max-width:520px){
+  #tripAppShell .navlist{
+    top:64px;
+  }
+}
