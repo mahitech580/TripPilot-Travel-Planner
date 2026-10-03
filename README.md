@@ -366,3 +366,24 @@ Destination, inspiration and stay imagery is requested at high resolution and lo
 The home page uses a cinematic mountain-travel photograph with a separate overlay treatment for each theme. Dark mode keeps a deeper cinematic layer with white content. Light mode keeps the photograph visible and uses black content with a controlled translucent readability surface instead of washing the image into a white block.
 
 
+
+
+## Final production architecture
+
+TripPilot's primary navigation remains exactly eight sections: **Home, Explore, Plan, Travel, Itinerary, Budget & Pack, Trips, Settings**. Travel Desk and the planner remain grouped inside those sections.
+
+The application is static and GitHub Pages compatible. There is no backend or database. Planner data is stored under `trippilot_v2`; Travel Desk recents, inspiration saves and live-service cache use separate browser storage keys. Authentication uses `trippilot_accounts_v1` and `trippilot_auth_v1` and is intentionally browser-local. Passwords are hashed with Web Crypto SHA-256 when available, but this remains portfolio/demo authentication rather than server-side security.
+
+Travel Desk contains **Flights, Hotels, Trains, Buses, Cabs, Activities, Holiday packages, Travel Insurance and Currency**. Bus search includes From, To, date, travelers, bus type, save/restore recent searches, clearing recent searches and provider hand-off.
+
+The transport planner supports **Flight, Train, Bus, Cab, Metro, Auto, Ferry, Mixed and Self Drive**. Destination Studio contains 13 destinations in one gallery with destination-specific imagery and a working Plan action. Stay Finder uses hospitality photography and supports Budget, Comfort and Premium styles.
+
+Live Travel separates external-service failures: weather, air quality, routing and map rendering can fail independently. Weather can enter Preview Mode; route/map problems use an animated route-preview fallback so a failed live service does not replace unrelated planning data.
+
+Settings Clear Data removes TripPilot planner/application stores, including `trippilot_v2`, `trippilot_desk_recent_v1`, `trippilot_inspiration_v1` and `trippilot_live_cache_v1`. It does not delete browser-local authentication records.
+
+The main application header stays fixed above the scrolling content, including mobile navigation. CSS and JavaScript are cache-busted in the HTML so deployed browsers are less likely to reuse stale production assets.
+
+## Limitations
+
+Live weather, air quality, geocoding, routing, map tiles, exchange rates and remote photography depend on third-party network services and may be unavailable or rate-limited. Travel Desk previews are planning hand-offs; they do not represent guaranteed inventory, fares, seats, rooms or booking completion. Browser-local authentication is device/browser scoped and is not suitable for production account security.

@@ -11,6 +11,33 @@
 
 const STORAGE_KEY = "trippilot_v2";
 
+var TRAVEL_IMAGE_FALLBACK =
+  "data:image/svg+xml;charset=UTF-8," +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">' +
+      '<defs><linearGradient id="tripPilotFallback" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0" stop-color="#0b0f0d"/><stop offset=".48" stop-color="#2fbb78"/><stop offset="1" stop-color="#b83d35"/>' +
+      '</linearGradient></defs>' +
+      '<rect width="1600" height="900" fill="url(#tripPilotFallback)"/>' +
+      '<path d="M0 720 L340 420 L590 610 L860 300 L1240 690 L1450 500 L1600 720 V900 H0Z" fill="#09100c" opacity=".34"/>' +
+      '<text x="80" y="800" fill="#ffffff" font-family="Arial,sans-serif" font-size="52" font-weight="700">TripPilot</text>' +
+    '</svg>'
+  );
+
+function installTravelImageFallbacks(){
+  document.querySelectorAll("img[src*='images.unsplash.com']").forEach(function(img){
+    if(img.dataset.fallbackBound==="1") return;
+    img.dataset.fallbackBound="1";
+    img.addEventListener("error",function(){
+      if(img.dataset.fallbackUsed==="1") return;
+      img.dataset.fallbackUsed="1";
+      img.src=TRAVEL_IMAGE_FALLBACK;
+      img.removeAttribute("srcset");
+      img.classList.add("image-fallback-active");
+    },{once:true});
+  });
+}
+
 const state = {
 
   settings:{
@@ -709,6 +736,23 @@ const transportData = {
 
     ]
 
+  },
+
+  "Self Drive":{
+    icon:"bx-car",
+    kicker:"ROAD TRIP",
+    title:"Self-drive flexibility",
+    description:"A private road option for flexible departure times, scenic detours and multi-stop travel.",
+    facts:[
+      "Flexible departure times",
+      "Great for multi-stop routes",
+      "Fuel / tolls remain estimates"
+    ],
+    options:[
+      {name:"Compact car",sub:"Efficient road plan",time:"Route dependent",price:1800},
+      {name:"SUV",sub:"Extra space for long routes",time:"Route dependent",price:2800},
+      {name:"Multi-stop road day",sub:"Flexible full-day estimate",time:"8–10h",price:4200}
+    ]
   }
 
 };
@@ -1757,6 +1801,8 @@ function getDestinationCards(){
               alt="${escapeHTML(name + ' destination photo')}"
               loading="lazy"
               decoding="async"
+              referrerpolicy="no-referrer"
+              onerror="this.onerror=null;this.src=TRAVEL_IMAGE_FALLBACK;"
             >
           </div>
 
@@ -1845,9 +1891,13 @@ function renderDestinations(){
         const type =
           card.dataset.type;
 
+        const info = destinationData[name] || {};
+        const haystack =
+          (name + " " + (info.label || "") + " " + (info.state || "")).toLowerCase();
+
         const matchesSearch =
           !search ||
-          name.includes(search);
+          haystack.includes(search);
 
         const matchesFilter =
           activeDestinationFilter ===
@@ -2472,7 +2522,15 @@ function getCurrentItinerary(){
     itineraryTemplates[
       state.trip.destination
     ] ||
-    itineraryTemplates.Goa
+    [
+      {
+        day:1,
+        title:"Plan your first day",
+        desc:"Choose your destination details and build the first part of the trip.",
+        time:"Flexible",
+        cost:0
+      }
+    ]
   );
 
 }
@@ -2539,15 +2597,20 @@ function renderItinerary(){
         item => {
 
           const custom =
-            state.activities.filter(
-              activity =>
-                Number(
-                  activity.day
-                ) ===
-                Number(
-                  item.day
-                )
-            );
+            state.activities
+              .filter(
+                activity =>
+                  Number(
+                    activity.day
+                  ) ===
+                  Number(
+                    item.day
+                  )
+              )
+              .sort(
+                (a,b) =>
+                  String(a.time || "").localeCompare(String(b.time || ""))
+              );
 
 
           return `
@@ -2620,6 +2683,16 @@ function renderItinerary(){
                                 activity.cost
                               )
                             }
+
+                            <button
+                              type="button"
+                              class="activity-delete-button"
+                              data-remove-activity="${escapeHTML(activity.id)}"
+                              aria-label="Delete ${escapeHTML(activity.name)}"
+                              title="Delete activity"
+                            >
+                              <i class="bx bx-trash"></i>
+                            </button>
 
                           </span>
 
@@ -2730,6 +2803,18 @@ function initItinerary(){
       }
     );
 
+  $("itineraryTimeline")?.addEventListener("click",function(event){
+    const button=event.target.closest("[data-remove-activity]");
+    if(!button) return;
+    const id=button.dataset.removeActivity;
+    const before=state.activities.length;
+    state.activities=state.activities.filter(activity=>activity.id!==id);
+    if(state.activities.length===before) return;
+    saveState();
+    renderAll();
+    showToast("Activity removed from itinerary.");
+  });
+
 }
 
 
@@ -2784,13 +2869,16 @@ function renderStays(){
 
               <article class="panel stay-card">
 
-                <div
-                  class="stay-image"
-                  style="
-                    background-image:
-                      url('${stay.image}');
-                  "
-                ></div>
+                <div class="stay-image">
+                  <img
+                    src="${escapeHTML(stay.image || '')}"
+                    alt="${escapeHTML(stay.name + ' accommodation photo')}"
+                    loading="lazy"
+                    decoding="async"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src=TRAVEL_IMAGE_FALLBACK;"
+                  >
+                </div>
 
 
                 <div class="stay-content">
@@ -5555,25 +5643,11 @@ if(
     window.addEventListener("pointerenter",()=>glow.style.opacity="1");
   }
 
-  const navLinks=[...document.querySelectorAll(".navlist a[data-nav]")];
-  const sections=navLinks
-    .map(link=>document.querySelector(link.getAttribute("href")))
-    .filter(Boolean);
-
-  if("IntersectionObserver" in window && navLinks.length){
-    const observer=new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(!entry.isIntersecting) return;
-        const id="#"+entry.target.id;
-        navLinks.forEach(link=>link.classList.toggle("active",link.getAttribute("href")===id));
-      });
-    },{rootMargin:"-28% 0px -55% 0px",threshold:0.01});
-    sections.forEach(section=>observer.observe(section));
-  }
-
   document.addEventListener("keydown",(event)=>{
     if(event.key==="Escape"){
-      document.body.classList.remove("nav-open");
+      document.querySelector(".navlist")?.classList.remove("open");
+      const menuIcon=document.querySelector("#menu-icon i");
+      if(menuIcon) menuIcon.className="bx bx-menu";
     }
     if((event.key==="g" || event.key==="G") && !event.ctrlKey && !event.metaKey && !event.altKey){
       const tag=(document.activeElement?.tagName||"").toLowerCase();
@@ -5586,112 +5660,8 @@ if(
 
 
 /* =========================================================
-   LIVE TRAVEL + TRAVEL EDITORIAL ENHANCEMENTS
+   LIVE TRAVEL / RELIABILITY
    ========================================================= */
-
-const destinationImageFallbacks = {
-  Hyderabad:"https://images.unsplash.com/photo-1750834115164-8c2658f18dd0?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Mumbai:"https://images.unsplash.com/photo-1529253355930-347a3b4a3435?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Bengaluru:"https://images.unsplash.com/photo-1644779504736-ed346f96a7bf?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Goa:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Delhi:"https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Udaipur:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Rishikesh:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Munnar:"https://images.unsplash.com/photo-1672219386269-486cbbe9a50f?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Hampi:"https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-};
-
-const productionDestinationImages = {
-  Hyderabad:"https://images.unsplash.com/photo-1750834115164-8c2658f18dd0?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Mumbai:"https://images.unsplash.com/photo-1529253355930-347a3b4a3435?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Bengaluru:"https://images.unsplash.com/photo-1644779504736-ed346f96a7bf?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Goa:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Delhi:"https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Udaipur:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Rishikesh:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Munnar:"https://images.unsplash.com/photo-1672219386269-486cbbe9a50f?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-  Hampi:"https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&fm=jpg&q=92&w=3840",
-};
-
-var TRAVEL_IMAGE_FALLBACK =
-  "data:image/svg+xml;charset=UTF-8," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">' +
-      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
-        '<stop offset="0" stop-color="#0b0f0d"/>' +
-        '<stop offset=".48" stop-color="#1f8a5a"/>' +
-        '<stop offset="1" stop-color="#a33631"/>' +
-      '</linearGradient></defs>' +
-      '<rect width="1600" height="900" fill="url(#g)"/>' +
-      '<circle cx="1220" cy="220" r="150" fill="rgba(255,255,255,.12)"/>' +
-      '<path d="M0 720 L350 410 L570 610 L850 300 L1240 700 L1450 500 L1600 720 V900 H0Z" fill="rgba(0,0,0,.28)"/>' +
-      '<text x="80" y="800" fill="white" font-family="Arial,sans-serif" font-size="52" font-weight="700">TripPilot</text>' +
-    '</svg>'
-  );
-
-var installTravelImageFallbacks = function(){
-  document.querySelectorAll('img[src*="images.unsplash.com"]').forEach(function(img){
-    if(img.dataset.fallbackBound==="1") return;
-    img.dataset.fallbackBound="1";
-    img.addEventListener("error",function(){
-      if(img.dataset.fallbackUsed==="1") return;
-      img.dataset.fallbackUsed="1";
-      img.src=TRAVEL_IMAGE_FALLBACK;
-      img.removeAttribute("srcset");
-      img.classList.add("image-fallback-active");
-    },{once:true});
-  });
-};
-
-window.installTravelImageFallbacks = installTravelImageFallbacks;
-
-Object.entries(productionDestinationImages).forEach(function(entry){
-  var name=entry[0], url=entry[1];
-  if(destinationData[name]) destinationData[name].imageUrl=url;
-});
-
-getDestinationCards = function(){
-  return Object.entries(destinationData).map(function(entry){
-    var name=entry[0], data=entry[1];
-    return (
-      '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
-        '<div class="destination-image">' +
-          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || destinationImageFallbacks[name] || TRAVEL_IMAGE_FALLBACK) + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=TRAVEL_IMAGE_FALLBACK;">' +
-        '</div>' +
-        '<div class="destination-overlay"></div>' +
-        '<div class="destination-content">' +
-          '<span class="destination-chip">' + escapeHTML(data.label) + ' · ' + escapeHTML(data.state) + '</span>' +
-          '<h3>' + escapeHTML(name) + '</h3>' +
-          '<p>' + escapeHTML(data.subtitle) + '</p>' +
-          '<div class="destination-meta"><span>' + data.distance.toLocaleString("en-IN") + ' km reference</span><span>2–5 days</span></div>' +
-          '<button class="destination-button" type="button" data-plan-destination="' + escapeHTML(name) + '">Plan ' + escapeHTML(name) + '</button>' +
-        '</div>' +
-      '</article>'
-    );
-  }).join("");
-};
-
-// The production image map is declared after the core boot sequence.
-// Re-render once here so the final high-resolution image URLs are actually
-// applied to the first visible Destination Studio paint.
-if(document.readyState !== "loading"){
-  setTimeout(function(){
-    if(typeof renderDestinations === "function"){
-      renderDestinations();
-    }
-    if(typeof installTravelImageFallbacks === "function"){
-      installTravelImageFallbacks();
-    }
-  },0);
-}
 
 var LIVE_CACHE_KEY = "trippilot_live_cache_v1";
 var LIVE_CACHE_TTL = 10 * 60 * 1000;
@@ -6109,7 +6079,17 @@ async function refreshLiveTravel(force){
     if(typeof injectAqi==="function") injectAqi(air);
   }
 
-  var route=await liveRoute(origin,destination);
+  var route=null;
+  try{
+    route=await liveRoute(origin,destination);
+  }catch(error){
+    console.warn("TripPilot route service:",error);
+    renderMapPreviewFallback(
+      origin.name || "Origin",
+      destination.name || "Destination",
+      "Route service unavailable · route preview active"
+    );
+  }
   updateLiveRouteText(origin,destination,route);
 
   var statusParts=[];
@@ -6157,7 +6137,6 @@ function initLiveTravel(){
   });
 
   initLiveMap();
-  renderDestinations();
   refreshLiveTravel(true);
 
   clearInterval(liveRefreshTimer);
@@ -6167,14 +6146,6 @@ function initLiveTravel(){
   renderAll=function(){
     baseRenderAll();
     window.setTimeout(function(){refreshLiveTravel(false);},0);
-  };
-}
-
-if(typeof transportData!=="undefined" && !transportData["Self Drive"]){
-  transportData["Self Drive"]={
-    icon:"bx-car",kicker:"ROAD TRIP",title:"Self-drive flexibility",
-    description:"A private road option for flexible departure times and multi-stop travel.",
-    duration:"Route dependent",estimate:"Own / variable",color:"green"
   };
 }
 
@@ -6239,7 +6210,9 @@ if(document.readyState==="loading"){
       return !(x.service===item.service && x.signature===item.signature);
     });
     arr.unshift(item);
-    localStorage.setItem(deskRecentKey,JSON.stringify(arr.slice(0,8)));
+    try{
+      localStorage.setItem(deskRecentKey,JSON.stringify(arr.slice(0,8)));
+    }catch(error){}
     deskRenderRecent();
   }
 
@@ -6343,18 +6316,63 @@ if(document.readyState==="loading"){
   }
 
   function deskResultHtml(summary,provider){
+    var safeSummary=summary || {};
+    var rows=Array.isArray(safeSummary.rows) ? safeSummary.rows : [];
+    var title=safeSummary.title == null || safeSummary.title === "" ? "Travel search" : String(safeSummary.title);
+    var subtitle=safeSummary.subtitle == null || safeSummary.subtitle === "" ? "Saved planning context" : String(safeSummary.subtitle);
+    var note=safeSummary.note == null || safeSummary.note === "" ? "Planning preview only." : String(safeSummary.note);
+    var safeProvider=provider || "https://www.google.com/travel/";
     return '<div class="desk-preview-head">' +
-      '<div><div class="desk-preview-route">'+escapeHTML(summary.title)+'</div><div class="desk-preview-meta">'+escapeHTML(summary.subtitle)+'</div></div>' +
+      '<div><div class="desk-preview-route">'+escapeHTML(title)+'</div><div class="desk-preview-meta">'+escapeHTML(subtitle)+'</div></div>' +
       '<span class="desk-preview-status">READY</span>' +
       '</div>' +
-      '<div class="desk-preview-list">'+summary.rows.map(function(row){
-        return '<div class="desk-preview-row"><span>'+escapeHTML(row[0])+'</span><strong>'+escapeHTML(row[1])+'</strong></div>';
+      '<div class="desk-preview-list">'+rows.map(function(row){
+        var key=row && row[0] != null ? String(row[0]) : "Detail";
+        var value=row && row[1] != null && String(row[1]).trim() ? String(row[1]) : "Not set";
+        return '<div class="desk-preview-row"><span>'+escapeHTML(key)+'</span><strong>'+escapeHTML(value)+'</strong></div>';
       }).join("")+'</div>' +
-      '<div class="desk-provider-note"><i class="bx bx-info-circle"></i>'+escapeHTML(summary.note)+'</div>' +
-      '<a class="desk-open-provider" href="'+escapeHTML(provider)+'" target="_blank" rel="noopener noreferrer"><i class="bx bx-link-external"></i> Continue to live search</a>';
+      '<div class="desk-provider-note"><i class="bx bx-info-circle"></i>'+escapeHTML(note)+'</div>' +
+      '<a class="desk-open-provider" href="'+escapeHTML(safeProvider)+'" target="_blank" rel="noopener noreferrer"><i class="bx bx-link-external"></i> Continue to live search</a>';
+  }
+
+  function deskValidateCurrent(){
+    var requirements={
+      flight:["deskFrom","deskTo","deskDeparture","deskReturn","deskTravellers"],
+      hotel:["deskHotelCity","deskCheckIn","deskCheckOut","deskRooms","deskGuests"],
+      train:["deskFrom","deskTo","deskTravelDate","deskTravellers"],
+      bus:["deskFrom","deskTo","deskTravelDate","deskTravellers"],
+      cab:["deskFrom","deskTo","deskTravelDate","deskTravellers"],
+      activities:["deskDestination","deskStartDate","deskTravellers"],
+      holidays:["deskDestination","deskStartDate","deskTravellers"],
+      insurance:["deskInsuranceDestination","deskInsuranceStart","deskInsuranceEnd","deskTravellers"],
+      currency:["deskAmount","deskFromCurrency","deskToCurrency"]
+    };
+    var ids=requirements[deskService] || [];
+    for(var i=0;i<ids.length;i++){
+      var node=$(ids[i]);
+      if(node && String(node.value || "").trim()===""){
+        node.focus();
+        showToast("Please complete the search fields.");
+        return false;
+      }
+    }
+    if(["flight","hotel","train","insurance"].includes(deskService)){
+      var start=deskVal(deskService==="hotel"?"deskCheckIn":deskService==="flight"?"deskDeparture":"deskInsuranceStart");
+      var end=deskService==="flight" ? deskVal("deskReturn") : deskService==="hotel" ? deskVal("deskCheckOut") : deskVal("deskInsuranceEnd");
+      if(start && end && end<start){
+        showToast("End date must be after the start date.");
+        return false;
+      }
+    }
+    if(deskService==="currency" && (!Number.isFinite(Number(deskVal("deskAmount"))) || Number(deskVal("deskAmount"))<0)){
+      showToast("Enter a valid amount.");
+      return false;
+    }
+    return true;
   }
 
   async function deskSearch(){
+    if(!deskValidateCurrent()) return;
     if(deskService==="currency"){
       var amount=Number(deskVal("deskAmount") || 0);
       var from=deskVal("deskFromCurrency") || "INR";
@@ -6447,7 +6465,7 @@ if(document.readyState==="loading"){
   }
 
   function deskLoadState(item){
-    deskService=item.service || "flight";
+    deskService=(item && deskServiceMeta[item.service]) ? item.service : "flight";
     document.querySelectorAll(".desk-tab").forEach(function(btn){
       btn.classList.toggle("active",btn.dataset.deskService===deskService);
     });
@@ -6499,152 +6517,52 @@ if(document.readyState==="loading"){
 
 
 /* =========================================================
-   TRAVEL DESK QA POLISH + LIVE AIR QUALITY
+   LIVE AIR QUALITY
    ========================================================= */
-(function(){
-  function deskSnapshot(){
-    var fields=$("travelDeskFields");
-    if(!fields) return {};
-    var snap={};
-    fields.querySelectorAll("input,select").forEach(function(node){
-      if(node.id) snap[node.id]=node.value;
-    });
-    return snap;
-  }
+async function liveAirQuality(place){
+  var cacheKey="air:"+place.latitude.toFixed(3)+","+place.longitude.toFixed(3);
+  var cached=liveReadCache(cacheKey);
+  if(cached) return cached;
+  var url="https://air-quality-api.open-meteo.com/v1/air-quality" +
+    "?latitude="+encodeURIComponent(place.latitude) +
+    "&longitude="+encodeURIComponent(place.longitude) +
+    "&current=us_aqi,pm2_5,pm10&timezone=auto";
+  var data=await liveFetchJSON(url,10000);
+  liveWriteCache(cacheKey,data);
+  return data;
+}
 
-  function deskApplySnapshot(snap){
-    if(!snap) return;
-    Object.keys(snap).forEach(function(id){
-      var node=$(id);
-      if(node) node.value=snap[id];
-    });
-  }
+function aqiLabel(value){
+  var n=Number(value);
+  if(!Number.isFinite(n)) return "Unavailable";
+  if(n<=50) return "Good";
+  if(n<=100) return "Moderate";
+  if(n<=150) return "Sensitive groups";
+  if(n<=200) return "Unhealthy";
+  if(n<=300) return "Very unhealthy";
+  return "Hazardous";
+}
 
-  if(typeof deskRecentRead==="function"){
-    // Upgrade the existing loader without changing its public UI.
-    deskLoadState=function(item){
-      deskService=item.service || "flight";
-      document.querySelectorAll(".desk-tab").forEach(function(btn){
-        btn.classList.toggle("active",btn.dataset.deskService===deskService);
-      });
-      if($("deskKicker")) $("deskKicker").textContent=deskServiceMeta[deskService].kicker;
-      if($("deskTitle")) $("deskTitle").textContent=deskServiceMeta[deskService].title;
-      deskRenderFields();
-      deskApplySnapshot(item.values || {});
-
-      if(item.summary && $("travelDeskResult")){
-        $("travelDeskResult").innerHTML=deskResultHtml(item.summary,deskProviderLinks[deskService] || "https://www.google.com/travel/");
-      }
-      showToast("Saved search loaded.");
-    };
-
-    var originalDeskSearch=deskSearch;
-    deskSearch=async function(){
-      var result=await originalDeskSearch();
-      var snap=deskSnapshot();
-      var arr=deskRecentRead();
-      if(arr.length){
-        arr[0].values=snap;
-        localStorage.setItem(deskRecentKey,JSON.stringify(arr));
-        deskRenderRecent();
-      }
-      return result;
-    };
-
-    var originalDeskSave=deskRecentWrite;
-    deskRecentWrite=function(item){
-      if(!item.values) item.values=deskSnapshot();
-      originalDeskSave(item);
-    };
-  }
-
-  async function liveAirQuality(place){
-    var cacheKey="air:"+place.latitude.toFixed(3)+","+place.longitude.toFixed(3);
-    var cached=liveReadCache(cacheKey);
-    if(cached) return cached;
-
-    var url="https://air-quality-api.open-meteo.com/v1/air-quality" +
-      "?latitude="+encodeURIComponent(place.latitude) +
-      "&longitude="+encodeURIComponent(place.longitude) +
-      "&current=us_aqi,pm2_5,pm10&timezone=auto";
-
-    var data=await liveFetchJSON(url,10000);
-    liveWriteCache(cacheKey,data);
-    return data;
-  }
-
-  function aqiLabel(value){
-    var n=Number(value);
-    if(!Number.isFinite(n)) return "Unavailable";
-    if(n<=50) return "Good";
-    if(n<=100) return "Moderate";
-    if(n<=150) return "Sensitive groups";
-    if(n<=200) return "Unhealthy";
-    if(n<=300) return "Very unhealthy";
-    return "Hazardous";
-  }
-
-  function injectAqi(data){
-    var panel=$("liveWeatherPanel");
-    var grid=panel && panel.querySelector(".live-stat-grid");
-    if(!grid || !data || !data.current) return;
-
-    var aqi=data.current.us_aqi;
-    var pm25=data.current.pm2_5;
-    var pm10=data.current.pm10;
-    var html='<div class="live-stat live-aqi-stat"><span>US AQI</span><strong>'+ (Number.isFinite(Number(aqi)) ? Math.round(Number(aqi)) : "—") +'</strong><small>'+escapeHTML(aqiLabel(aqi))+'</small></div>';
-    html+='<div class="live-stat"><span>PM2.5</span><strong>'+ (Number.isFinite(Number(pm25)) ? Number(pm25).toFixed(1) : "—") +' μg/m³</strong></div>';
-    html+='<div class="live-stat"><span>PM10</span><strong>'+ (Number.isFinite(Number(pm10)) ? Number(pm10).toFixed(1) : "—") +' μg/m³</strong></div>';
-    grid.insertAdjacentHTML("beforeend",html);
-  }
-
-  var baseRefresh=refreshLiveTravel;
-  refreshLiveTravel=async function(force){
-    var sync=$("liveSync");
-    if(sync) sync.textContent="Syncing live data…";
-
-    var originName=state.trip.from || state.settings.home || "Hyderabad";
-    var destinationName=livePreviewPlace?.name || state.trip.destination || "Goa";
-    var requestKey=originName.trim().toLowerCase()+"|"+destinationName.trim().toLowerCase();
-
-    if(!force && requestKey===liveRequestKey && liveReadCache("geo:"+originName.toLowerCase()) && liveReadCache("geo:"+destinationName.toLowerCase())){
-      if(sync) sync.textContent="Live data cached · just now";
-      return;
-    }
-
-    liveRequestKey=requestKey;
-
-    try{
-      var results=await Promise.all([
-        liveGeocode(originName),
-        livePreviewPlace || liveGeocode(destinationName)
-      ]);
-      var origin=results[0], destination=results[1];
-
-      var weather=await liveWeather(destination);
-      var air=await liveAirQuality(destination).catch(function(){return null;});
-
-      renderLiveWeather(destination,weather);
-      injectAqi(air);
-
-      var route=await liveRoute(origin,destination);
-      updateLiveRouteText(origin,destination,route);
-
-      if(sync){
-        sync.textContent="Updated "+new Intl.DateTimeFormat("en-IN",{hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date());
-      }
-    }catch(error){
-      console.error("TripPilot live data:",error);
-      if(typeof renderLiveError==="function"){
-        renderLiveError(error && error.message==="Location not found"
-          ? "Try a city or destination name such as Goa, Dubai or Singapore."
-          : "Check your internet connection and try the live refresh again."
-        );
-      }
-      if(sync) sync.textContent="Live sync failed";
-    }
-  };
-})();
+function injectAqi(data){
+  var panel=$("liveWeatherPanel");
+  var grid=panel && panel.querySelector(".live-stat-grid");
+  if(!grid || !data || !data.current) return;
+  var existing=grid.querySelector(".live-aqi-stat");
+  if(existing) existing.remove();
+  var aqi=data.current.us_aqi;
+  var pm25=data.current.pm2_5;
+  var pm10=data.current.pm10;
+  var html='<div class="live-stat live-aqi-stat"><span>US AQI</span><strong>'+
+    (Number.isFinite(Number(aqi)) ? Math.round(Number(aqi)) : "—")+
+    '</strong><small>'+escapeHTML(aqiLabel(aqi))+'</small></div>';
+  html+='<div class="live-stat"><span>PM2.5</span><strong>'+
+    (Number.isFinite(Number(pm25)) ? Number(pm25).toFixed(1) : "—")+
+    ' μg/m³</strong></div>';
+  html+='<div class="live-stat"><span>PM10</span><strong>'+
+    (Number.isFinite(Number(pm10)) ? Number(pm10).toFixed(1) : "—")+
+    ' μg/m³</strong></div>';
+  grid.insertAdjacentHTML("beforeend",html);
+}
 
 /* =========================================================
    TRAVEL INSPIRATION CONTROLLER
