@@ -253,9 +253,7 @@ This project is intended for learning, personal development and portfolio demons
 
 ## 🧳 Travel Desk
 
-TripPilot now includes a dedicated Travel Desk inspired by modern online travel marketplace patterns while keeping its own branding and planning workflow.
-
-The Travel Desk groups multiple travel categories into one interface:
+TripPilot includes a dedicated Travel Desk for planning across:
 - Flights
 - Hotels
 - Trains
@@ -266,28 +264,23 @@ The Travel Desk groups multiple travel categories into one interface:
 - Travel insurance
 - Currency conversion
 
-MakeMyTrip's current product surface similarly spans flights, hotels, villas/homestays, holiday packages, trains, buses, cabs, tours & attractions, visa, cruise, forex and travel insurance. Its flight flow also exposes one-way, round-trip and multi-city search choices, while its flight pages describe fare-calendar and filtering features.
-
-References: https://partner.makemytrip.com/ · https://www.makemytrip.com/flights/ · https://www.makemytrip.com/activities/
-
-TripPilot does **not** copy MakeMyTrip's branding, assets or proprietary interface. The reference is used only for high-level product patterns such as category navigation, search forms, provider hand-offs and travel-service breadth.
+The experience uses familiar online travel-planning patterns: service tabs, structured search forms, recent searches, realistic provider hand-offs and a clear separation between planning data and actual booking inventory.
 
 ### Live hand-off model
 
-For booking categories, TripPilot prepares a realistic search context and then opens the relevant provider's live page. This keeps the static GitHub Pages architecture while avoiding fake live inventory or embedded checkout.
+For booking categories, TripPilot prepares the search context and opens a current external provider surface. TripPilot does not simulate live seat or room inventory and does not collect payment details.
 
 ### Live currency
 
-Travel Desk currency conversion uses Frankfurter's public exchange-rate API. Frankfurter documents a no-API-key HTTPS API and daily exchange-rate data from official sources.
+Travel Desk currency conversion uses Frankfurter's public exchange-rate API.
 
 Reference: https://frankfurter.dev/
 
 ### Live air quality
 
-Live Travel can also use Open-Meteo air-quality data for US AQI and particulate matter variables. Open-Meteo documents current air-quality conditions and five-day forecasts for these variables.
+Live Travel can also use Open-Meteo air-quality data for US AQI and particulate matter variables.
 
 Reference: https://open-meteo.com/en/docs/air-quality-api
-
 
 ## 🖼️ Travel Inspiration
 
@@ -306,14 +299,11 @@ Destination imagery is loaded remotely and lazily.
 
 Travel Desk searches can now retain their form values locally. Selecting a recent search can restore its search fields so the user can continue planning without rebuilding the form.
 
-
-
 ## 🖼️ Final visual layer
 
 The finished interface now uses a larger set of travel photographs across destination discovery, inspiration cards, stays and the home experience. Remote images are lazy-loaded and have a graceful visual fallback so a failed image request does not break the card layout.
 
 The final interaction pass adds smoother press states, tactile ripple feedback, richer live-weather context and a more editorial travel presentation.
-
 
 ## ✅ Final theme and reliability pass
 
