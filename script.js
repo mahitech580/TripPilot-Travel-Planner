@@ -1757,7 +1757,6 @@ function getDestinationCards(){
               alt="${escapeHTML(name + ' destination photo')}"
               loading="lazy"
               decoding="async"
-              onerror="this.style.display='none'"
             >
           </div>
 
