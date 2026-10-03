@@ -387,3 +387,10 @@ The main application header stays fixed above the scrolling content, including m
 ## Limitations
 
 Live weather, air quality, geocoding, routing, map tiles, exchange rates and remote photography depend on third-party network services and may be unavailable or rate-limited. Travel Desk previews are planning hand-offs; they do not represent guaranteed inventory, fares, seats, rooms or booking completion. Browser-local authentication is device/browser scoped and is not suitable for production account security.
+
+
+## Historic-place section backgrounds
+
+The final visual layer gives each of the eight primary sections a heritage-focused photographic backdrop. The image is kept behind a controlled dark/light readability overlay so section headings, labels, buttons and planning cards stay readable. Background movement is intentionally slow and is disabled under `prefers-reduced-motion`.
+
+The selected landmark imagery references heritage travel scenes such as Charminar, Hawa Mahal/Jaipur architecture, Gateway of India, Mysore Palace, Hampi ruins, the Taj Mahal, Udaipur palace scenery and Hyderabad's historic architecture. The background images are remote Unsplash assets and use the same layout-safe image-failure approach as the other TripPilot photography.

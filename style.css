@@ -6119,3 +6119,132 @@ body.light-mode .toast{
   from{background-position:50% 50%,50% 50%,50% 50%}
   to{background-position:54% 48%,50% 50%,54% 48%}
 }
+
+/* =========================================================
+   HISTORIC PLACE BACKGROUNDS — FINAL SECTION EXPERIENCE
+   Each primary section gets a real heritage-place image behind
+   a controlled readability layer. Content remains above it.
+   ========================================================= */
+
+section.page-group-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:var(--bg) !important;
+}
+
+section.page-group-section::before{
+  content:"";
+  position:absolute;
+  inset:-3%;
+  z-index:-2;
+  background-image:var(--heritage-image);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:.34;
+  transform:scale(1.045);
+  animation:heritageDrift 34s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+
+section.page-group-section::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(47,187,120,.08),transparent 26%),
+    linear-gradient(180deg,rgba(8,12,10,.82),rgba(8,12,10,.72));
+  pointer-events:none;
+}
+
+section.page-group-section > *{
+  position:relative;
+  z-index:1;
+}
+
+#home{
+  --heritage-image:url("https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=88&w=2400");
+}
+
+#explore{
+  --heritage-image:url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&q=88&w=2400");
+}
+
+#plan{
+  --heritage-image:url("https://images.unsplash.com/photo-1776967905624-161171662d1f?auto=format&fit=crop&fm=jpg&q=88&w=2400");
+}
+
+#travel{
+  --heritage-image:url("https://images.unsplash.com/photo-1759646592665-08b660362da7?auto=format&fit=crop&fm=jpg&q=88&w=2400");
+}
+
+#itinerary{
+  --heritage-image:url("https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&q=88&w=2400");
+}
+
+#budget-ready{
+  --heritage-image:url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=88&w=2400");
+}
+
+#trips{
+  --heritage-image:url("https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=88&w=2400");
+}
+
+#settings{
+  --heritage-image:url("https://images.unsplash.com/photo-1750834115164-8c2658f18dd0?auto=format&fit=crop&fm=jpg&q=88&w=2400");
+}
+
+body.light-mode section.page-group-section::before{
+  opacity:.24;
+}
+
+body.light-mode section.page-group-section::after{
+  background:
+    radial-gradient(circle at 15% 20%,rgba(31,138,90,.06),transparent 26%),
+    linear-gradient(180deg,rgba(248,250,248,.90),rgba(244,247,245,.86));
+}
+
+#home::after{
+  background:
+    linear-gradient(90deg,rgba(8,12,10,.34),rgba(8,12,10,.16) 48%,rgba(8,12,10,.28)),
+    linear-gradient(180deg,rgba(8,12,10,.10),rgba(8,12,10,.28));
+  z-index:-1;
+}
+
+body.light-mode #home::after{
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.40),rgba(255,255,255,.12) 48%,rgba(255,255,255,.22)),
+    linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.22));
+}
+
+#home .section-header p,
+#home .section-eyebrow{
+  color:#eef3ef !important;
+}
+
+body.light-mode #home .section-header p{
+  color:#24302a !important;
+}
+
+.section-header h2,
+.card-heading h3,
+.settings-main-card h3,
+.itinerary-card h3,
+.budget-controls-card h3,
+.packing-ready-card h3{
+  text-wrap:balance;
+}
+
+@keyframes heritageDrift{
+  from{transform:scale(1.045) translate3d(-.35%,-.25%,0)}
+  to{transform:scale(1.075) translate3d(.35%,.25%,0)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  section.page-group-section::before{
+    animation:none !important;
+    transform:scale(1.045);
+  }
+}
