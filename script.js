@@ -5495,6 +5495,7 @@ function initLiveTravel(){
   });
 
   initLiveMap();
+  renderDestinations();
   refreshLiveTravel(true);
 
   clearInterval(liveRefreshTimer);
