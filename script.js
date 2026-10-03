@@ -215,7 +215,7 @@ const destinationData = {
     distance:620,
     subtitle:"Charminar, Golconda, biryani and a modern tech-city pulse.",
     imageClass:"hyderabad",
-    image:"https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=88&w=2200",
+    image:"https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Charminar, Hyderabad",
     featured:true
   },
@@ -227,7 +227,7 @@ const destinationData = {
     distance:710,
     subtitle:"Marine Drive sunsets, heritage landmarks and coastal city energy.",
     imageClass:"mumbai",
-    image:"https://images.unsplash.com/photo-1666856647637-dbc11915f258?auto=format&fit=crop&fm=jpg&q=88&w=2200",
+    image:"https://images.unsplash.com/photo-1666856647637-dbc11915f258?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Mumbai cityscape at sunset",
     featured:true
   },
@@ -239,7 +239,7 @@ const destinationData = {
     distance:570,
     subtitle:"Vidhana Soudha, green spaces, cafés and Bengaluru city life.",
     imageClass:"bengaluru",
-    image:"https://images.unsplash.com/photo-1741375870964-093181f9993a?auto=format&fit=crop&fm=jpg&q=88&w=2200",
+    image:"https://images.unsplash.com/photo-1741375870964-093181f9993a?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Vidhana Soudha, Bengaluru",
     featured:true
   },
@@ -728,7 +728,7 @@ const stayData = [
     price:3200,
     rating:4.7,
     tag:"Near beach",
-    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1776761363365-ad83248b93df?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -739,7 +739,7 @@ const stayData = [
     price:1600,
     rating:4.4,
     tag:"Short stays",
-    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1772476361154-e894ba10d757?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -750,7 +750,7 @@ const stayData = [
     price:2900,
     rating:4.6,
     tag:"Valley view",
-    image:"https://images.unsplash.com/photo-1752563269976-52342808d1ba?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1637200500859-297e164f9f4b?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -761,7 +761,7 @@ const stayData = [
     price:4800,
     rating:4.8,
     tag:"Heritage feel",
-    image:"https://images.unsplash.com/photo-1729448148484-da3ca27685b3?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1776763018821-8feeaeeee0a5?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -772,7 +772,7 @@ const stayData = [
     price:3600,
     rating:4.8,
     tag:"Waterfront",
-    image:"https://images.unsplash.com/photo-1686890365648-f6dcfe922942?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1761039265583-9489b4246454?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -783,7 +783,7 @@ const stayData = [
     price:2200,
     rating:4.3,
     tag:"Transit-friendly",
-    image:"https://images.unsplash.com/photo-1632162935151-92afb3bf941b?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1755613708939-d572099433ab?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -794,7 +794,7 @@ const stayData = [
     price:6200,
     rating:4.9,
     tag:"Lake district",
-    image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1779447425044-2e25748cc77c?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -805,7 +805,7 @@ const stayData = [
     price:1800,
     rating:4.5,
     tag:"Near river",
-    image:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1780689436914-2e87323985e9?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -816,7 +816,7 @@ const stayData = [
     price:3100,
     rating:4.7,
     tag:"Hill views",
-    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1637200500859-297e164f9f4b?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   }
 
 ];
