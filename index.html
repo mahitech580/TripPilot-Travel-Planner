@@ -33,7 +33,7 @@
   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
   crossorigin=""
 >
-<link rel="stylesheet" href="style.css?v=20261003-final14">
+<link rel="stylesheet" href="style.css?v=20261003-auth1">
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1725457307624-4a64cc52d6af?auto=format&fit=crop&w=3840&q=92" id="heroBackgroundPreload">
 </head>
 
@@ -44,6 +44,141 @@
 <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 
+<!-- =========================================================
+     LOCAL AUTH GATE
+     GitHub Pages friendly: account/session data stays on-device.
+     ========================================================= -->
+<div id="authGate" class="auth-gate" aria-label="TripPilot account access">
+  <div class="auth-atmosphere" aria-hidden="true">
+    <span class="auth-orb auth-orb-one"></span>
+    <span class="auth-orb auth-orb-two"></span>
+    <span class="auth-orb auth-orb-three"></span>
+    <span class="auth-grid"></span>
+  </div>
+
+  <div class="auth-shell">
+    <div class="auth-visual">
+      <div class="auth-visual-image"></div>
+      <div class="auth-visual-overlay"></div>
+      <div class="auth-visual-content">
+        <a href="#home" class="auth-logo" aria-label="TripPilot">
+          Trip<span>Pilot.</span>
+        </a>
+        <span class="auth-kicker">TRAVEL OS · PERSONAL WORKSPACE</span>
+        <h1>Plan the journey<br><span>before the journey.</span></h1>
+        <p>Save trips, build routes, organize itineraries and keep your travel planning in one smooth workspace.</p>
+        <div class="auth-trust-row">
+          <span><i class="bx bx-shield-quarter"></i> Local-first</span>
+          <span><i class="bx bx-cloud-off"></i> GitHub Pages ready</span>
+          <span><i class="bx bx-lock-alt"></i> Device account</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-panel">
+      <div class="auth-panel-top">
+        <div>
+          <span class="auth-panel-kicker">WELCOME BACK</span>
+          <h2 id="authTitle">Sign in to TripPilot</h2>
+          <p id="authSubtitle">Continue to your saved travel workspace.</p>
+        </div>
+        <span class="auth-live-dot"><i></i> READY</span>
+      </div>
+
+      <div class="auth-switch" role="tablist" aria-label="Account access">
+        <button type="button" class="auth-switch-btn active" id="authLoginTab" role="tab" aria-selected="true">Sign in</button>
+        <button type="button" class="auth-switch-btn" id="authRegisterTab" role="tab" aria-selected="false">Create account</button>
+      </div>
+
+      <form id="authLoginForm" class="auth-form" novalidate>
+        <div class="auth-field">
+          <label for="authLoginEmail">Email</label>
+          <div class="auth-input-wrap">
+            <i class="bx bx-envelope"></i>
+            <input id="authLoginEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="authLoginPassword">Password</label>
+          <div class="auth-input-wrap">
+            <i class="bx bx-lock-alt"></i>
+            <input id="authLoginPassword" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+            <button type="button" class="auth-password-toggle" data-toggle-password="authLoginPassword" aria-label="Show password"><i class="bx bx-show"></i></button>
+          </div>
+        </div>
+
+        <label class="auth-check">
+          <input id="authRemember" type="checkbox" checked>
+          <span>Keep me signed in on this device</span>
+        </label>
+
+        <button type="submit" class="auth-submit">
+          <span>Enter TripPilot</span>
+          <i class="bx bx-right-arrow-alt"></i>
+        </button>
+
+        <p class="auth-message" id="authLoginMessage" role="status" aria-live="polite"></p>
+      </form>
+
+      <form id="authRegisterForm" class="auth-form hidden" novalidate>
+        <div class="auth-field">
+          <label for="authRegisterName">Name</label>
+          <div class="auth-input-wrap">
+            <i class="bx bx-user"></i>
+            <input id="authRegisterName" type="text" autocomplete="name" placeholder="Your name" required>
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="authRegisterEmail">Email</label>
+          <div class="auth-input-wrap">
+            <i class="bx bx-envelope"></i>
+            <input id="authRegisterEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="auth-field-row">
+          <div class="auth-field">
+            <label for="authRegisterPassword">Password</label>
+            <div class="auth-input-wrap">
+              <i class="bx bx-lock-alt"></i>
+              <input id="authRegisterPassword" type="password" autocomplete="new-password" placeholder="6+ characters" required minlength="6">
+              <button type="button" class="auth-password-toggle" data-toggle-password="authRegisterPassword" aria-label="Show password"><i class="bx bx-show"></i></button>
+            </div>
+          </div>
+          <div class="auth-field">
+            <label for="authRegisterConfirm">Confirm</label>
+            <div class="auth-input-wrap">
+              <i class="bx bx-check-shield"></i>
+              <input id="authRegisterConfirm" type="password" autocomplete="new-password" placeholder="Repeat it" required minlength="6">
+              <button type="button" class="auth-password-toggle" data-toggle-password="authRegisterConfirm" aria-label="Show password"><i class="bx bx-show"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <label class="auth-check">
+          <input id="authTerms" type="checkbox" required>
+          <span>I understand this is a browser-local TripPilot account.</span>
+        </label>
+
+        <button type="submit" class="auth-submit">
+          <span>Create my workspace</span>
+          <i class="bx bx-sparkles"></i>
+        </button>
+
+        <p class="auth-message" id="authRegisterMessage" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="auth-footer-note">
+        <i class="bx bx-info-circle"></i>
+        <span>Your account is stored only in this browser. No TripPilot server or payment system is connected.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tripAppShell">
 <!-- =========================================================
      APP HEADER
      ========================================================= -->
@@ -3078,6 +3213,8 @@
 </main>
 
 
+</div>
+
 <!-- =========================================================
      FOOTER
      ========================================================= -->
@@ -3227,7 +3364,7 @@
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
   crossorigin=""
 ></script>
-<script src="script.js?v=20261003-final14"></script>
+<script src="script.js?v=20261003-auth1"></script>
 
 
 <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
