@@ -6485,3 +6485,20 @@ body.light-mode .live-map-panel{background:#fff!important}body.light-mode .trip-
 .desk-currency-rate-note{display:flex;justify-content:space-between;gap:10px;margin-top:15px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);color:#7a8482;font-size:.67rem}
 @media(max-width:1040px){.travel-desk-layout{grid-template-columns:1fr}.desk-result-panel{min-height:360px}.desk-discovery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.desk-badge-row{align-items:flex-start}.desk-note{text-align:left}.desk-fields{grid-template-columns:1fr}.desk-field.full{grid-column:auto}.desk-discovery-grid{grid-template-columns:1fr}.desk-panel-head{flex-direction:column}.desk-search-panel,.desk-result-panel,.desk-recent{padding:20px}}
+
+
+.live-stat small{
+  display:block;
+  margin-top:3px;
+  color:#727c7a;
+  font-size:.62rem;
+}
+.live-aqi-stat{
+  border-color:rgba(53,213,143,.14);
+}
+.live-aqi-stat strong{
+  color:var(--travel-green)!important;
+}
+@media(max-width:900px){
+  .live-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
