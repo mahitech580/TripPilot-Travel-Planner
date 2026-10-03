@@ -303,7 +303,7 @@ Travel Desk searches can now retain their form values locally. Selecting a recen
 
 ## 🖼️ Final visual layer
 
-TripPilot uses destination, hospitality and landscape photography as part of the product interface. Image hover zoom, card lift, layered gradients, soft glass surfaces and subtle motion create a smoother SaaS-style travel experience without sacrificing readable content.
+TripPilot uses destination, hospitality and landscape imagery as part of the interface. Smooth hover lift, image zoom, subtle glow, cinematic gradients and theme-aware contrast layers keep the presentation visual while preserving readable content.
 
 ## ✅ Final theme and reliability pass
 
