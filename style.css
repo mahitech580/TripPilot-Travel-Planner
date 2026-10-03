@@ -9399,3 +9399,205 @@ body.light-mode .live-offline-facts span{
   .map-preview-route .pulse-dot,
   .live-offline-icon{animation:none !important}
 }
+
+
+/* =========================================================
+   FINAL BUG-KILLER / CONTRAST AUDIT
+   Nothing interactive should ever render accent text on the
+   same accent surface. Controls are intentionally explicit.
+   ========================================================= */
+
+/* Green buttons: always white labels/icons. */
+.live-search-btn,
+.live-search-btn i,
+.desk-open-provider,
+.desk-open-provider i{
+  color:#ffffff !important;
+}
+.live-search-btn{
+  background:linear-gradient(135deg,#1f8a5a,#2b9a68) !important;
+  border:1px solid #1f8a5a !important;
+  box-shadow:0 12px 28px rgba(31,138,90,.18) !important;
+}
+.live-search-btn:hover{
+  background:#66706a !important;
+  border-color:#66706a !important;
+  transform:translateY(-3px) !important;
+}
+.desk-open-provider{
+  background:linear-gradient(135deg,#1f8a5a,#2b9a68) !important;
+  border:1px solid #1f8a5a !important;
+}
+.desk-open-provider:hover{
+  background:#66706a !important;
+  border-color:#66706a !important;
+  transform:translateY(-2px) !important;
+}
+
+/* Green active/check surfaces: white marks. */
+.profile-avatar,
+.mini-avatar,
+.pack-item.done .pack-check{
+  color:#ffffff !important;
+}
+.inspiration-plan:hover{
+  color:#ffffff !important;
+  background:#66706a !important;
+  border-color:#66706a !important;
+}
+
+/* Light-mode badge contrast: black/white first, accent second. */
+body.light-mode .live-search-btn,
+body.light-mode .live-search-btn i{
+  color:#ffffff !important;
+}
+body.light-mode .live-pill{
+  color:#ffffff !important;
+  background:#1f8a5a !important;
+  border-color:#1f8a5a !important;
+}
+body.light-mode .soft-label,
+body.light-mode .destination-chip{
+  color:#1f754e !important;
+  background:#edf6f0 !important;
+  border-color:#bcd7c8 !important;
+}
+body.light-mode .profile-avatar,
+body.light-mode .mini-avatar{
+  color:#ffffff !important;
+  background:#1f8a5a !important;
+}
+body.light-mode .back-to-top{
+  color:#ffffff !important;
+  background:#1f8a5a !important;
+}
+body.light-mode .back-to-top:hover{
+  color:#ffffff !important;
+  background:#66706a !important;
+}
+
+/* Light mode live section: no inherited dark labels, no hidden content. */
+body.light-mode .live-toolbar,
+body.light-mode .live-weather-panel,
+body.light-mode .live-map-panel{
+  color:#0b0f0d !important;
+}
+body.light-mode .live-search-wrap input{
+  color:#0b0f0d !important;
+  caret-color:#a33631 !important;
+}
+body.light-mode .live-search-wrap input::placeholder{
+  color:#66706a !important;
+}
+body.light-mode .live-weather-location strong,
+body.light-mode .live-condition,
+body.light-mode .live-map-head h3,
+body.light-mode .live-loading strong{
+  color:#0b0f0d !important;
+}
+body.light-mode .live-time{
+  color:#0b0f0d !important;
+}
+body.light-mode .live-time i,
+body.light-mode .map-foot i{
+  color:#1f8a5a !important;
+}
+body.light-mode .live-stat strong{
+  color:#0b0f0d !important;
+}
+body.light-mode .live-forecast-card .icon{
+  color:#1f8a5a !important;
+}
+
+/* Dark mode live section: never let green inherit into primary copy. */
+body:not(.light-mode) .live-search-btn,
+body:not(.light-mode) .live-search-btn *,
+body:not(.light-mode) .desk-open-provider,
+body:not(.light-mode) .desk-open-provider *{
+  color:#ffffff !important;
+}
+body:not(.light-mode) .live-weather-panel,
+body:not(.light-mode) .live-map-panel{
+  color:#ffffff !important;
+}
+
+/* Filter/transport/desk controls have one readable active treatment. */
+.filter-tab.active,
+.transport-tab.active,
+.desk-tab.active,
+.transport-switch.active{
+  color:#ffffff !important;
+  background:linear-gradient(135deg,#a33631,#7f2925) !important;
+  border-color:#a33631 !important;
+}
+.filter-tab.active i,
+.transport-tab.active i,
+.desk-tab.active i,
+.transport-switch.active i{
+  color:#ffffff !important;
+}
+body.light-mode .filter-tab.active,
+body.light-mode .transport-tab.active,
+body.light-mode .desk-tab.active,
+body.light-mode .transport-switch.active{
+  color:#0b0f0d !important;
+  background:#f7e9e8 !important;
+  border-color:#d8aaa6 !important;
+}
+body.light-mode .filter-tab.active i,
+body.light-mode .transport-tab.active i,
+body.light-mode .desk-tab.active i,
+body.light-mode .transport-switch.active i{
+  color:#a33631 !important;
+}
+
+/* Inputs always have actual readable text in both themes. */
+.form-control,
+.select-control,
+.input-control,
+.desk-field-wrap input,
+.desk-field-wrap select,
+.desk-field-wrap textarea,
+.live-search-wrap input{
+  font-weight:500 !important;
+}
+body:not(.light-mode) .form-control,
+body:not(.light-mode) .select-control,
+body:not(.light-mode) .input-control,
+body:not(.light-mode) .desk-field-wrap input,
+body:not(.light-mode) .desk-field-wrap select,
+body:not(.light-mode) .desk-field-wrap textarea,
+body:not(.light-mode) .live-search-wrap input{
+  color:#ffffff !important;
+}
+body.light-mode .form-control,
+body.light-mode .select-control,
+body.light-mode .input-control,
+body.light-mode .desk-field-wrap input,
+body.light-mode .desk-field-wrap select,
+body.light-mode .desk-field-wrap textarea,
+body.light-mode .live-search-wrap input{
+  color:#0b0f0d !important;
+}
+
+/* Section heading accent: rainbow is decorative, normal text never inherits it. */
+.section-header h2,
+.section-header h2 span{
+  line-height:1.05 !important;
+}
+.section-header h2{
+  color:var(--ui-text-strong) !important;
+}
+.section-header h2 span{
+  -webkit-text-fill-color:transparent !important;
+}
+
+/* Live fallback should feel like a deliberate product state, not an error hole. */
+.live-error,
+.live-offline-card{
+  animation:softEntrance .55s cubic-bezier(.2,.8,.2,1) both;
+}
+.live-error .btn,
+.live-offline-card .btn{
+  min-width:150px;
+}
