@@ -5521,3 +5521,284 @@ if(document.readyState==="loading"){
 }else{
   initLiveTravel();
 }
+
+
+/* =========================================================
+   REAL TRAVEL DESK
+   ========================================================= */
+(function(){
+  var deskService="flight";
+  var deskRecentKey="trippilot_desk_recent_v1";
+  var deskProviderLinks={
+    flight:"https://www.makemytrip.com/flights/",
+    hotel:"https://www.makemytrip.com/hotels/",
+    train:"https://www.makemytrip.com/railways/listing",
+    bus:"https://www.makemytrip.com/bus-tickets/bus-services.html",
+    cab:"https://www.makemytrip.com/cabs/",
+    activities:"https://www.makemytrip.com/activities/",
+    holidays:"https://www.makemytrip.com/holidays-india/holidays-travel-packages.html",
+    insurance:"https://www.makemytrip.com/travel-insurance/international/"
+  };
+
+  var deskServiceMeta={
+    flight:{kicker:"FLIGHT SEARCH",title:"Find a flight for your route",icon:"bx-paper-plane"},
+    hotel:{kicker:"HOTEL SEARCH",title:"Find a stay that fits the trip",icon:"bx-building-house"},
+    train:{kicker:"TRAIN SEARCH",title:"Search trains by route and date",icon:"bx-train"},
+    bus:{kicker:"BUS SEARCH",title:"Compare bus options for your route",icon:"bx-bus"},
+    cab:{kicker:"CAB SEARCH",title:"Plan the road leg of your journey",icon:"bx-car"},
+    activities:{kicker:"ACTIVITY SEARCH",title:"Find things to do at the destination",icon:"bx-map-pin"},
+    holidays:{kicker:"HOLIDAY PACKAGES",title:"Explore complete trip packages",icon:"bx-sun"},
+    insurance:{kicker:"TRAVEL PROTECTION",title:"Check travel protection options",icon:"bx-shield-quarter"},
+    currency:{kicker:"LIVE CURRENCY",title:"Convert your travel money",icon:"bx-transfer-alt"}
+  };
+
+  function deskVal(id){
+    var node=$(id);
+    return node ? node.value.trim() : "";
+  }
+
+  function deskDateValue(offset){
+    var d=new Date();
+    d.setDate(d.getDate()+offset);
+    var local=new Date(d.getTime()-d.getTimezoneOffset()*60000);
+    return local.toISOString().slice(0,10);
+  }
+
+  function deskRecentRead(){
+    try{
+      var raw=localStorage.getItem(deskRecentKey);
+      var arr=raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    }catch(error){return []}
+  }
+
+  function deskRecentWrite(item){
+    var arr=deskRecentRead().filter(function(x){
+      return !(x.service===item.service && x.signature===item.signature);
+    });
+    arr.unshift(item);
+    localStorage.setItem(deskRecentKey,JSON.stringify(arr.slice(0,8)));
+    deskRenderRecent();
+  }
+
+  function deskRenderRecent(){
+    var box=$("deskRecentList");
+    if(!box) return;
+    var arr=deskRecentRead();
+    if(!arr.length){
+      box.innerHTML='<span class="desk-empty-recent">No saved searches yet.</span>';
+      return;
+    }
+    box.innerHTML=arr.map(function(item,index){
+      return '<button class="desk-recent-item" type="button" data-recent-index="'+index+'">' +
+        '<i class="bx '+(deskServiceMeta[item.service]?.icon || "bx-search")+'"></i>' +
+        '<span>'+escapeHTML(item.label)+'</span>' +
+      '</button>';
+    }).join("");
+    box.querySelectorAll("[data-recent-index]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        var item=arr[Number(btn.dataset.recentIndex)];
+        if(!item) return;
+        deskLoadState(item);
+      });
+    });
+  }
+
+  function deskField(label,id,icon,type,value,extra){
+    return '<div class="desk-field'+(extra?.full?' full':'')+'">' +
+      '<label for="'+id+'">'+label+'</label>' +
+      '<div class="desk-field-wrap"><i class="bx '+icon+'"></i>' +
+      '<input id="'+id+'" type="'+type+'" value="'+escapeHTML(value || '')+'" '+(extra?.placeholder?'placeholder="'+escapeHTML(extra.placeholder)+'"':'')+' '+(extra?.min?'min="'+extra.min+'"':'')+'></div>' +
+    '</div>';
+  }
+
+  function deskSelect(label,id,icon,options,value,extra){
+    return '<div class="desk-field'+(extra?.full?' full':'')+'">' +
+      '<label for="'+id+'">'+label+'</label>' +
+      '<div class="desk-field-wrap"><i class="bx '+icon+'"></i><select id="'+id+'">' +
+      options.map(function(opt){return '<option value="'+escapeHTML(opt[0])+'" '+(opt[0]===value?'selected':'')+'>'+escapeHTML(opt[1])+'</option>';}).join("") +
+      '</select></div></div>';
+  }
+
+  function deskRenderFields(){
+    var box=$("travelDeskFields");
+    if(!box) return;
+    var today=deskDateValue(0);
+    var plus1=deskDateValue(1);
+    var plus4=deskDateValue(4);
+    var from=state.trip.from || state.settings.home || "Hyderabad";
+    var to=state.trip.destination || "Goa";
+    var html="";
+    if(deskService==="flight"){
+      html+=deskField("From","deskFrom","bx-map-pin","text",from,{placeholder:"City or airport"});
+      html+=deskField("To","deskTo","bx-flag","text",to,{placeholder:"City or airport"});
+      html+=deskField("Departure","deskDeparture","bx-calendar","date",today);
+      html+=deskField("Return","deskReturn","bx-calendar-event","date",plus4);
+      html+=deskField("Travellers","deskTravellers","bx-group","number",String(state.trip.travelers || 2),{min:"1"});
+      html+=deskSelect("Cabin class","deskCabin","bx-chair",[["economy","Economy / Premium Economy"],["premium","Premium Economy"],["business","Business"],["first","First"]],"economy");
+      html+=deskField("Trip type","deskTripType","bx-git-compare","text","Round trip",{placeholder:"One way / Round trip / Multi-city"});
+    }else if(deskService==="hotel"){
+      html+=deskField("City / hotel","deskHotelCity","bx-building-house","text",to,{placeholder:"Destination or property"});
+      html+=deskField("Check-in","deskCheckIn","bx-calendar","date",today);
+      html+=deskField("Check-out","deskCheckOut","bx-calendar-event","date",plus4);
+      html+=deskField("Rooms","deskRooms","bx-door-open","number","1",{min:"1"});
+      html+=deskField("Guests","deskGuests","bx-group","number",String(state.trip.travelers || 2),{min:"1"});
+      html+=deskSelect("Stay style","deskStayStyle","bx-star",[["budget","Budget"],["comfort","Comfort"],["premium","Premium"]],String(state.trip.stay || "Comfort").toLowerCase());
+    }else if(["train","bus","cab"].includes(deskService)){
+      html+=deskField("From","deskFrom","bx-map-pin","text",from,{placeholder:"Departure city"});
+      html+=deskField("To","deskTo","bx-flag","text",to,{placeholder:"Arrival city"});
+      html+=deskField("Travel date","deskTravelDate","bx-calendar","date",plus1);
+      html+=deskField("Travellers","deskTravellers","bx-group","number",String(state.trip.travelers || 2),{min:"1"});
+      if(deskService==="train") html+=deskSelect("Class","deskTrainClass","bx-chair",[["all","Any class"],["sleeper","Sleeper"],["3a","AC 3 Tier"],["2a","AC 2 Tier"],["1a","AC First Class"]],"all");
+      if(deskService==="bus") html+=deskSelect("Bus type","deskBusType","bx-bus",[["any","Any type"],["ac","AC Seater"],["sleeper","AC Sleeper"],["luxury","Luxury"],["volvo","Volvo"]],"any");
+      if(deskService==="cab") html+=deskSelect("Cab type","deskCabType","bx-car",[["sedan","Sedan"],["suv","SUV"],["premium","Premium"],["outstation","Outstation"]],"sedan");
+    }else if(["activities","holidays"].includes(deskService)){
+      html+=deskField("Destination","deskDestination","bx-map-pin","text",to,{placeholder:"Where are you going?"});
+      html+=deskField("Start date","deskStartDate","bx-calendar","date",today);
+      html+=deskField("Travellers","deskTravellers","bx-group","number",String(state.trip.travelers || 2),{min:"1"});
+      html+=deskSelect("Travel style","deskTravelStyle","bx-sparkles",[["balanced","Balanced"],["relaxed","Relaxed"],["adventure","Adventure"],["culture","Culture"],["food","Food"]],String(state.trip.style || "Balanced").toLowerCase());
+      html+=deskField("Budget","deskTripBudget","bx-wallet","number",String(Math.round(calculateTripBudget())),{min:"0"});
+    }else if(deskService==="insurance"){
+      html+=deskField("Destination","deskInsuranceDestination","bx-map-pin","text",to,{placeholder:"Country or destination"});
+      html+=deskField("Start date","deskInsuranceStart","bx-calendar","date",today);
+      html+=deskField("End date","deskInsuranceEnd","bx-calendar-event","date",plus4);
+      html+=deskField("Travellers","deskTravellers","bx-group","number",String(state.trip.travelers || 2),{min:"1"});
+      html+=deskSelect("Plan","deskInsurancePlan","bx-shield-quarter",[["single","Single trip"],["annual","Annual multi-trip"],["student","Student / long-term"]],"single");
+    }else if(deskService==="currency"){
+      html+=deskField("Amount","deskAmount","bx-wallet","number","100",{min:"0",placeholder:"Enter amount"});
+      html+=deskSelect("From currency","deskFromCurrency","bx-transfer-alt",[["INR","Indian Rupee (INR)"],["USD","US Dollar (USD)"],["EUR","Euro (EUR)"],["GBP","British Pound (GBP)"],["AED","UAE Dirham (AED)"],["SGD","Singapore Dollar (SGD)"],["THB","Thai Baht (THB)"]],"INR");
+      html+=deskSelect("To currency","deskToCurrency","bx-transfer-alt",[["USD","US Dollar (USD)"],["EUR","Euro (EUR)"],["AED","UAE Dirham (AED)"],["SGD","Singapore Dollar (SGD)"],["GBP","British Pound (GBP)"],["INR","Indian Rupee (INR)"],["THB","Thai Baht (THB)"]],"USD");
+      html+=deskField("Trip destination","deskCurrencyDestination","bx-flag","text",to,{placeholder:"Optional context"});
+    }
+    box.innerHTML=html;
+  }
+
+  async function deskCurrencyConvert(amount,from,to){
+    if(from===to) return {rate:1,date:new Date().toISOString().slice(0,10)};
+    var url="https://api.frankfurter.dev/v2/rate/"+encodeURIComponent(from)+"/"+encodeURIComponent(to);
+    var data=await liveFetchJSON(url,10000);
+    return {rate:Number(data.rate),date:data.date};
+  }
+
+  function deskResultHtml(summary,provider){
+    return '<div class="desk-preview-head">' +
+      '<div><div class="desk-preview-route">'+escapeHTML(summary.title)+'</div><div class="desk-preview-meta">'+escapeHTML(summary.subtitle)+'</div></div>' +
+      '<span class="desk-preview-status">READY</span>' +
+      '</div>' +
+      '<div class="desk-preview-list">'+summary.rows.map(function(row){
+        return '<div class="desk-preview-row"><span>'+escapeHTML(row[0])+'</span><strong>'+escapeHTML(row[1])+'</strong></div>';
+      }).join("")+'</div>' +
+      '<div class="desk-provider-note"><i class="bx bx-info-circle"></i>'+escapeHTML(summary.note)+'</div>' +
+      '<a class="desk-open-provider" href="'+escapeHTML(provider)+'" target="_blank" rel="noopener noreferrer"><i class="bx bx-link-external"></i> Continue to live search</a>';
+  }
+
+  async function deskSearch(){
+    if(deskService==="currency"){
+      var amount=Number(deskVal("deskAmount") || 0);
+      var from=deskVal("deskFromCurrency") || "INR";
+      var to=deskVal("deskToCurrency") || "USD";
+      if(amount<0){showToast("Enter a valid amount.");return;}
+      var result=$("travelDeskResult");
+      result.innerHTML='<div class="desk-result-empty"><span class="live-loader"></span><div style="margin-top:15px"><strong>Refreshing live rate…</strong><small>Fetching the latest available reference rate.</small></div></div>';
+      try{
+        var data=await deskCurrencyConvert(amount,from,to);
+        var converted=amount*data.rate;
+        result.innerHTML=
+          '<div style="width:100%"><span class="panel-kicker">LIVE CONVERSION</span>' +
+          '<h3 style="margin-top:7px">Travel money snapshot</h3>' +
+          '<div class="desk-currency-result"><div class="rate">'+escapeHTML(amount.toLocaleString("en-IN",{maximumFractionDigits:2}))+' '+escapeHTML(from)+' → '+escapeHTML(converted.toLocaleString("en-IN",{maximumFractionDigits:2}))+' '+escapeHTML(to)+'</div>' +
+          '<small>1 '+escapeHTML(from)+' = '+escapeHTML(data.rate.toFixed(4))+' '+escapeHTML(to)+'</small>' +
+          '<div class="desk-currency-rate-note"><span>Rate date</span><strong>'+escapeHTML(data.date)+'</strong></div></div>' +
+          '<div class="desk-provider-note"><i class="bx bx-refresh"></i>Reference rate from Frankfurter. Exchange prices can move; verify the rate with your payment or FX provider before exchanging money.</div></div>';
+        deskRecentWrite({service:"currency",signature:from+"|"+to+"|"+amount,label:amount+" "+from+" → "+to});
+        return;
+      }catch(error){
+        result.innerHTML='<div class="desk-result-empty"><div class="desk-result-icon"><i class="bx bx-error"></i></div><span class="panel-kicker">RATE UNAVAILABLE</span><h3>Could not refresh the rate</h3><p>Check your connection and try again.</p></div>';
+        return;
+      }
+    }
+
+    var summary;
+    if(deskService==="flight"){
+      summary={title:deskVal("deskFrom")+" → "+deskVal("deskTo"),subtitle:deskVal("deskDeparture")+" · "+deskVal("deskReturn"),rows:[
+        ["Travellers",deskVal("deskTravellers")],
+        ["Cabin",deskVal("deskCabin")],
+        ["Trip type",deskVal("deskTripType")]
+      ],note:"Your route and travel preferences are ready. Continue to the live provider to see current inventory, fares, filters and booking options."};
+    }else if(deskService==="hotel"){
+      summary={title:deskVal("deskHotelCity"),subtitle:deskVal("deskCheckIn")+" → "+deskVal("deskCheckOut"),rows:[
+        ["Rooms",deskVal("deskRooms")],
+        ["Guests",deskVal("deskGuests")],
+        ["Stay style",deskVal("deskStayStyle")]
+      ],note:"Live hotel availability, room types, cancellation terms and current rates are shown by the booking provider."};
+    }else if(["train","bus","cab"].includes(deskService)){
+      summary={title:deskVal("deskFrom")+" → "+deskVal("deskTo"),subtitle:deskVal("deskTravelDate"),rows:[
+        ["Travellers",deskVal("deskTravellers")],
+        ["Preference",deskService==="train"?deskVal("deskTrainClass"):deskService==="bus"?deskVal("deskBusType"):deskVal("deskCabType")]
+      ],note:"The provider will return live schedules, availability, operator options and current pricing for this route."};
+    }else if(["activities","holidays"].includes(deskService)){
+      summary={title:deskVal("deskDestination"),subtitle:deskVal("deskStartDate"),rows:[
+        ["Travellers",deskVal("deskTravellers")],
+        ["Travel style",deskVal("deskTravelStyle")],
+        ["Planning budget",deskVal("deskTripBudget") ? rupee(deskVal("deskTripBudget")) : "Not set"]
+      ],note:"Continue to the provider for live experiences or package inventory, current prices and bookable availability."};
+    }else{
+      summary={title:deskVal("deskInsuranceDestination"),subtitle:deskVal("deskInsuranceStart")+" → "+deskVal("deskInsuranceEnd"),rows:[
+        ["Travellers",deskVal("deskTravellers")],
+        ["Plan",deskVal("deskInsurancePlan")]
+      ],note:"Insurance terms, eligibility, exclusions and current premiums are displayed by the provider. Review the policy wording before purchase."};
+    }
+
+    $("travelDeskResult").innerHTML=deskResultHtml(summary,deskProviderLinks[deskService]);
+    var signature=JSON.stringify(summary.rows)+"|"+summary.title+"|"+summary.subtitle;
+    deskRecentWrite({service:deskService,signature:signature,label:summary.title+" · "+summary.subtitle});
+    showToast("Search preview ready. Continue to the live provider.");
+  }
+
+  function deskLoadState(item){
+    deskService=item.service;
+    document.querySelectorAll(".desk-tab").forEach(function(btn){
+      btn.classList.toggle("active",btn.dataset.deskService===deskService);
+    });
+    deskRenderFields();
+    var box=$("travelDeskResult");
+    if(box) box.innerHTML=deskResultHtml(item.summary || {
+      title:item.label,subtitle:"Saved search",rows:[],note:"This saved search is a local planning shortcut. Start a fresh live search to refresh current inventory."
+    },deskProviderLinks[deskService] || "https://www.makemytrip.com/");
+    showToast("Saved search loaded.");
+  }
+
+  function deskInit(){
+    if(!$("travelDeskFields")) return;
+    document.querySelectorAll(".desk-tab").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        deskService=btn.dataset.deskService;
+        document.querySelectorAll(".desk-tab").forEach(function(item){item.classList.toggle("active",item===btn)});
+        $("deskKicker").textContent=deskServiceMeta[deskService].kicker;
+        $("deskTitle").textContent=deskServiceMeta[deskService].title;
+        deskRenderFields();
+        $("travelDeskResult").innerHTML='<div class="desk-result-empty"><div class="desk-result-icon"><i class="bx '+deskServiceMeta[deskService].icon+'"></i></div><span class="panel-kicker">'+escapeHTML(deskServiceMeta[deskService].kicker)+'</span><h3>Build your search</h3><p>Fill in the fields and continue to the live provider when you are ready.</p></div>';
+      });
+    });
+
+    $("travelDeskSearch").addEventListener("click",deskSearch);
+    $("travelDeskSave").addEventListener("click",function(){
+      var label=deskService==="currency" ? ((deskVal("deskAmount")||"100")+" "+(deskVal("deskFromCurrency")||"INR")+" → "+(deskVal("deskToCurrency")||"USD")) : ((deskVal("deskFrom")||deskVal("deskHotelCity")||deskVal("deskDestination")||deskVal("deskInsuranceDestination")||"Trip")+" → "+(deskVal("deskTo")||"search"));
+      var item={service:deskService,signature:Date.now().toString(),label:label};
+      deskRecentWrite(item);
+      showToast("Search saved locally.");
+    });
+
+    $("deskClearRecent").addEventListener("click",function(){
+      localStorage.removeItem(deskRecentKey);
+      deskRenderRecent();
+      showToast("Recent searches cleared.");
+    });
+
+    deskRenderFields();
+    deskRenderRecent();
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",deskInit,{once:true});
+  else deskInit();
+})();
