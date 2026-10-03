@@ -1,10 +1,10 @@
 # ✈️ TripPilot — Travel Planner
 
-TripPilot is a modern, interactive **travel planning website** built with **HTML5, CSS3, and JavaScript**.
+TripPilot is a modern, interactive **travel planning web application** built with **HTML5, CSS3, and JavaScript**.
 
-It provides a complete browser-based workspace for discovering destinations, planning trips, choosing transportation, building day-by-day itineraries, exploring stay options, managing travel budgets, preparing packing lists, and saving trips locally.
+It provides a complete browser-based workspace for discovering destinations, planning trips, choosing transportation, building day-by-day itineraries, exploring stays, managing travel budgets, preparing packing lists, and saving trips locally.
 
-The application is designed as a **responsive, portfolio-ready frontend project** that works directly in the browser without a backend or database.
+The application is designed as a **professional SaaS-style frontend experience** while remaining completely client-side, responsive, and deployable through GitHub Pages without a backend.
 
 ---
 
@@ -18,41 +18,203 @@ The application is designed as a **responsive, portfolio-ready frontend project*
 
 ### 🌎 Destination Discovery
 
-TripPilot includes a destination discovery section for exploring sample Indian travel destinations.
+TripPilot provides an interactive destination discovery experience for exploring travel destinations.
 
-Currently featured:
+Users can:
+
+* Browse destination cards
+* Search destinations
+* Filter destinations by travel style
+* View destination descriptions
+* View approximate route-distance information
+* Instantly send a destination into the Trip Builder
+
+Current destination categories include:
+
+* 🏖️ Beach
+* 🏔️ Mountains
+* 🏰 Heritage
+* 🌴 Backwaters
+* 🏙️ City
+
+Featured destinations include:
 
 * 🇮🇳 Goa
 * 🏔️ Manali
 * 🏰 Jaipur
 * 🌴 Alappuzha
-
-Users can filter destinations by:
-
-* All
-* Beach
-* Mountains
-* Heritage
-* Backwaters
-
-Each destination includes imagery, a short description, trip-duration guidance, destination type, and a **Plan** action that automatically sends the destination into the trip planner.
+* 🌆 Mumbai
+* 💻 Bengaluru
+* 🏛️ Delhi
+* 🌊 Kochi
+* 🏞️ Udaipur
+* 🧗 Rishikesh
+* 🍃 Munnar
+* 🏛️ Hampi
 
 ---
 
-### 🗺️ Trip Planner
+# 🏠 Product-Style Home Experience
 
-The Trip Builder allows users to create a complete trip plan using:
+The TripPilot home page is designed like a modern travel SaaS workspace instead of a traditional static portfolio landing page.
+
+The home experience includes:
+
+* Interactive travel hero section
+* Animated travel phrases
+* Current trip overview
+* Trip readiness percentage
+* Saved trip count
+* Upcoming trip count
+* Product-style trip workspace preview
+* Route visualization
+* Estimated budget preview
+* Trip duration
+* Traveler count
+* Quick navigation shortcuts
+* Browser-local product indicators
+
+The home dashboard is connected to the same application state used throughout TripPilot.
+
+---
+
+# 📊 Trip Command Center
+
+The **Trip Command Center** provides a centralized overview of the current trip.
+
+It combines important planning information into a single dashboard.
+
+### 🗓️ Trip Countdown
+
+The application calculates trip status from the selected dates.
+
+Possible states include:
+
+* `X days to go`
+* `Day X of Y`
+* `Completed`
+* `Planning`
+
+### 📍 Route Overview
+
+The Command Center displays:
+
+```text
+Origin → Destination
+```
+
+along with:
+
+* Trip duration
+* Travelers
+* Transport
+* Estimated budget
+* Current trip status
+
+### ✅ Trip Readiness
+
+Trip readiness is a planning indicator calculated from the existing application state.
+
+It considers:
+
+* Trip setup
+* Itinerary coverage
+* Budget configuration
+* Packing completion
+
+The result is displayed as a percentage.
+
+> Trip readiness is an application-generated planning indicator and does not represent a real-world measurement of travel preparedness.
+
+### 📋 Itinerary Progress
+
+The dashboard estimates itinerary coverage using:
+
+* Destination itinerary days
+* Custom activities
+* Current trip duration
+
+### 🎒 Packing Progress
+
+Packing completion is automatically reflected in the Command Center.
+
+For example:
+
+```text
+6 / 9 items packed
+67%
+```
+
+### 💰 Budget Overview
+
+The Command Center displays the current estimated travel budget using the existing TripPilot budget state.
+
+### 🧭 Next Action
+
+TripPilot automatically suggests the next planning action based on the current state.
+
+Examples include:
+
+* Complete your trip setup
+* Build the itinerary
+* Set your budget
+* Finish packing
+* Your trip is ready
+
+The Continue action navigates directly to the relevant section.
+
+### 📤 Export Summary
+
+The Command Center can export a local trip summary containing information such as:
+
+* Route
+* Dates
+* Duration
+* Travelers
+* Transport
+* Stay style
+* Trip style
+* Estimated budget
+* Readiness
+* Itinerary coverage
+* Packing progress
+* Custom activities
+
+The summary is generated entirely in the browser.
+
+---
+
+# 🗺️ Trip Planner
+
+The Trip Builder allows users to configure a complete trip.
+
+Users can select:
 
 * Origin
 * Destination
 * Start date
 * End date
 * Number of travelers
-* Primary transportation
+* Primary transport
 * Stay style
 * Trip style
 
-Available trip styles include:
+### Available Transport Preferences
+
+* ✈️ Flight
+* 🚆 Train
+* 🚌 Bus
+* 🚕 Cab
+* 🚗 Self Drive
+* 🔄 Mixed
+
+### Available Stay Styles
+
+* Budget
+* Comfort
+* Premium
+
+### Available Trip Styles
 
 * Balanced
 * Relaxed
@@ -60,29 +222,25 @@ Available trip styles include:
 * Culture
 * Food
 
-Available stay styles include:
-
-* Budget
-* Comfort
-* Premium
-
-The planner automatically calculates:
+The planner dynamically calculates:
 
 * Trip duration
-* Estimated transportation cost
-* Estimated accommodation cost
-* Estimated food cost
-* Estimated local transportation cost
-* Estimated activity cost
-* Total estimated trip budget
+* Transportation estimate
+* Accommodation estimate
+* Food estimate
+* Local transportation estimate
+* Activity estimate
+* Overall estimated trip cost
 
-The selected trip is stored locally and can be reopened later.
+The trip preview updates as the user changes planner values.
 
 ---
 
-### 🚆 Transportation Planner
+# 🚆 Transportation Hub
 
-TripPilot provides a transportation hub with planning information for:
+TripPilot includes a dedicated transport planning interface.
+
+Supported transportation modes:
 
 * ✈️ Flight
 * 🚆 Train
@@ -93,80 +251,91 @@ TripPilot provides a transportation hub with planning information for:
 * ⛴️ Ferry
 * 🔄 Mixed
 
-Each transport mode includes:
+Each transport mode provides:
 
-* Description
-* Key travel considerations
-* Sample route options
-* Approximate travel time
-* Planning price estimates
+* Transport description
+* Travel considerations
+* Sample options
+* Approximate duration
+* Planning estimate
 
-The transport section is designed for **travel planning and comparison**, not real-time ticket booking.
+### Mixed Transport
+
+The Mixed option is designed for routes that combine multiple travel methods.
+
+Examples include:
+
+* Train + road
+* Flight + local transfer
+* Intercity travel + metro
+* Intercity travel + cab
+
+> Transportation values are planning estimates and are not live booking or fare information.
 
 ---
 
-### 📅 Smart Itinerary
+# 📅 Itinerary Studio
 
-TripPilot includes destination-based itinerary templates for supported destinations.
+TripPilot includes destination-based itinerary templates and custom activity planning.
 
-The itinerary provides day-by-day suggestions such as:
+Suggested itinerary information can include:
 
 * Arrival plans
 * Sightseeing circuits
 * Food routes
 * Scenic stops
-* Adventure or nature days
+* Adventure days
+* Culture-focused days
 * Departure plans
 
-Users can also add custom activities with:
+Users can add custom activities using:
 
 * Day
 * Activity name
 * Time
 * Estimated spend
 
-Custom activities are saved locally and displayed together with the destination itinerary.
+Custom activities are stored locally and displayed alongside the destination suggestions.
 
-The itinerary can also be regenerated to clear the currently saved custom activities.
+The itinerary can be refreshed to clear custom activities and return to the destination template.
 
 ---
 
-### 🏨 Stay Finder
+# 🏨 Stay Finder
 
-The Stay Finder provides sample accommodation options that can be filtered and searched.
+The Stay Finder provides sample accommodation options for travel planning.
 
-Users can search by:
+Users can:
 
-* Destination
-* Stay name
-* Stay style
+* Search stays
+* Search destinations
+* Filter by stay style
+* Apply a stay to the current trip
 
-Available stay categories include:
+Available stay styles:
 
 * Budget
 * Comfort
 * Premium
 
-Each stay option includes:
+Stay cards can display:
 
 * Stay name
 * Destination
 * Stay style
-* Estimated nightly price
+* Approximate price per night
 * Rating
-* Short description/tag
-
-The **Use in plan** action can apply the selected destination and stay style to the active trip.
+* Location/theme tag
 
 > Stay information is sample planning data and is not connected to a live hotel booking service.
 
 ---
 
-### 💰 Trip Budget
+# 💰 Budget Studio
 
-The Trip Budget section provides an interactive estimate of travel spending.
+The Budget Studio provides a visual representation of estimated trip spending.
 
-Current budget categories include:
+Current budget categories:
 
 * Transportation
 * Stay
@@ -174,28 +343,29 @@ Current budget categories include:
 * Local transportation
 * Activities
 
-Users can adjust:
+Users can independently adjust:
 
 * Transport reserve
 * Stay reserve
 * Food reserve
 
-using interactive sliders.
+Interactive controls automatically update:
 
-The application automatically updates:
-
-* Total estimated budget
+* Total budget
 * Category values
-* Category percentage bars
-* Planner budget estimate
+* Budget bars
+* Planner estimate
+* Dashboard information
 
-Budget changes are saved automatically using LocalStorage.
+Budget adjustments are persisted locally using LocalStorage.
 
 ---
 
-### 🎒 Packing Studio
+# 🎒 Packing Studio
 
-TripPilot includes a built-in packing checklist containing common travel essentials such as:
+TripPilot includes a travel packing checklist for common trip essentials.
+
+Current checklist items include:
 
 * ID and travel documents
 * Wallet and cards
@@ -210,175 +380,106 @@ TripPilot includes a built-in packing checklist containing common travel essenti
 Users can:
 
 * Mark items as packed
+* Unmark items
 * View completion percentage
 * View packed-item count
 * Reset the checklist
 
-Packing progress is persisted using LocalStorage.
+Packing state is saved locally in the browser.
 
 ---
 
-### 🧳 My Trips
+# 🧳 My Trips
 
-Saved trips are displayed in the **My Trips** section.
+The My Trips section acts as a local trip library.
 
-Each saved trip can show:
+Saved trips can contain:
 
-* Destination
 * Origin
-* Start date
-* Number of travelers
-* Transport
-* Estimated budget
-* Upcoming/Past status
-
-Users can:
-
-* Save trips
-* Open saved trips
-* Load a trip back into the planner
-* Delete saved trips
-
-The My Trips dashboard also displays:
-
-* Total saved trips
-* Upcoming trips
-* Total planned travelers
-* Combined estimated spend
-
----
-
-# 📊 Trip Command Center
-
-The latest version includes a centralized **Trip Command Center** for monitoring the current trip.
-
-The Command Center brings the major planning information into one place.
-
-### 🗓️ Trip Countdown
-
-The dashboard calculates the current trip status based on the selected dates.
-
-Possible states include:
-
-* `X days to go`
-* `Day X of Y`
-* `Trip completed`
-* `Dates not set`
-
----
-
-### 📍 Route Summary
-
-The Command Center shows the currently selected route:
-
-```text
-Origin → Destination
-```
-
-It also displays:
-
-* Trip duration
-* Traveler count
-* Primary transport
-* Current estimated budget
-
----
-
-### ✅ Trip Readiness
-
-Trip readiness is calculated from the existing TripPilot planning state.
-
-The readiness system considers:
-
-* Trip setup
-* Itinerary coverage
-* Budget configuration
-* Packing completion
-
-The result is presented as an overall percentage.
-
-This percentage is a **planning indicator created by the application**, not a measurement of actual travel readiness.
-
----
-
-### 📋 Itinerary Progress
-
-The Command Center calculates itinerary coverage based on the number of planned trip days represented by the current itinerary and custom activities.
-
----
-
-### 🎒 Packing Progress
-
-Packing completion is automatically reflected in the Command Center.
-
-For example:
-
-```text
-6 / 9 items packed
-67%
-```
-
----
-
-### 💰 Budget Summary
-
-The dashboard reads the existing budget values from the TripPilot LocalStorage state and displays the current planning reserve.
-
----
-
-### 🧭 Next Action
-
-The Command Center provides a context-based next-step suggestion, such as:
-
-* Complete your trip setup
-* Finish the itinerary
-* Set your budget
-* Finish packing
-* Trip is ready
-
-The **Continue Planning** action takes the user directly to the relevant section.
-
----
-
-### 📤 Export Trip Summary
-
-TripPilot can export the current trip information as a local `.txt` summary.
-
-The exported summary can include:
-
-* Route
+* Destination
 * Dates
 * Duration
 * Travelers
 * Transport
 * Stay style
 * Trip style
-* Readiness
-* Packing progress
-* Itinerary coverage
-* Budget
-* Custom activities
+* Estimated budget
+* Creation time
 
-No server is required for the export.
+Users can:
+
+* Save trips
+* View saved trips
+* Open saved trips
+* Load saved trips back into the planner
+* Delete saved trips
+
+The dashboard also provides:
+
+* Saved trip count
+* Upcoming trip count
+* Planned traveler count
+* Combined estimated spend
 
 ---
 
-## ⚙️ Settings
+# ⚙️ Settings
 
-The Settings section provides a simple traveler profile and application preferences.
+TripPilot provides a workspace settings area for personal preferences.
 
 Users can configure:
 
 * Name
 * Home city
 * Preferred stay style
-* Default transport
+* Default transportation
 
-The application also provides:
+Additional settings features include:
 
-* Save Preferences
-* Clear Local Data
-* Quick navigation links
+* Save preferences
+* Switch between dark and light themes
+* Export application data
+* Clear local data
+
+The settings are persisted locally.
+
+---
+
+# 🌙 Theme System
+
+TripPilot includes a built-in appearance switcher.
+
+Available themes:
+
+* Dark
+* Light
+
+The selected theme is stored locally and restored when the application is reopened.
+
+---
+
+# 📤 Data Export
+
+TripPilot supports two browser-based export capabilities.
+
+### Trip Summary Export
+
+Exports a readable `.txt` travel summary.
+
+### Application Data Export
+
+Exports the stored TripPilot state as a `.json` file.
+
+This can include:
+
+* Settings
+* Current trip
+* Budget
+* Saved trips
+* Activities
+* Packing state
+
+No server is required for either export.
 
 ---
 
@@ -386,58 +487,85 @@ The application also provides:
 
 TripPilot uses the browser's **LocalStorage API** for client-side persistence.
 
-The application stores its main state under:
+The current application storage key is:
 
 ```text
-trippilot_v1
+trippilot_v2
 ```
 
-Saved information can include:
+Stored information can include:
 
-* Traveler settings
+* Traveler preferences
+* Theme preference
 * Current trip
 * Budget values
 * Saved trips
 * Custom activities
 * Packing progress
 
-This means the application can preserve data across browser refreshes without requiring a database or backend.
+This allows TripPilot to preserve its application state across browser refreshes without requiring:
+
+* A backend
+* A database
+* User accounts
+* Server-side sessions
 
 ### Important
 
 LocalStorage is browser-specific.
 
-Clearing the browser's site data or LocalStorage can remove saved TripPilot information.
+Clearing browser/site data can remove locally stored TripPilot information.
 
 ---
 
 # 📱 Responsive Design
 
-TripPilot is designed to adapt to different screen sizes.
-
-Supported layouts include:
+TripPilot is designed to provide a responsive experience across:
 
 * 💻 Desktop
 * 💻 Laptop
 * 📱 Tablet
 * 📱 Mobile
 
-The interface includes responsive:
+Responsive behavior includes:
 
-* Navigation
-* Cards
-* Forms
-* Grids
-* Transport controls
-* Budget controls
-* Command Center
-* Saved-trip layouts
+* Mobile navigation
+* Responsive grids
+* Adaptive forms
+* Responsive dashboard layouts
+* Mobile-friendly transport controls
+* Flexible destination cards
+* Responsive saved-trip layouts
+* Mobile-friendly settings
+* Adaptive footer layout
+
+---
+
+# 🎨 UI & UX
+
+TripPilot uses a modern SaaS-inspired visual system with:
+
+* Glass-style panels
+* Rounded cards
+* Teal accent system
+* Dark/light themes
+* Responsive layouts
+* Animated interactions
+* Scroll-reveal effects
+* Dashboard metrics
+* Product-style UI components
+* Visual progress indicators
+* Interactive navigation
+* Status indicators
+* Toast notifications
+
+The interface is designed to feel like a **travel operating workspace**, rather than a simple static webpage.
 
 ---
 
 # 🛠️ Technologies
 
-TripPilot is built using:
+TripPilot is built using standard frontend technologies:
 
 * **HTML5**
 * **CSS3**
@@ -451,11 +579,13 @@ No frontend framework is required.
 
 No backend framework is required.
 
+No database is required.
+
 ---
 
 # 📁 Project Structure
 
-The current production version uses three main application files:
+The production application uses three main source files:
 
 ```text
 TripPilot-Travel-Planner/
@@ -471,17 +601,18 @@ TripPilot-Travel-Planner/
 
 ## `index.html`
 
-Contains the application's structure and user interface, including:
+Contains the complete application structure, including:
 
-* Navigation
-* Home section
+* Application header
+* SaaS-style navigation
+* Home dashboard
 * Trip Command Center
 * Destination discovery
-* Trip planner
-* Transport hub
-* Itinerary
+* Trip Builder
+* Transport Hub
+* Itinerary Studio
 * Stay Finder
-* Budget
+* Budget Studio
 * Packing Studio
 * My Trips
 * Settings
@@ -492,24 +623,28 @@ Contains the application's structure and user interface, including:
 
 ## `style.css`
 
-Contains the complete visual system, including:
+Contains the application's visual system, including:
 
-* Global layout
 * Theme variables
+* Dark mode
+* Light mode
+* Responsive layouts
 * Navigation
+* SaaS-style cards
+* Dashboard components
 * Buttons
-* Cards
 * Forms
 * Destination cards
-* Transport interface
+* Transport UI
 * Itinerary timeline
 * Stay cards
-* Budget interface
+* Budget visualization
 * Packing interface
-* Command Center
-* Responsive breakpoints
+* Saved trips
+* Footer
 * Animations
-* Scroll-reveal styling
+* Scroll-reveal effects
+* Mobile layouts
 
 ---
 
@@ -522,32 +657,32 @@ Contains the main application logic, including:
 * Destination data
 * Transport data
 * Stay data
-* Packing data
 * Itinerary templates
+* Packing data
 * Trip calculations
-* Planner logic
+* Planner state
 * Budget calculations
+* Saved trip management
 * Packing interactions
-* Saved trips
 * Settings
+* Theme switching
+* Search and filtering
 * Navigation
-* Responsive menu
-* Scroll reveal
-* Hero text animation
-* Trip Command Center
-* Trip readiness calculation
+* Scroll effects
+* Command Center
+* Trip readiness
 * Trip countdown
-* Trip summary export
+* Export functions
 
 ---
 
 # 🌐 GitHub Pages
 
-TripPilot is designed to run directly from **GitHub Pages**.
+TripPilot is fully compatible with **GitHub Pages**.
 
-Because the application is made from static frontend files, no server runtime is required.
+Because the application uses static files, it does not require a server runtime.
 
-### Deploying your own copy
+### Deploying TripPilot
 
 ### 1. Create a repository
 
@@ -557,9 +692,7 @@ Example:
 TripPilot-Travel-Planner
 ```
 
-### 2. Upload the project files
-
-Upload:
+### 2. Upload the files
 
 ```text
 index.html
@@ -576,19 +709,19 @@ Open:
 Repository → Settings → Pages
 ```
 
-Select the appropriate branch and deployment source.
+Select the branch containing the project.
 
-GitHub Pages will then generate the public website URL.
+GitHub Pages will generate the public project URL.
 
 ---
 
 # 🚫 No Live Booking APIs
 
-TripPilot is a **travel planning and portfolio project**.
+TripPilot is currently a **travel planning application**, not a live booking platform.
 
-It does not currently connect to live:
+It does not currently connect to:
 
-* ✈️ Flight booking APIs
+* ✈️ Airline booking APIs
 * 🚆 Railway booking APIs
 * 🚌 Bus booking APIs
 * 🏨 Hotel booking APIs
@@ -597,84 +730,34 @@ It does not currently connect to live:
 * 🎟️ Live ticket inventory
 * 💰 Live fare systems
 
-Transportation and accommodation prices shown by the application are **sample planning estimates**.
+Transportation and accommodation values shown in the application are **planning estimates**.
 
-Users should verify current:
+Users should independently verify:
 
-* Prices
-* Schedules
+* Current prices
+* Travel schedules
 * Availability
-* Booking conditions
-* Travel restrictions
+* Booking rules
+* Cancellation policies
+* Travel requirements
 
-with the relevant provider before making real travel arrangements.
+with the relevant provider before making actual travel arrangements.
 
 ---
 
-# 🧮 Trip Budget Disclaimer
+# 🧮 Budget Disclaimer
 
-The budget calculator is intended to help users build a rough travel plan.
+TripPilot's budget calculator is intended for planning purposes.
 
-The displayed estimates are generated from predefined values based on factors such as:
+Estimated costs are generated using predefined values influenced by factors such as:
 
 * Destination
 * Number of travelers
 * Trip duration
-* Transport mode
+* Transportation mode
 * Stay style
 
-Actual travel costs may differ substantially.
-
----
-
-# 🎯 Project Goals
-
-TripPilot was built to demonstrate practical frontend development through a realistic application rather than a static landing page.
-
-The project demonstrates:
-
-* Semantic HTML
-* Responsive CSS
-* Modern UI design
-* JavaScript DOM manipulation
-* Event handling
-* LocalStorage persistence
-* Dynamic rendering
-* Form processing
-* State management
-* Interactive calculations
-* Client-side data handling
-* Reusable application functions
-* Responsive navigation
-* Dashboard-style interfaces
-
----
-
-# 🚀 Future Improvements
-
-Potential future versions could add optional integrations such as:
-
-* 🌦️ Live weather
-* 🗺️ Interactive maps
-* 📍 Nearby attractions
-* ✈️ Live flight search
-* 🚆 Live railway information
-* 🚌 Live bus search
-* 🏨 Live hotel availability
-* 💱 Currency conversion
-* 🍽️ Restaurant discovery
-* 🌐 Multi-language support
-* ☁️ Cloud synchronization
-* 🔐 User authentication
-* 📤 PDF itinerary export
-* 📆 Calendar integration
-* 🔔 Travel reminders
-* 📊 Advanced trip analytics
-* 🧭 Route optimization
-* 🤖 AI itinerary generation
-* 🗣️ Travel phrase assistance
-
-These additions would require external APIs, backend services, authentication, or other integrations.
+Actual travel costs can differ significantly.
 
 ---
 
@@ -684,32 +767,87 @@ TripPilot is currently a **client-side application**.
 
 The application does not require:
 
-* User accounts
-* Backend servers
+* User registration
+* Backend accounts
 * Database storage
 * Payment information
-* Booking accounts
+* Booking credentials
 
-Trip information is stored in the user's browser.
+Current trip-planning data is stored locally in the user's browser.
 
-The project does not currently transmit trip-planning data to a TripPilot backend.
+TripPilot does not currently provide a TripPilot-operated backend for storing travel plans.
 
-Third-party resources such as Google Fonts, Boxicons, and Unsplash images are loaded from external services.
+Third-party resources such as Google Fonts, Boxicons, and Unsplash imagery are loaded from their respective external services.
+
+---
+
+# 🎯 Project Goals
+
+TripPilot was created to demonstrate how a realistic frontend product can be built using standard web technologies.
+
+The project demonstrates:
+
+* Semantic HTML
+* Responsive CSS
+* Modern product UI design
+* JavaScript application logic
+* DOM manipulation
+* Event handling
+* LocalStorage persistence
+* Client-side state management
+* Dynamic rendering
+* Form processing
+* Interactive calculations
+* Search and filtering
+* Dashboard interfaces
+* Responsive navigation
+* Data export
+* Theme management
+* Component-style frontend organization
+
+---
+
+# 🚀 Future Improvements
+
+Potential future versions may add:
+
+* 🌦️ Live weather integration
+* 🗺️ Interactive maps
+* 📍 Nearby attractions
+* ✈️ Live flight search
+* 🚆 Railway information
+* 🚌 Bus search
+* 🏨 Live hotel availability
+* 💱 Live currency conversion
+* 🍽️ Restaurant discovery
+* 🌐 Multi-language support
+* ☁️ Cloud synchronization
+* 🔐 Authentication
+* 📤 PDF itinerary export
+* 📆 Calendar integration
+* 🔔 Trip reminders
+* 📊 Advanced analytics
+* 🧭 Route optimization
+* 🤖 AI-powered itinerary generation
+* 🗣️ Travel phrase assistance
+
+These capabilities would require external APIs, backend services, authentication, or other integrations.
 
 ---
 
 # 📌 Important Notes
 
-TripPilot is a **planning tool**, not a live travel-booking service.
+TripPilot is currently a **browser-based travel planning workspace**.
 
-The application should be considered:
+It should not be treated as:
 
-* A frontend portfolio project
-* A travel-planning prototype
-* A browser-based planning workspace
-* A demonstration of JavaScript and LocalStorage development
+* A live booking engine
+* A ticket marketplace
+* A hotel reservation platform
+* A payment platform
+* A source of guaranteed live prices
 
-All transportation, accommodation, and budget values should be treated as estimates unless a future version connects the application to verified live data sources.
+Unless future live integrations are added, transportation, accommodation, and budget values should be considered **sample or estimated planning information**.
 
 ---
 
@@ -733,27 +871,31 @@ This project is available for **learning, personal development, and portfolio de
 
 You may modify the project for your own learning and development.
 
-Third-party assets and services used by the project remain subject to their respective licenses and terms.
+Third-party libraries, imagery, fonts, icons, and external services remain subject to their respective licenses and terms.
 
 ---
 
 # ⭐ Project Summary
 
-**TripPilot — Travel Planner** is a responsive, client-side travel planning application that combines:
+**TripPilot — Travel Planner** is a professional, responsive, client-side travel planning workspace that brings together:
 
 ```text
 🌎 Destination Discovery
-🗺️ Trip Planning
-🚆 Transportation Planning
-📅 Smart Itineraries
-🏨 Stay Finder
-💰 Budget Planning
-🎒 Packing Checklist
-🧳 Saved Trips
+🏠 SaaS-Style Home Dashboard
 📊 Trip Command Center
-⚙️ Travel Preferences
+🗺️ Trip Planning
+🚆 Transport Planning
+📅 Itinerary Studio
+🏨 Stay Finder
+💰 Budget Studio
+🎒 Packing Studio
+🧳 Saved Trips
+⚙️ Workspace Settings
+🌙 Dark / Light Theme
 💾 LocalStorage Persistence
 📤 Trip Summary Export
+📦 JSON Data Export
+📱 Responsive UI
 ```
 
 Built with:
