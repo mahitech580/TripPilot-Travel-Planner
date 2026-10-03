@@ -303,9 +303,13 @@ Travel Desk searches can now retain their form values locally. Selecting a recen
 
 ## 🖼️ Final visual layer
 
-The finished interface now uses a larger set of travel photographs across destination discovery, inspiration cards, stays and the home experience. Remote images are lazy-loaded and have a graceful visual fallback so a failed image request does not break the card layout.
+The visual system uses destination photography, hospitality photography and a cinematic home image to create a more realistic travel-product presentation. Images are responsive, lazy-loaded and animated on hover, with theme-aware contrast layers for both dark and light modes.
 
-The final interaction pass adds smoother press states, tactile ripple feedback, richer live-weather context and a more editorial travel presentation.
+Featured city imagery covers Hyderabad, Mumbai and Bengaluru, while Stay Finder uses a broader mix of resort and hotel-room photography. The visual cards retain their planning actions instead of acting as static decoration.
+
+### Visual asset sources
+
+The featured Hyderabad, Mumbai and Bengaluru photographs and the selected hospitality photographs were checked against their corresponding Unsplash photo pages. The selected source pages describe the images as free to use under the Unsplash License. citeturn437790view0turn202947view0turn202947view1turn263471view1turn263471view2turn979196view0turn979196view1turn979196view2turn979196view3
 
 ## ✅ Final theme and reliability pass
 
@@ -322,16 +326,11 @@ The Travel Desk, live travel context, planner, itinerary, stays, budget, packing
 
 ## 🖼️ 2026 Visual Refresh — Destination Studio & Stay Finder
 
-The latest production visual pass strengthens the two image-led discovery areas:
+Destination Studio now includes a dedicated featured-city presentation for **Hyderabad, Mumbai and Bengaluru**, with large destination photographs, city context and one-click planning actions. The normal destination grid remains available underneath for all supported places and filters.
 
-- **Destination Studio** has a cinematic backdrop plus refreshed destination photography, with dedicated featured visuals for **Hyderabad, Mumbai and Bengaluru**.
-- **Stay Finder** has a hospitality-focused backdrop plus refreshed accommodation photography for Budget, Comfort and Premium sample stays.
-- Remote images are requested up to **3840px wide** for high-resolution desktop presentation while remaining responsive through `cover` rendering.
-- The planner behavior remains unchanged: choosing a destination or sample stay can still move the selection into the trip planner.
+Stay Finder now begins with a hospitality-focused visual rail showing coastal resort, city-view, calm interior and premium-room moods before the searchable stay cards.
 
-The Hyderabad Charminar source photo and the hotel-room source photographs used in this pass are identified by Unsplash as free to use under the Unsplash License. Source pages are documented here:
+The final hero has also been corrected for light mode: the travel photograph remains clearly visible instead of being washed out by a near-white overlay. Dark mode keeps a deeper cinematic layer, while light mode uses a lighter contrast veil and dark typography.
 
-- https://unsplash.com/photos/the-charminar-a-historical-monument-in-india-LDYbI5R6vaM
-- https://unsplash.com/photos/luxurious-hotel-room-with-a-large-bed-and-balcony-view-uZoA9WaygLQ
-- https://unsplash.com/photos/a-well-lit-hotel-room-with-seating-and-a-desk-xQbmc2FnK3Y
-- https://unsplash.com/photos/luxurious-hotel-room-with-two-beds-and-city-view-jbwrqHBZPUY
+Remote photography is requested at high resolution and loaded lazily. A client-side image fallback prevents failed remote requests from breaking the visual layout.
+
