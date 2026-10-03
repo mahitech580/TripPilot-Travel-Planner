@@ -8689,13 +8689,13 @@ body.light-mode .destination-card.featured-city::after{
 
 /* Final destination image reliability: dedicated fallbacks for featured cities. */
 .destination-image.hyderabad{
-  background-image:url("https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=88&w=2200");
+  background-image:url("https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=92&w=3840");
 }
 .destination-image.mumbai{
-  background-image:url("https://images.unsplash.com/photo-1666856647637-dbc11915f258?auto=format&fit=crop&fm=jpg&q=88&w=2200");
+  background-image:url("https://images.unsplash.com/photo-1753806390564-347dae2483d3?auto=format&fit=crop&fm=jpg&q=92&w=3840");
 }
 .destination-image.bengaluru{
-  background-image:url("https://images.unsplash.com/photo-1741375870964-093181f9993a?auto=format&fit=crop&fm=jpg&q=88&w=2200");
+  background-image:url("https://images.unsplash.com/photo-1588416936097-41850ab3d86d?auto=format&fit=crop&fm=jpg&q=92&w=3840");
 }
 
 /* FINAL IMAGE REFRESH — DESTINATION STUDIO + STAY FINDER */
@@ -8891,4 +8891,151 @@ body:not(.light-mode) #home-content .hero-copy h1{
 }
 body.light-mode #home-content .hero-product{
   background:rgba(255,255,255,.78) !important;
+}
+
+
+/* FINAL READABILITY FIX — image stays visible in both themes */
+#home-content.home-section{
+  background-image:
+    linear-gradient(90deg,rgba(11,15,13,.80) 0%,rgba(11,15,13,.55) 46%,rgba(11,15,13,.22) 78%,rgba(11,15,13,.36) 100%),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=92") !important;
+  background-position:center !important;
+  background-size:cover !important;
+}
+body.light-mode #home-content.home-section{
+  background-image:
+    linear-gradient(90deg,rgba(255,255,255,.40) 0%,rgba(255,255,255,.24) 46%,rgba(255,255,255,.10) 78%,rgba(255,255,255,.18) 100%),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=92") !important;
+}
+#home-content.home-section::after{
+  opacity:.36 !important;
+}
+body.light-mode #home-content.home-section::after{
+  opacity:.22 !important;
+}
+#home-content .hero-copy{
+  background:rgba(11,15,13,.20) !important;
+  border-color:rgba(255,255,255,.13) !important;
+  box-shadow:0 24px 70px rgba(0,0,0,.14) !important;
+}
+body.light-mode #home-content .hero-copy{
+  background:rgba(255,255,255,.28) !important;
+  border-color:rgba(11,15,13,.10) !important;
+  box-shadow:0 24px 70px rgba(11,15,13,.09) !important;
+}
+body.light-mode #home-content .hero-description{
+  color:#26312c !important;
+}
+body.light-mode #home-content .hero-copy h1{
+  text-shadow:0 2px 20px rgba(255,255,255,.38) !important;
+}
+
+
+/* Destination Studio — featured cities */
+[data-subsection="discover"]{
+  background:
+    radial-gradient(circle at 8% 12%,rgba(72,184,121,.07),transparent 18rem),
+    radial-gradient(circle at 92% 12%,rgba(255,89,82,.06),transparent 18rem) !important;
+}
+body.light-mode [data-subsection="discover"]{
+  background:
+    radial-gradient(circle at 8% 12%,rgba(72,184,121,.08),transparent 18rem),
+    radial-gradient(circle at 92% 12%,rgba(255,89,82,.05),transparent 18rem),
+    #f6f8f6 !important;
+}
+.destination-featured-row{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:18px !important;
+  margin:28px 0 24px !important;
+}
+.destination-featured-card{
+  min-height:355px !important;
+  border-radius:24px !important;
+  box-shadow:0 22px 55px rgba(11,15,13,.14) !important;
+}
+.destination-featured-card img{
+  filter:saturate(1.06) contrast(1.03) !important;
+}
+.destination-featured-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  border-radius:inherit;
+  padding:1px;
+  background:var(--rainbow);
+  background-size:260% 100%;
+  animation:rainbowShift 12s linear infinite;
+  opacity:.45;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+.destination-featured-copy{
+  max-width:92%;
+}
+@media(max-width:1000px){
+  .destination-featured-row{grid-template-columns:1fr 1fr !important}
+  .destination-featured-card:last-child{grid-column:1/-1}
+}
+@media(max-width:720px){
+  .destination-featured-row{grid-template-columns:1fr !important}
+  .destination-featured-card:last-child{grid-column:auto}
+}
+
+/* Stay Finder — editorial hospitality rail */
+[data-subsection="stays"]{
+  background:
+    radial-gradient(circle at 12% 9%,rgba(72,184,121,.06),transparent 20rem),
+    radial-gradient(circle at 88% 12%,rgba(141,112,232,.06),transparent 20rem) !important;
+}
+body.light-mode [data-subsection="stays"]{
+  background:
+    radial-gradient(circle at 12% 9%,rgba(72,184,121,.07),transparent 20rem),
+    radial-gradient(circle at 88% 12%,rgba(223,99,201,.05),transparent 20rem),
+    #f6f8f6 !important;
+}
+.stay-feature-rail{
+  display:grid !important;
+  grid-template-columns:1.18fr 1fr 1fr 1fr !important;
+  gap:16px !important;
+  margin:28px 0 24px !important;
+}
+.stay-feature-card{
+  min-height:285px !important;
+  border-radius:22px !important;
+  box-shadow:0 20px 48px rgba(11,15,13,.12) !important;
+}
+.stay-feature-card img{
+  filter:saturate(1.02) contrast(1.03) !important;
+}
+.stay-feature-card:first-child{
+  min-height:315px !important;
+}
+.stay-feature-shade{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,rgba(11,15,13,.03),rgba(11,15,13,.75)) !important;
+}
+.stay-feature-copy{
+  z-index:2;
+}
+@media(max-width:1050px){
+  .stay-feature-rail{grid-template-columns:1fr 1fr !important}
+}
+@media(max-width:720px){
+  .stay-feature-rail{grid-template-columns:1fr !important}
+}
+
+/* Smooth image presentation everywhere */
+.destination-featured-card,
+.stay-feature-card{
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease,border-color .3s ease !important;
+}
+.destination-featured-card:hover,
+.stay-feature-card:hover{
+  transform:translateY(-8px) !important;
 }
