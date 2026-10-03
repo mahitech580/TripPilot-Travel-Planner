@@ -5491,34 +5491,122 @@ function renderLiveWeather(place,data){
     '<div class="live-forecast">' + forecast + '</div>';
 }
 
-function renderLiveError(message){
+function renderMapPreviewFallback(originName,destinationName,reason){
+  var node=$("tripMap");
+  if(!node) return;
+
+  var fallback=node.querySelector(".map-preview-fallback");
+  if(!fallback){
+    fallback=document.createElement("div");
+    fallback.className="map-preview-fallback";
+    fallback.innerHTML=
+      '<div class="map-preview-grid"></div>' +
+      '<svg class="map-preview-route" viewBox="0 0 640 320" aria-hidden="true">' +
+        '<path d="M88 230 C150 195 182 248 238 188 S334 96 406 134 S516 178 560 86" pathLength="1"></path>' +
+        '<circle cx="88" cy="230" r="13" class="origin-dot"></circle>' +
+        '<circle cx="560" cy="86" r="13" class="destination-dot"></circle>' +
+        '<circle cx="88" cy="230" r="28" class="pulse-dot origin-pulse"></circle>' +
+        '<circle cx="560" cy="86" r="28" class="pulse-dot destination-pulse"></circle>' +
+      '</svg>' +
+      '<div class="map-preview-label map-preview-origin"></div>' +
+      '<div class="map-preview-label map-preview-destination"></div>' +
+      '<div class="map-preview-status"><i class="bx bx-map"></i><span></span></div>';
+    node.appendChild(fallback);
+  }
+
+  fallback.querySelector(".map-preview-origin").textContent=originName || "Origin";
+  fallback.querySelector(".map-preview-destination").textContent=destinationName || "Destination";
+  fallback.querySelector(".map-preview-status span").textContent=reason || "Route preview active";
+  fallback.classList.add("show");
+}
+
+function hideMapPreviewFallback(){
+  var node=$("tripMap");
+  var fallback=node?.querySelector(".map-preview-fallback");
+  if(fallback) fallback.classList.remove("show");
+}
+
+function renderLiveOfflinePreview(place){
   var panel=$("liveWeatherPanel");
   if(!panel) return;
+
+  var name=place?.name || state.trip.destination || "your destination";
+  var admin=place?.admin1 ? " · "+place.admin1 : "";
+
   panel.innerHTML=
-    '<div class="live-error"><div>' +
-      '<i class="bx bx-wind"></i>' +
-      '<h3>Live travel data is temporarily unavailable</h3>' +
-      '<p>' + escapeHTML(message || "Please check your connection and try again.") + '</p>' +
-      '<button class="btn primary-btn" type="button" id="liveRetryButton"><i class="bx bx-refresh"></i> Try again</button>' +
-    '</div></div>';
+    '<div class="live-offline-card">' +
+      '<div class="live-offline-icon"><i class="bx bx-signal-5"></i></div>' +
+      '<span class="live-weather-badge">PREVIEW MODE</span>' +
+      '<h3>TripPilot is ready for '+escapeHTML(name)+'</h3>' +
+      '<p>Live weather is unavailable right now, but your destination workspace remains ready. Refresh later to reconnect live conditions.</p>' +
+      '<div class="live-offline-facts">' +
+        '<span><i class="bx bx-map-pin"></i>'+escapeHTML(name)+escapeHTML(admin)+'</span>' +
+        '<span><i class="bx bx-time-five"></i>Planning tools remain available</span>' +
+      '</div>' +
+      '<button class="btn primary-btn" type="button" id="liveRetryButton"><i class="bx bx-refresh"></i> Refresh live data</button>' +
+    '</div>';
+
   $("liveRetryButton")?.addEventListener("click",function(){refreshLiveTravel(true);});
 }
 
 function initLiveMap(){
   var node=$("tripMap");
-  if(!node || !window.L) return null;
-  if(liveMapInstance) return liveMapInstance;
+  if(!node) return null;
 
-  liveMapInstance=L.map(node,{zoomControl:true,scrollWheelZoom:false});
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
-    maxZoom:19,
-    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
-  }).addTo(liveMapInstance);
-  return liveMapInstance;
+  if(liveMapInstance){
+    try{window.setTimeout(function(){liveMapInstance.invalidateSize();},40);}catch(error){}
+    return liveMapInstance;
+  }
+
+  if(!window.L){
+    renderMapPreviewFallback(state.trip.from || "Hyderabad",state.trip.destination || "Goa","Map library unavailable · route preview active");
+    return null;
+  }
+
+  try{
+    liveMapInstance=L.map(node,{zoomControl:true,scrollWheelZoom:false,attributionControl:true});
+    var tiles=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+      maxZoom:19,
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+    });
+
+    tiles.on("load",function(){
+      hideMapPreviewFallback();
+      try{liveMapInstance.invalidateSize();}catch(error){}
+    });
+
+    tiles.on("tileerror",function(){
+      renderMapPreviewFallback(
+        state.trip.from || "Hyderabad",
+        state.trip.destination || "Goa",
+        "Map tiles unavailable · route preview active"
+      );
+    });
+
+    tiles.addTo(liveMapInstance);
+
+    window.setTimeout(function(){
+      try{liveMapInstance.invalidateSize();}catch(error){}
+    },80);
+
+    return liveMapInstance;
+  }catch(error){
+    liveMapInstance=null;
+    renderMapPreviewFallback(
+      state.trip.from || "Hyderabad",
+      state.trip.destination || "Goa",
+      "Interactive map unavailable · route preview active"
+    );
+    return null;
+  }
 }
 
 async function liveRoute(origin,destination){
-  if(!window.L) return null;
+  if(!window.L){
+    renderMapPreviewFallback(origin.name,destination.name,"Map library unavailable · route preview active");
+    return null;
+  }
+
   var map=initLiveMap();
   if(!map) return null;
 
@@ -5531,27 +5619,54 @@ async function liveRoute(origin,destination){
       origin.longitude+","+origin.latitude+";"+
       destination.longitude+","+destination.latitude+
       "?overview=full&geometries=geojson&alternatives=true";
-    data=await liveFetchJSON(url);
-    liveWriteCache(cacheKey,data);
+
+    try{
+      data=await liveFetchJSON(url);
+      liveWriteCache(cacheKey,data);
+    }catch(error){
+      data=null;
+    }
   }
 
   if(liveRouteLayer) liveRouteLayer.remove();
   if(liveOriginMarker) liveOriginMarker.remove();
   if(liveDestinationMarker) liveDestinationMarker.remove();
 
-  liveOriginMarker=L.circleMarker([origin.latitude,origin.longitude],{radius:8,color:"#a33631",weight:3,fillColor:"#a33631",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(origin.name)+"</strong><br>Origin");
-  liveDestinationMarker=L.circleMarker([destination.latitude,destination.longitude],{radius:8,color:"#1f8a5a",weight:3,fillColor:"#1f8a5a",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(destination.name)+"</strong><br>Destination");
+  liveOriginMarker=L.circleMarker(
+    [origin.latitude,origin.longitude],
+    {radius:8,color:"#a33631",weight:3,fillColor:"#a33631",fillOpacity:.88}
+  ).addTo(map).bindPopup("<strong>"+escapeHTML(origin.name)+"</strong><br>Origin");
 
-  if(data.code==="Ok" && data.routes && data.routes.length){
+  liveDestinationMarker=L.circleMarker(
+    [destination.latitude,destination.longitude],
+    {radius:8,color:"#1f8a5a",weight:3,fillColor:"#1f8a5a",fillOpacity:.88}
+  ).addTo(map).bindPopup("<strong>"+escapeHTML(destination.name)+"</strong><br>Destination");
+
+  if(data?.code==="Ok" && data.routes && data.routes.length){
     var route=data.routes[0];
-    liveRouteLayer=L.geoJSON(route.geometry,{style:{color:"#a33631",weight:5,opacity:.83,dashArray:"9 7"}}).addTo(map);
+    liveRouteLayer=L.geoJSON(route.geometry,{
+      style:{color:"#a33631",weight:5,opacity:.83,dashArray:"9 7"}
+    }).addTo(map);
+
     var bounds=L.latLngBounds([[origin.latitude,origin.longitude],[destination.latitude,destination.longitude]]);
     route.geometry.coordinates.forEach(function(pair){bounds.extend([pair[1],pair[0]]);});
     map.fitBounds(bounds.pad(.12));
+    hideMapPreviewFallback();
+
     return {distanceKm:route.distance/1000,durationMin:route.duration/60};
   }
 
-  map.fitBounds(L.latLngBounds([[origin.latitude,origin.longitude],[destination.latitude,destination.longitude]]).pad(.18));
+  map.fitBounds(
+    L.latLngBounds(
+      [[origin.latitude,origin.longitude],[destination.latitude,destination.longitude]]
+    ).pad(.18)
+  );
+
+  renderMapPreviewFallback(
+    origin.name,
+    destination.name,
+    "Road geometry unavailable · route preview active"
+  );
   return null;
 }
 
@@ -5559,9 +5674,20 @@ function updateLiveRouteText(origin,destination,route){
   $("liveRouteTitle").textContent=origin.name+" → "+destination.name;
   $("liveRouteMeta").textContent=route ?
     "Road-routing reference · "+Math.round(route.distanceKm).toLocaleString("en-IN")+" km · "+Math.floor(route.durationMin/60)+" h "+Math.round(route.durationMin%60)+" min" :
-    "Road-routing reference · route geometry unavailable right now";
+    "Road-routing reference · route preview active";
 
   $("liveOpenMaps").href="https://www.openstreetmap.org/?mlat="+destination.latitude+"&mlon="+destination.longitude+"#map=10/"+destination.latitude+"/"+destination.longitude;
+}
+
+function renderLiveError(message){
+  renderLiveOfflinePreview(livePreviewPlace || {name:state.trip.destination || "your destination"});
+  renderMapPreviewFallback(
+    state.trip.from || "Hyderabad",
+    state.trip.destination || "Goa",
+    "Live location unavailable · route preview active"
+  );
+  var sync=$("liveSync");
+  if(sync) sync.textContent="Preview mode · live refresh unavailable";
 }
 
 async function refreshLiveTravel(force){
@@ -5572,25 +5698,66 @@ async function refreshLiveTravel(force){
   var destinationName=livePreviewPlace?.name || state.trip.destination || "Goa";
   var requestKey=originName.trim().toLowerCase()+"|"+destinationName.trim().toLowerCase();
 
-  if(!force && requestKey===liveRequestKey && liveReadCache("geo:"+originName.toLowerCase()) && liveReadCache("geo:"+destinationName.toLowerCase())){
+  if(!force && requestKey===liveRequestKey &&
+     liveReadCache("geo:"+originName.toLowerCase()) &&
+     liveReadCache("geo:"+destinationName.toLowerCase())){
     if(sync) sync.textContent="Live data cached · just now";
     return;
   }
 
   liveRequestKey=requestKey;
 
+  var places;
   try{
-    var results=await Promise.all([liveGeocode(originName),livePreviewPlace || liveGeocode(destinationName)]);
-    var origin=results[0], destination=results[1];
-    var weather=await liveWeather(destination);
-    renderLiveWeather(destination,weather);
-    var route=await liveRoute(origin,destination);
-    updateLiveRouteText(origin,destination,route);
-    if(sync) sync.textContent="Updated "+new Intl.DateTimeFormat("en-IN",{hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date());
+    places=await Promise.all([
+      liveGeocode(originName),
+      livePreviewPlace || liveGeocode(destinationName)
+    ]);
   }catch(error){
-    console.error("TripPilot live data:",error);
-    renderLiveError(error && error.message==="Location not found" ? "Try a city or destination name such as Goa, Dubai or Singapore." : "Check your internet connection and try the live refresh again.");
-    if(sync) sync.textContent="Live sync failed";
+    renderLiveError(
+      error && error.message==="Location not found"
+        ? "Use a city or destination name such as Hyderabad, Goa, Mumbai or Bengaluru."
+        : "Live location services are unavailable right now."
+    );
+    return;
+  }
+
+  var origin=places[0];
+  var destination=places[1];
+
+  var weather=null;
+  try{
+    weather=await liveWeather(destination);
+  }catch(error){
+    renderLiveOfflinePreview(destination);
+  }
+
+  var air=null;
+  if(weather && typeof liveAirQuality==="function"){
+    air=await liveAirQuality(destination).catch(function(){return null;});
+  }
+
+  if(weather){
+    renderLiveWeather(destination,weather);
+    if(typeof injectAqi==="function") injectAqi(air);
+  }
+
+  var route=await liveRoute(origin,destination);
+  updateLiveRouteText(origin,destination,route);
+
+  var statusParts=[];
+  if(weather) statusParts.push("Weather");
+  if(route) statusParts.push("Route");
+  if(air) statusParts.push("Air quality");
+
+  if(sync){
+    if(statusParts.length===3){
+      sync.textContent="Live data updated";
+    }else if(statusParts.length){
+      sync.textContent="Live "+statusParts.join(" + ")+" updated";
+    }else{
+      sync.textContent="Preview mode · live data unavailable";
+    }
   }
 }
 
