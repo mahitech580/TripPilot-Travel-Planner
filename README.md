@@ -250,3 +250,34 @@ This project is intended for learning, personal development and portfolio demons
 ~~~
 
 **Plan smarter. Travel better. ✈️**
+
+## 🧳 Travel Desk
+
+TripPilot now includes a dedicated Travel Desk inspired by modern online travel marketplace patterns while keeping its own branding and planning workflow.
+
+The Travel Desk groups multiple travel categories into one interface:
+- Flights
+- Hotels
+- Trains
+- Buses
+- Cabs
+- Activities
+- Holiday packages
+- Travel insurance
+- Currency conversion
+
+MakeMyTrip's current product surface similarly spans flights, hotels, villas/homestays, holiday packages, trains, buses, cabs, tours & attractions, visa, cruise, forex and travel insurance. Its flight flow also exposes one-way, round-trip and multi-city search choices, while its flight pages describe fare-calendar and filtering features. citeturn291377search1turn291377search4turn854518search8
+
+TripPilot does **not** copy MakeMyTrip's branding, assets or proprietary interface. The reference is used only for high-level product patterns such as category navigation, search forms, provider hand-offs and travel-service breadth.
+
+### Live hand-off model
+
+For booking categories, TripPilot prepares a realistic search context and then opens the relevant provider's live page. This keeps the static GitHub Pages architecture while avoiding fake live inventory or embedded checkout.
+
+### Live currency
+
+Travel Desk currency conversion uses Frankfurter's public exchange-rate API. Frankfurter documents a no-API-key HTTPS API and daily exchange-rate data from official sources. citeturn876710search1turn876710search2
+
+### Live air quality
+
+Live Travel can also use Open-Meteo air-quality data for US AQI and particulate matter variables. Open-Meteo documents current air-quality conditions and five-day forecasts for these variables. citeturn876710search0
