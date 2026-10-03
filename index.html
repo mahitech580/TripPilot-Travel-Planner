@@ -6,10 +6,12 @@
 
 <meta
   name="description"
-  content="TripPilot — interactive travel planner for destinations, transport, itinerary, stays, budgets, packing and saved trips."
+  content="TripPilot — a professional SaaS-style travel planning workspace for destinations, transport, itineraries, stays, budgets, packing and saved trips."
 >
 
-<title>TripPilot — Travel Planner</title>
+<meta name="theme-color" content="#07151b">
+
+<title>TripPilot — Travel Planning Workspace</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,234 +32,545 @@
 <body>
 
 <!-- =========================================================
-     HEADER
+     APP HEADER
      ========================================================= -->
 
 <header id="header">
 
-  <a href="#home" class="logo">
-    Trip<span>Pilot.</span>
-  </a>
+  <div class="header-left">
 
-  <ul class="navlist">
+    <a href="#home" class="logo">
+      Trip<span>Pilot.</span>
+    </a>
 
-    <li>
-      <a href="#home" data-nav class="active" style="--i:1">
-        Home
-      </a>
-    </li>
+    <span class="product-badge">
+      TRAVEL OS
+    </span>
 
-    <li>
-      <a href="#command-center" data-nav style="--i:2">
-        Command Center
-      </a>
-    </li>
+  </div>
 
-    <li>
-      <a href="#discover" data-nav style="--i:3">
-        Discover
-      </a>
-    </li>
 
-    <li>
-      <a href="#planner" data-nav style="--i:4">
-        Plan Trip
-      </a>
-    </li>
+  <nav class="navlist" aria-label="Primary navigation">
 
-    <li>
-      <a href="#transport" data-nav style="--i:5">
-        Transport
-      </a>
-    </li>
+    <a href="#home" data-nav class="active">
+      <i class="bx bx-home-alt-2"></i>
+      <span>Home</span>
+    </a>
 
-    <li>
-      <a href="#itinerary" data-nav style="--i:6">
-        Itinerary
-      </a>
-    </li>
+    <a href="#command-center" data-nav>
+      <i class="bx bx-grid-alt"></i>
+      <span>Dashboard</span>
+    </a>
 
-    <li>
-      <a href="#stays" data-nav style="--i:7">
-        Stays
-      </a>
-    </li>
+    <a href="#discover" data-nav>
+      <i class="bx bx-compass"></i>
+      <span>Discover</span>
+    </a>
 
-    <li>
-      <a href="#budget" data-nav style="--i:8">
-        Budget
-      </a>
-    </li>
+    <a href="#planner" data-nav>
+      <i class="bx bx-map-alt"></i>
+      <span>Plan</span>
+    </a>
 
-    <li>
-      <a href="#packing" data-nav style="--i:9">
-        Packing
-      </a>
-    </li>
+    <a href="#transport" data-nav>
+      <i class="bx bx-trip"></i>
+      <span>Transport</span>
+    </a>
 
-    <li>
-      <a href="#trips" data-nav style="--i:10">
-        My Trips
-      </a>
-    </li>
+    <a href="#itinerary" data-nav>
+      <i class="bx bx-calendar-event"></i>
+      <span>Itinerary</span>
+    </a>
 
-    <li>
-      <a href="#settings" data-nav style="--i:11">
-        Settings
-      </a>
-    </li>
+    <a href="#stays" data-nav>
+      <i class="bx bx-building-house"></i>
+      <span>Stays</span>
+    </a>
 
-  </ul>
+    <a href="#budget" data-nav>
+      <i class="bx bx-wallet"></i>
+      <span>Budget</span>
+    </a>
 
-  <div
-    id="menu-icon"
-    class="bx bx-menu"
-    role="button"
-    tabindex="0"
-    aria-label="Open navigation"
-  ></div>
+    <a href="#packing" data-nav>
+      <i class="bx bx-briefcase"></i>
+      <span>Packing</span>
+    </a>
+
+    <a href="#trips" data-nav>
+      <i class="bx bx-book-heart"></i>
+      <span>Trips</span>
+    </a>
+
+  </nav>
+
+
+  <div class="header-actions">
+
+    <button
+      class="icon-button"
+      id="themeToggle"
+      type="button"
+      aria-label="Toggle theme"
+      title="Toggle theme"
+    >
+      <i class="bx bx-moon"></i>
+    </button>
+
+    <a
+      href="#settings"
+      class="profile-chip"
+      aria-label="Open settings"
+    >
+      <span class="profile-avatar">
+        M
+      </span>
+
+      <span class="profile-name">
+        Mahi
+      </span>
+
+      <i class="bx bx-chevron-down"></i>
+    </a>
+
+    <button
+      id="menu-icon"
+      class="icon-button menu-button"
+      type="button"
+      aria-label="Open navigation"
+    >
+      <i class="bx bx-menu"></i>
+    </button>
+
+  </div>
 
 </header>
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main>
 
 
 <!-- =========================================================
      01. HOME
      ========================================================= -->
 
-<section id="home" class="home container">
+<section id="home" class="home-section">
 
-  <div class="home-content scroll-scale">
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-    <div class="eyebrow">
-      TRAVEL PLANNING, YOUR WAY
-    </div>
+  <div class="container">
 
-    <h1>
-      Hey Mahi, <span>where next?</span>
-    </h1>
+    <div class="announcement-bar scroll-scale">
 
-    <div class="change-text">
-
-      <h3>Your </h3>
-
-      <h3>
-
-        <span class="word">weekend escape</span>
-        <span class="word">train adventure</span>
-        <span class="word">road trip</span>
-        <span class="word">beach break</span>
-        <span class="word">mountain journey</span>
-
-      </h3>
-
-    </div>
-
-    <p>
-      TripPilot is a realistic travel-planning workspace that brings
-      destinations, transport, day plans, stays, budgets, packing and
-      saved trips into one smooth experience.
-    </p>
-
-    <div class="info-box">
-
-      <div>
-        <h5>Transport :</h5>
+      <div class="announcement-left">
+        <i class="bx bx-sparkles"></i>
         <span>
-          Flight · Train · Bus · Cab · Auto · Metro · Ferry · Mixed
+          Your personal travel planning workspace
         </span>
       </div>
 
-      <div>
-        <h5>Mode :</h5>
-        <span>
-          Local-first planner · GitHub Pages ready
+      <div class="announcement-right">
+        <span class="status-dot"></span>
+        Local-first · GitHub Pages ready
+      </div>
+
+    </div>
+
+
+    <div class="hero-grid">
+
+
+      <!-- HERO COPY -->
+
+      <div class="hero-copy scroll-bottom">
+
+        <div class="eyebrow">
+          PLAN · ORGANIZE · TRAVEL
+        </div>
+
+        <h1>
+          Travel planning,
+          <span>without the chaos.</span>
+        </h1>
+
+        <div class="hero-rotator">
+
+          <span class="hero-static">
+            Build your
+          </span>
+
+          <div class="rotating-window">
+
+            <span class="word active-word">
+              weekend escape
+            </span>
+
+            <span class="word">
+              mountain journey
+            </span>
+
+            <span class="word">
+              beach getaway
+            </span>
+
+            <span class="word">
+              city adventure
+            </span>
+
+            <span class="word">
+              road trip
+            </span>
+
+          </div>
+
+        </div>
+
+        <p class="hero-description">
+
+          TripPilot is your all-in-one travel workspace for
+          discovering destinations, designing routes, organizing
+          itineraries, comparing transport, planning stays,
+          controlling budgets and getting trip-ready.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+          <a href="#planner" class="btn primary-btn">
+            <i class="bx bx-plus-circle"></i>
+            Create a Trip
+          </a>
+
+          <a href="#command-center" class="btn secondary-btn">
+            <i class="bx bx-grid-alt"></i>
+            Open Dashboard
+          </a>
+
+        </div>
+
+
+        <div class="hero-trust-row">
+
+          <div class="trust-item">
+            <i class="bx bx-shield-quarter"></i>
+            <span>Browser-local</span>
+          </div>
+
+          <div class="trust-item">
+            <i class="bx bx-cloud-off"></i>
+            <span>No backend required</span>
+          </div>
+
+          <div class="trust-item">
+            <i class="bx bx-mobile-alt"></i>
+            <span>Responsive</span>
+          </div>
+
+        </div>
+
+
+        <div class="hero-mini-stats">
+
+          <div>
+            <strong id="heroSavedTrips">
+              0
+            </strong>
+
+            <span>
+              Saved trips
+            </span>
+          </div>
+
+          <div>
+            <strong id="heroUpcomingTrips">
+              0
+            </strong>
+
+            <span>
+              Upcoming
+            </span>
+          </div>
+
+          <div>
+            <strong id="heroTripReadiness">
+              0%
+            </strong>
+
+            <span>
+              Trip ready
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- HERO PRODUCT PANEL -->
+
+      <div class="hero-product scroll-scale">
+
+        <div class="product-topbar">
+
+          <div class="window-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="product-top-title">
+            TripPilot Workspace
+          </div>
+
+          <div class="live-pill">
+            <span class="status-dot"></span>
+            LIVE
+          </div>
+
+        </div>
+
+
+        <div class="hero-product-body">
+
+          <div class="hero-product-header">
+
+            <div>
+
+              <span class="panel-kicker">
+                CURRENT TRIP
+              </span>
+
+              <h2 id="heroProductTitle">
+                Hyderabad → Goa
+              </h2>
+
+              <p id="heroProductDates">
+                Your trip workspace
+              </p>
+
+            </div>
+
+            <div class="mini-avatar">
+              M
+            </div>
+
+          </div>
+
+
+          <div class="hero-route-visual">
+
+            <div class="hero-route-line"></div>
+
+            <div class="hero-route-point start">
+              <i class="bx bx-map-pin"></i>
+              <span>Start</span>
+            </div>
+
+            <div class="hero-route-point destination">
+              <i class="bx bx-flag"></i>
+              <span id="heroRouteDestination">
+                Goa
+              </span>
+            </div>
+
+          </div>
+
+
+          <div class="hero-product-grid">
+
+            <div class="product-stat-card">
+
+              <span>
+                Status
+              </span>
+
+              <strong id="heroTripStatus">
+                Planning
+              </strong>
+
+              <small id="heroTripStatusNote">
+                Ready to build
+              </small>
+
+            </div>
+
+
+            <div class="product-stat-card">
+
+              <span>
+                Budget
+              </span>
+
+              <strong id="heroProductBudget">
+                ₹0
+              </strong>
+
+              <small>
+                Current estimate
+              </small>
+
+            </div>
+
+
+            <div class="product-stat-card">
+
+              <span>
+                Duration
+              </span>
+
+              <strong id="heroProductDays">
+                0
+              </strong>
+
+              <small>
+                Trip days
+              </small>
+
+            </div>
+
+
+            <div class="product-stat-card">
+
+              <span>
+                Travelers
+              </span>
+
+              <strong id="heroProductTravelers">
+                0
+              </strong>
+
+              <small>
+                People
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="hero-progress-block">
+
+            <div class="progress-head">
+
+              <span>
+                Trip readiness
+              </span>
+
+              <strong id="heroReadinessLabel">
+                0%
+              </strong>
+
+            </div>
+
+            <div class="progress-track">
+
+              <i id="heroReadinessBar"></i>
+
+            </div>
+
+          </div>
+
+
+          <div class="hero-product-footer">
+
+            <a
+              href="#planner"
+              class="mini-action"
+            >
+              <i class="bx bx-edit-alt"></i>
+              Edit plan
+            </a>
+
+            <a
+              href="#itinerary"
+              class="mini-action"
+            >
+              <i class="bx bx-calendar-check"></i>
+              View itinerary
+            </a>
+
+            <a
+              href="#budget"
+              class="mini-action"
+            >
+              <i class="bx bx-wallet"></i>
+              Open budget
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- HERO SHORTCUTS -->
+
+    <div class="hero-shortcuts scroll-bottom">
+
+      <a href="#discover" class="hero-shortcut">
+        <span class="shortcut-icon">
+          <i class="bx bx-compass"></i>
         </span>
-      </div>
 
-    </div>
+        <span>
+          <strong>Discover</strong>
+          <small>Find destinations</small>
+        </span>
 
-    <div class="btn-box">
-
-      <a href="#planner" class="btn">
-        <i class="bx bx-map"></i>
-        Start Planning
+        <i class="bx bx-right-arrow-alt"></i>
       </a>
 
-      <a href="#discover" class="btn secondary">
-        <i class="bx bx-compass"></i>
-        Explore Places
+
+      <a href="#transport" class="hero-shortcut">
+        <span class="shortcut-icon">
+          <i class="bx bx-trip"></i>
+        </span>
+
+        <span>
+          <strong>Transport</strong>
+          <small>Compare movement</small>
+        </span>
+
+        <i class="bx bx-right-arrow-alt"></i>
       </a>
 
-    </div>
 
-    <div class="social-icons">
+      <a href="#stays" class="hero-shortcut">
+        <span class="shortcut-icon">
+          <i class="bx bx-building-house"></i>
+        </span>
 
-      <a href="#transport" aria-label="Transport">
-        <i class="bx bx-trip"></i>
+        <span>
+          <strong>Stay Finder</strong>
+          <small>Choose accommodation</small>
+        </span>
+
+        <i class="bx bx-right-arrow-alt"></i>
       </a>
 
-      <a href="#itinerary" aria-label="Itinerary">
-        <i class="bx bx-list-check"></i>
+
+      <a href="#packing" class="hero-shortcut">
+        <span class="shortcut-icon">
+          <i class="bx bx-briefcase-alt-2"></i>
+        </span>
+
+        <span>
+          <strong>Packing</strong>
+          <small>Get departure-ready</small>
+        </span>
+
+        <i class="bx bx-right-arrow-alt"></i>
       </a>
 
-      <a href="#budget" aria-label="Budget">
-        <i class="bx bx-wallet"></i>
-      </a>
-
-      <a href="#trips" aria-label="My Trips">
-        <i class="bx bx-book-heart"></i>
-      </a>
-
-      <a href="#command-center" aria-label="Command Center">
-        <i class="bx bx-dashboard"></i>
-      </a>
-
-    </div>
-
-  </div>
-
-
-  <div class="home-visual scroll-scale">
-
-    <div class="map-orb">
-
-      <div class="route-route">
-        <span class="route-point p1"></span>
-        <span class="route-point p2"></span>
-        <span class="route-point p3"></span>
-        <span class="route-point p4"></span>
-      </div>
-
-      <div class="map-core">
-
-        <i class="bx bx-compass"></i>
-
-        <strong id="homeDestination">
-          GOA
-        </strong>
-
-        <small id="homeDistance">
-          0 km planned
-        </small>
-
-      </div>
-
-    </div>
-
-
-    <div class="float-card one">
-      <small>Next trip</small>
-      <b id="homeNextTrip">Goa</b>
-    </div>
-
-    <div class="float-card two">
-      <small>Trip budget</small>
-      <b id="homeTripBudget">₹18,500</b>
-    </div>
-
-    <div class="float-card three">
-      <small>Saved trips</small>
-      <b id="homeSavedTrips">0</b>
     </div>
 
   </div>
@@ -266,299 +579,328 @@
 
 
 <!-- =========================================================
-     02. TRIP COMMAND CENTER
+     02. COMMAND CENTER
      ========================================================= -->
 
-<section id="command-center">
+<section id="command-center" class="product-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header split-header scroll-scale">
 
-      <span>
-        one view for your whole trip
-      </span>
+      <div>
 
-      <h2>
-        Trip Command Center
-      </h2>
+        <span class="section-eyebrow">
+          WORKSPACE OVERVIEW
+        </span>
+
+        <h2>
+          Your travel
+          <span>command center.</span>
+        </h2>
+
+        <p>
+          Everything important about your current trip,
+          visible in one product-style dashboard.
+        </p>
+
+      </div>
+
+
+      <div class="section-header-actions">
+
+        <button
+          class="btn secondary-btn small-btn"
+          type="button"
+          id="commandExport"
+        >
+          <i class="bx bx-download"></i>
+          Export Summary
+        </button>
+
+        <a
+          href="#planner"
+          class="btn primary-btn small-btn"
+        >
+          <i class="bx bx-plus"></i>
+          Edit Trip
+        </a>
+
+      </div>
 
     </div>
 
 
-    <div class="command-shell">
+    <div class="dashboard-grid">
 
+      <div class="dashboard-main panel scroll-bottom">
 
-      <!-- MAIN COMMAND PANEL -->
-
-      <div class="command-main panel command-hero scroll-bottom">
-
-        <div class="command-top">
+        <div class="dashboard-main-head">
 
           <div>
 
-            <span class="command-kicker">
-              TRIP READINESS
+            <span class="panel-kicker">
+              TRIP HEALTH
             </span>
 
-            <h2 id="ccHeroTitle">
-              Your <span>next trip</span> command center
-            </h2>
+            <h3 id="commandTitle">
+              Goa trip workspace
+            </h3>
 
-            <p class="command-subtitle">
-              See your route, countdown, budget, itinerary
-              and packing progress without leaving the planner.
+            <p id="commandSubtitle">
+              Keep your route moving from idea to departure.
             </p>
 
           </div>
 
-
-          <div class="command-actions">
-
-            <button
-              class="btn small"
-              type="button"
-              id="ccExport"
-            >
-              <i class="bx bx-download"></i>
-              Export Summary
-            </button>
-
-            <button
-              class="btn secondary small"
-              type="button"
-              data-cc-target="planner"
-            >
-              <i class="bx bx-edit"></i>
-              Edit Trip
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- QUICK STATS -->
-
-        <div class="command-grid">
-
-          <div class="command-stat">
-
-            <small>Status</small>
-
-            <strong id="ccStatus">
-              Checking…
-            </strong>
-
-            <em id="ccStatusNote">
-              Trip status
-            </em>
-
-          </div>
-
-
-          <div class="command-stat">
-
-            <small>Route</small>
-
-            <strong id="ccRoute">
-              —
-            </strong>
-
-            <em>
-              Current plan
-            </em>
-
-          </div>
-
-
-          <div class="command-stat">
-
-            <small>Duration</small>
-
-            <strong id="ccDays">
-              0
-            </strong>
-
-            <em>
-              day(s)
-            </em>
-
-          </div>
-
-
-          <div class="command-stat">
-
-            <small>Travelers</small>
-
-            <strong id="ccTravelers">
-              0
-            </strong>
-
-            <em id="ccTransport">
-              Not set
-            </em>
-
-          </div>
-
-        </div>
-
-
-        <!-- READINESS -->
-
-        <div class="command-readiness">
-
-
-          <div
-            class="readiness-ring"
-            id="ccReadinessRing"
+          <span
+            class="dashboard-status"
+            id="commandStatus"
           >
+            Planning
+          </span>
 
-            <div class="readiness-center">
+        </div>
 
-              <strong id="ccReadinessText">
-                0%
+
+        <div class="dashboard-hero-grid">
+
+
+          <div class="readiness-card">
+
+            <div
+              class="readiness-ring"
+              id="readinessRing"
+            >
+
+              <div class="readiness-ring-inner">
+
+                <strong id="readinessPercent">
+                  0%
+                </strong>
+
+                <span>
+                  ready
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="readiness-copy">
+
+              <strong>
+                Trip readiness
+              </strong>
+
+              <p>
+                A simple planning indicator based on
+                your current trip setup.
+              </p>
+
+              <a href="#planner">
+                Continue planning
+                <i class="bx bx-right-arrow-alt"></i>
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <div class="dashboard-metrics">
+
+            <div class="metric-box">
+              <span>
+                Route
+              </span>
+
+              <strong id="commandRoute">
+                Hyderabad → Goa
               </strong>
 
               <small>
-                ready
+                Current route
               </small>
+            </div>
 
+
+            <div class="metric-box">
+              <span>
+                Countdown
+              </span>
+
+              <strong id="commandCountdown">
+                Planning
+              </strong>
+
+              <small id="commandCountdownNote">
+                Trip status
+              </small>
+            </div>
+
+
+            <div class="metric-box">
+              <span>
+                Budget
+              </span>
+
+              <strong id="commandBudget">
+                ₹0
+              </strong>
+
+              <small>
+                Estimated reserve
+              </small>
+            </div>
+
+
+            <div class="metric-box">
+              <span>
+                Transport
+              </span>
+
+              <strong id="commandTransport">
+                Flight
+              </strong>
+
+              <small>
+                Primary mode
+              </small>
             </div>
 
           </div>
 
+        </div>
 
-          <div class="command-checks">
 
+        <div class="dashboard-checklist">
 
-            <div
-              class="command-check"
-              id="ccPlannerCheck"
-            >
+          <div class="dashboard-check">
 
-              <div class="command-check-left">
+            <div class="dashboard-check-left">
 
-                <div class="command-check-icon">
-                  <i class="bx bx-map"></i>
-                </div>
+              <span class="check-icon" id="checkTripIcon">
+                <i class="bx bx-map"></i>
+              </span>
 
-                <div class="command-check-copy">
+              <div>
 
-                  <b>
-                    Trip setup
-                  </b>
+                <strong>
+                  Trip setup
+                </strong>
 
-                  <small>
-                    Route, dates and travelers
-                  </small>
-
-                </div>
+                <small>
+                  Route, dates and travelers
+                </small>
 
               </div>
 
-              <span class="command-check-value">
-                Missing
-              </span>
-
             </div>
 
-
-            <div
-              class="command-check"
-              id="ccItineraryCheck"
+            <span
+              class="check-value"
+              id="checkTripValue"
             >
+              Missing
+            </span>
 
-              <div class="command-check-left">
+          </div>
 
-                <div class="command-check-icon">
-                  <i class="bx bx-list-check"></i>
-                </div>
 
-                <div class="command-check-copy">
+          <div class="dashboard-check">
 
-                  <b>
-                    Itinerary
-                  </b>
+            <div class="dashboard-check-left">
 
-                  <small>
-                    Day plan coverage
-                  </small>
+              <span class="check-icon" id="checkItineraryIcon">
+                <i class="bx bx-calendar-check"></i>
+              </span>
 
-                </div>
+              <div>
+
+                <strong>
+                  Itinerary
+                </strong>
+
+                <small>
+                  Day-by-day trip coverage
+                </small>
 
               </div>
 
-              <span class="command-check-value">
-                0%
-              </span>
-
             </div>
 
-
-            <div
-              class="command-check"
-              id="ccBudgetCheck"
+            <span
+              class="check-value"
+              id="checkItineraryValue"
             >
+              0%
+            </span>
 
-              <div class="command-check-left">
+          </div>
 
-                <div class="command-check-icon">
-                  <i class="bx bx-wallet"></i>
-                </div>
 
-                <div class="command-check-copy">
+          <div class="dashboard-check">
 
-                  <b>
-                    Budget
-                  </b>
+            <div class="dashboard-check-left">
 
-                  <small>
-                    Current planning reserve
-                  </small>
+              <span class="check-icon" id="checkBudgetIcon">
+                <i class="bx bx-wallet"></i>
+              </span>
 
-                </div>
+              <div>
+
+                <strong>
+                  Budget
+                </strong>
+
+                <small>
+                  Expense planning
+                </small>
 
               </div>
 
-              <span class="command-check-value">
-                Not set
-              </span>
-
             </div>
 
-
-            <div
-              class="command-check"
-              id="ccPackingCheck"
+            <span
+              class="check-value"
+              id="checkBudgetValue"
             >
+              Not set
+            </span>
 
-              <div class="command-check-left">
+          </div>
 
-                <div class="command-check-icon">
-                  <i class="bx bx-suitcase"></i>
-                </div>
 
-                <div class="command-check-copy">
+          <div class="dashboard-check">
 
-                  <b>
-                    Packing
-                  </b>
+            <div class="dashboard-check-left">
 
-                  <small>
-                    Checklist completion
-                  </small>
+              <span class="check-icon" id="checkPackingIcon">
+                <i class="bx bx-briefcase"></i>
+              </span>
 
-                </div>
+              <div>
+
+                <strong>
+                  Packing
+                </strong>
+
+                <small>
+                  Departure checklist
+                </small>
 
               </div>
 
-              <span class="command-check-value">
-                0%
-              </span>
-
             </div>
 
+            <span
+              class="check-value"
+              id="checkPackingValue"
+            >
+              0%
+            </span>
 
           </div>
 
@@ -567,167 +909,47 @@
       </div>
 
 
-      <!-- RIGHT SIDE -->
-
-      <div class="command-side">
+      <div class="dashboard-side">
 
 
-        <!-- TRIP SNAPSHOT -->
+        <div class="panel dashboard-side-card scroll-scale">
 
-        <div class="panel command-card scroll-scale">
-
-          <div class="command-card-title">
+          <div class="card-heading">
 
             <div>
+
+              <span class="panel-kicker">
+                NEXT MOVE
+              </span>
+
               <h3>
-                Trip Snapshot
+                Keep your trip moving
               </h3>
 
-              <p class="command-mini-status">
-                Live from your planner
-              </p>
             </div>
 
-            <span>
-              LIVE
-            </span>
-
-          </div>
-
-
-          <div class="command-route">
-
-            <span class="command-route-label">
-              Current route
-            </span>
-
-            <strong id="ccSnapshotRoute">
-              Your route
-            </strong>
-
-            <div class="command-route-meta">
-
-              <span id="ccSnapshotBudget">
-                ₹0
-              </span>
-
-              <span id="ccSnapshotTransport">
-                Transport
-              </span>
-
-              <span id="ccSnapshotDays">
-                0 days
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <div class="command-progress">
-
-            <div class="command-progress-top">
-
-              <span>
-                Itinerary
-              </span>
-
-              <strong id="ccItineraryValue">
-                0%
-              </strong>
-
-            </div>
-
-            <div class="command-progress-track">
-              <i id="ccItineraryBar"></i>
-            </div>
-
-          </div>
-
-
-          <div class="command-progress">
-
-            <div class="command-progress-top">
-
-              <span>
-                Packing
-              </span>
-
-              <strong id="ccPackingValue">
-                0%
-              </strong>
-
-            </div>
-
-            <div class="command-progress-track">
-              <i id="ccPackingBar"></i>
-            </div>
-
-          </div>
-
-
-          <div class="command-progress">
-
-            <div class="command-progress-top">
-
-              <span>
-                Budget configured
-              </span>
-
-              <strong id="ccBudgetValue">
-                Not set
-              </strong>
-
-            </div>
-
-            <div class="command-progress-track">
-              <i id="ccBudgetBar"></i>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- NEXT ACTION -->
-
-        <div class="panel command-card scroll-bottom">
-
-          <div class="command-card-title">
-
-            <div>
-              <h3>
-                Next Action
-              </h3>
-
-              <p class="command-mini-status">
-                Based on your current progress
-              </p>
-            </div>
-
-            <span>
+            <span class="soft-label">
               GUIDE
             </span>
 
           </div>
 
 
-          <div class="command-next">
+          <div class="next-action-box">
 
-            <i
-              id="ccNextIcon"
-              class="bx bx-map"
-            ></i>
+            <div class="next-action-icon">
+              <i id="nextActionIcon" class="bx bx-map"></i>
+            </div>
 
             <div>
 
-              <b id="ccNextTitle">
+              <strong id="nextActionTitle">
                 Complete your trip setup
-              </b>
+              </strong>
 
-              <small id="ccNextDetail">
+              <p id="nextActionText">
                 Add your route, dates and travelers.
-              </small>
+              </p>
 
             </div>
 
@@ -735,17 +957,93 @@
 
 
           <button
-            class="btn secondary small"
+            class="btn primary-btn full-btn"
             type="button"
-            id="ccNextButton"
+            id="nextActionButton"
           >
-            Continue Planning
+            Continue
+            <i class="bx bx-right-arrow-alt"></i>
           </button>
 
+        </div>
 
-          <div class="command-footer-note">
-            Dashboard values are calculated from
-            the TripPilot LocalStorage state.
+
+        <div class="panel dashboard-side-card scroll-bottom">
+
+          <div class="card-heading">
+
+            <div>
+
+              <span class="panel-kicker">
+                LIVE SNAPSHOT
+              </span>
+
+              <h3>
+                Trip metrics
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div class="snapshot-list">
+
+            <div class="snapshot-row">
+
+              <div>
+                <span>Duration</span>
+                <small>Calendar days</small>
+              </div>
+
+              <strong id="snapshotDays">
+                0
+              </strong>
+
+            </div>
+
+
+            <div class="snapshot-row">
+
+              <div>
+                <span>Travelers</span>
+                <small>People on trip</small>
+              </div>
+
+              <strong id="snapshotTravelers">
+                0
+              </strong>
+
+            </div>
+
+
+            <div class="snapshot-row">
+
+              <div>
+                <span>Stay style</span>
+                <small>Accommodation preference</small>
+              </div>
+
+              <strong id="snapshotStay">
+                Comfort
+              </strong>
+
+            </div>
+
+
+            <div class="snapshot-row">
+
+              <div>
+                <span>Trip style</span>
+                <small>Travel mood</small>
+              </div>
+
+              <strong id="snapshotStyle">
+                Balanced
+              </strong>
+
+            </div>
+
           </div>
 
         </div>
@@ -763,208 +1061,121 @@
      03. DISCOVER
      ========================================================= -->
 
-<section id="discover">
+<section id="discover" class="product-section alternate-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header scroll-scale">
 
-      <span>
-        curated routes for your next escape
+      <span class="section-eyebrow">
+        DESTINATION STUDIO
       </span>
 
       <h2>
-        Discover India
+        Find your next
+        <span>place.</span>
       </h2>
 
-    </div>
-
-
-    <div class="discover-toolbar scroll-scale">
-
-      <button class="filter-pill active" data-destination-filter="all">
-        All
-      </button>
-
-      <button class="filter-pill" data-destination-filter="beach">
-        Beach
-      </button>
-
-      <button class="filter-pill" data-destination-filter="mountain">
-        Mountains
-      </button>
-
-      <button class="filter-pill" data-destination-filter="heritage">
-        Heritage
-      </button>
-
-      <button class="filter-pill" data-destination-filter="backwaters">
-        Backwaters
-      </button>
+      <p>
+        Explore places by travel style and instantly move
+        your selection into the planner.
+      </p>
 
     </div>
 
 
-    <div class="destination-grid scroll-bottom">
+    <div class="discover-toolbar panel scroll-scale">
 
-      <article
-        class="destination-card"
-        data-destination-card
-        data-type="beach"
-      >
+      <div class="discover-search">
 
-        <div class="destination-image goa-image"></div>
-        <div class="destination-gradient"></div>
+        <i class="bx bx-search"></i>
 
-        <div class="destination-content">
+        <input
+          id="destinationSearch"
+          type="search"
+          placeholder="Search destinations..."
+          autocomplete="off"
+        >
 
-          <div class="location-tag">
-            <i class="bx bx-map"></i>
-            Goa · India
-          </div>
-
-          <h3>Goa</h3>
-
-          <p>
-            Coastlines, cafés, late-evening drives
-            and flexible city-hopping.
-          </p>
-
-          <div class="destination-meta">
-            <span>3–5 days</span>
-            <span>Beach</span>
-          </div>
-
-          <button
-            class="btn destination-btn"
-            data-plan-destination="Goa"
-          >
-            Plan Goa
-          </button>
-
-        </div>
-
-      </article>
+      </div>
 
 
-      <article
-        class="destination-card"
-        data-destination-card
-        data-type="mountain"
-      >
+      <div class="filter-tabs" role="tablist">
 
-        <div class="destination-image manali-image"></div>
-        <div class="destination-gradient"></div>
+        <button
+          class="filter-tab active"
+          type="button"
+          data-filter="all"
+        >
+          All
+        </button>
 
-        <div class="destination-content">
+        <button
+          class="filter-tab"
+          type="button"
+          data-filter="beach"
+        >
+          Beach
+        </button>
 
-          <div class="location-tag">
-            <i class="bx bx-map"></i>
-            Himachal Pradesh
-          </div>
+        <button
+          class="filter-tab"
+          type="button"
+          data-filter="mountain"
+        >
+          Mountains
+        </button>
 
-          <h3>Manali</h3>
+        <button
+          class="filter-tab"
+          type="button"
+          data-filter="heritage"
+        >
+          Heritage
+        </button>
 
-          <p>
-            Mountain roads, cool-weather stays,
-            cafés and scenic day trips.
-          </p>
+        <button
+          class="filter-tab"
+          type="button"
+          data-filter="backwaters"
+        >
+          Backwaters
+        </button>
 
-          <div class="destination-meta">
-            <span>4–6 days</span>
-            <span>Mountain</span>
-          </div>
+        <button
+          class="filter-tab"
+          type="button"
+          data-filter="city"
+        >
+          City
+        </button>
 
-          <button
-            class="btn destination-btn"
-            data-plan-destination="Manali"
-          >
-            Plan Manali
-          </button>
+      </div>
 
-        </div>
-
-      </article>
-
-
-      <article
-        class="destination-card"
-        data-destination-card
-        data-type="heritage"
-      >
-
-        <div class="destination-image jaipur-image"></div>
-        <div class="destination-gradient"></div>
-
-        <div class="destination-content">
-
-          <div class="location-tag">
-            <i class="bx bx-map"></i>
-            Rajasthan
-          </div>
-
-          <h3>Jaipur</h3>
-
-          <p>
-            Heritage streets, forts, old markets
-            and a compact city circuit.
-          </p>
-
-          <div class="destination-meta">
-            <span>2–4 days</span>
-            <span>Heritage</span>
-          </div>
-
-          <button
-            class="btn destination-btn"
-            data-plan-destination="Jaipur"
-          >
-            Plan Jaipur
-          </button>
-
-        </div>
-
-      </article>
+    </div>
 
 
-      <article
-        class="destination-card"
-        data-destination-card
-        data-type="backwaters"
-      >
+    <div
+      class="destination-grid scroll-bottom"
+      id="destinationGrid"
+    ></div>
 
-        <div class="destination-image kerala-image"></div>
-        <div class="destination-gradient"></div>
 
-        <div class="destination-content">
+    <div
+      class="empty-state panel"
+      id="destinationEmpty"
+      hidden
+    >
 
-          <div class="location-tag">
-            <i class="bx bx-map"></i>
-            Kerala
-          </div>
+      <i class="bx bx-search-alt-2"></i>
 
-          <h3>Alappuzha</h3>
+      <h3>
+        No destination found
+      </h3>
 
-          <p>
-            Houseboats, backwaters, slow travel
-            and a relaxed coastal route.
-          </p>
-
-          <div class="destination-meta">
-            <span>2–4 days</span>
-            <span>Backwaters</span>
-          </div>
-
-          <button
-            class="btn destination-btn"
-            data-plan-destination="Alappuzha"
-          >
-            Plan Alappuzha
-          </button>
-
-        </div>
-
-      </article>
+      <p>
+        Try another destination or clear the current filter.
+      </p>
 
     </div>
 
@@ -974,47 +1185,57 @@
 
 
 <!-- =========================================================
-     04. PLAN TRIP
+     04. PLANNER
      ========================================================= -->
 
-<section id="planner">
+<section id="planner" class="product-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header scroll-scale">
 
-      <span>
-        build a trip around your dates
+      <span class="section-eyebrow">
+        TRIP BUILDER
       </span>
 
       <h2>
-        Plan Your Trip
+        Design the trip
+        <span>your way.</span>
       </h2>
+
+      <p>
+        Configure the route, dates, travelers and travel style.
+        The preview updates while you plan.
+      </p>
 
     </div>
 
 
-    <div class="planner-layout">
+    <div class="planner-shell">
 
-      <div class="planner-form panel scroll-bottom">
 
-        <div class="form-top">
+      <div class="panel planner-form-card scroll-bottom">
+
+        <div class="card-heading">
 
           <div>
 
+            <span class="panel-kicker">
+              NEW TRIP
+            </span>
+
             <h3>
-              Trip Builder
+              Trip configuration
             </h3>
 
             <p>
-              Choose route, dates, travelers
-              and preferred movement.
+              Start with the basics. You can refine everything later.
             </p>
 
           </div>
 
-          <span class="planner-status">
-            LIVE CALCULATOR
+          <span class="soft-label">
+            LIVE
           </span>
 
         </div>
@@ -1026,143 +1247,215 @@
 
             <div class="field">
 
-              <label>From</label>
+              <label for="tripFrom">
+                From
+              </label>
 
-              <input
-                id="tripFrom"
-                value="Hyderabad"
-                required
-              >
+              <div class="input-wrap">
 
-            </div>
+                <i class="bx bx-current-location"></i>
 
+                <input
+                  id="tripFrom"
+                  value="Hyderabad"
+                  required
+                >
 
-            <div class="field">
-
-              <label>Destination</label>
-
-              <select id="tripDestination">
-
-                <option>Goa</option>
-                <option>Manali</option>
-                <option>Jaipur</option>
-                <option>Alappuzha</option>
-                <option>Mumbai</option>
-                <option>Bengaluru</option>
-                <option>Delhi</option>
-                <option>Kochi</option>
-
-              </select>
+              </div>
 
             </div>
 
 
             <div class="field">
 
-              <label>Start Date</label>
+              <label for="tripDestination">
+                Destination
+              </label>
 
-              <input
-                id="tripStart"
-                type="date"
-                required
-              >
+              <div class="input-wrap">
 
-            </div>
+                <i class="bx bx-map"></i>
 
+                <select id="tripDestination">
 
-            <div class="field">
+                  <option>Goa</option>
+                  <option>Manali</option>
+                  <option>Jaipur</option>
+                  <option>Alappuzha</option>
+                  <option>Mumbai</option>
+                  <option>Bengaluru</option>
+                  <option>Delhi</option>
+                  <option>Kochi</option>
+                  <option>Udaipur</option>
+                  <option>Rishikesh</option>
+                  <option>Munnar</option>
+                  <option>Hampi</option>
 
-              <label>End Date</label>
+                </select>
 
-              <input
-                id="tripEnd"
-                type="date"
-                required
-              >
-
-            </div>
-
-
-            <div class="field">
-
-              <label>Travelers</label>
-
-              <input
-                id="tripTravelers"
-                type="number"
-                min="1"
-                max="20"
-                value="2"
-                required
-              >
+              </div>
 
             </div>
 
 
             <div class="field">
 
-              <label>Primary transport</label>
+              <label for="tripStart">
+                Start date
+              </label>
 
-              <select id="tripTransport">
+              <div class="input-wrap">
 
-                <option>Flight</option>
-                <option>Train</option>
-                <option>Bus</option>
-                <option>Cab</option>
-                <option>Self Drive</option>
-                <option>Mixed</option>
+                <i class="bx bx-calendar"></i>
 
-              </select>
+                <input
+                  id="tripStart"
+                  type="date"
+                  required
+                >
 
-            </div>
-
-
-            <div class="field">
-
-              <label>Stay style</label>
-
-              <select id="tripStay">
-
-                <option>Budget</option>
-                <option selected>Comfort</option>
-                <option>Premium</option>
-
-              </select>
+              </div>
 
             </div>
 
 
             <div class="field">
 
-              <label>Trip style</label>
+              <label for="tripEnd">
+                End date
+              </label>
 
-              <select id="tripStyle">
+              <div class="input-wrap">
 
-                <option>Balanced</option>
-                <option>Relaxed</option>
-                <option>Adventure</option>
-                <option>Culture</option>
-                <option>Food</option>
+                <i class="bx bx-calendar-check"></i>
 
-              </select>
+                <input
+                  id="tripEnd"
+                  type="date"
+                  required
+                >
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="tripTravelers">
+                Travelers
+              </label>
+
+              <div class="input-wrap">
+
+                <i class="bx bx-group"></i>
+
+                <input
+                  id="tripTravelers"
+                  type="number"
+                  min="1"
+                  max="20"
+                  value="2"
+                  required
+                >
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="tripTransport">
+                Primary transport
+              </label>
+
+              <div class="input-wrap">
+
+                <i class="bx bx-trip"></i>
+
+                <select id="tripTransport">
+
+                  <option>Flight</option>
+                  <option>Train</option>
+                  <option>Bus</option>
+                  <option>Cab</option>
+                  <option>Self Drive</option>
+                  <option>Mixed</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="tripStay">
+                Stay style
+              </label>
+
+              <div class="input-wrap">
+
+                <i class="bx bx-building-house"></i>
+
+                <select id="tripStay">
+
+                  <option>Budget</option>
+                  <option selected>Comfort</option>
+                  <option>Premium</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="tripStyle">
+                Trip style
+              </label>
+
+              <div class="input-wrap">
+
+                <i class="bx bx-sparkles"></i>
+
+                <select id="tripStyle">
+
+                  <option>Balanced</option>
+                  <option>Relaxed</option>
+                  <option>Adventure</option>
+                  <option>Culture</option>
+                  <option>Food</option>
+
+                </select>
+
+              </div>
 
             </div>
 
           </div>
 
 
-          <div class="trip-submit-row">
+          <div class="planner-actions">
 
-            <button class="btn" type="submit">
-              <i class="bx bx-magic-wand"></i>
+            <button
+              class="btn primary-btn"
+              type="submit"
+            >
+              <i class="bx bx-save"></i>
               Build & Save Trip
             </button>
 
             <button
-              class="btn secondary"
+              class="btn secondary-btn"
               type="button"
-              id="useSampleTrip"
+              id="loadSample"
             >
+              <i class="bx bx-magic-wand"></i>
               Load Sample
             </button>
 
@@ -1173,91 +1466,135 @@
       </div>
 
 
-      <div class="trip-preview panel scroll-scale">
+      <div class="planner-preview scroll-scale">
 
-        <div class="preview-label">
-          TRIP PREVIEW
-        </div>
-
-        <h3 id="previewTitle">
-          Hyderabad → Goa
-        </h3>
-
-        <p id="previewDates">
-          Choose your dates.
-        </p>
-
-
-        <div class="route-board">
-
-          <div class="route-stop">
-
-            <span class="route-dot"></span>
-
-            <div>
-
-              <small>START</small>
-
-              <b id="previewFrom">
-                Hyderabad
-              </b>
-
-            </div>
-
-          </div>
-
-
-          <div class="route-line">
-            <div class="route-moving"></div>
-          </div>
-
-
-          <div class="route-stop">
-
-            <span class="route-dot"></span>
-
-            <div>
-
-              <small>DESTINATION</small>
-
-              <b id="previewDestination">
-                Goa
-              </b>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="preview-stats">
+        <div class="preview-topbar">
 
           <div>
-            <small>Transport</small>
+            <span class="panel-kicker">
+              LIVE PREVIEW
+            </span>
+
+            <strong>
+              Trip workspace
+            </strong>
+          </div>
+
+          <span class="preview-live">
+            <span class="status-dot"></span>
+            Updating
+          </span>
+
+        </div>
+
+
+        <div class="preview-route">
+
+          <span>
+            <small>
+              FROM
+            </small>
+
+            <strong id="previewFrom">
+              Hyderabad
+            </strong>
+          </span>
+
+          <div class="preview-arrow">
+
+            <i class="bx bx-right-arrow-alt"></i>
+
+            <span id="previewDaysBadge">
+              0 days
+            </span>
+
+          </div>
+
+          <span class="preview-destination">
+
+            <small>
+              DESTINATION
+            </small>
+
+            <strong id="previewDestination">
+              Goa
+            </strong>
+
+          </span>
+
+        </div>
+
+
+        <div class="preview-date-card">
+
+          <i class="bx bx-calendar-event"></i>
+
+          <div>
+
+            <span>
+              Travel window
+            </span>
+
+            <strong id="previewDates">
+              Choose your dates
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="preview-stat-grid">
+
+          <div>
+            <span>Transport</span>
             <strong id="previewTransport">Flight</strong>
           </div>
 
           <div>
-            <small>Days</small>
-            <strong id="previewDays">4</strong>
-          </div>
-
-          <div>
-            <small>Travelers</small>
+            <span>Travelers</span>
             <strong id="previewTravelers">2</strong>
           </div>
 
           <div>
-            <small>Estimated budget</small>
-            <strong id="previewBudget">₹18,500</strong>
+            <span>Stay</span>
+            <strong id="previewStay">Comfort</strong>
+          </div>
+
+          <div>
+            <span>Style</span>
+            <strong id="previewStyle">Balanced</strong>
           </div>
 
         </div>
 
-        <div class="estimate-note">
-          Estimates are planning values, not live ticket quotes.
+
+        <div class="preview-budget">
+
+          <div>
+
+            <span>
+              Estimated trip budget
+            </span>
+
+            <strong id="previewBudget">
+              ₹0
+            </strong>
+
+          </div>
+
+          <div class="budget-glow-icon">
+            <i class="bx bx-wallet"></i>
+          </div>
+
         </div>
+
+
+        <p class="preview-note">
+          Planning estimates are generated locally
+          from your selected route, dates, travelers,
+          transport and stay style.
+        </p>
 
       </div>
 
@@ -1272,61 +1609,67 @@
      05. TRANSPORT
      ========================================================= -->
 
-<section id="transport">
+<section id="transport" class="product-section alternate-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header scroll-scale">
 
-      <span>
-        choose how you want to move
+      <span class="section-eyebrow">
+        TRANSPORT HUB
       </span>
 
       <h2>
-        Transport Hub
+        Move your trip
+        <span>your way.</span>
       </h2>
+
+      <p>
+        Switch between transport modes and compare
+        sample planning options.
+      </p>
 
     </div>
 
 
-    <div class="transport-tabs scroll-scale">
+    <div class="transport-switcher scroll-scale">
 
-      <button class="transport-tab active" data-mode="Flight">
+      <button class="transport-switch active" data-mode="Flight">
         <i class="bx bx-paper-plane"></i>
         <span>Flight</span>
       </button>
 
-      <button class="transport-tab" data-mode="Train">
+      <button class="transport-switch" data-mode="Train">
         <i class="bx bx-train"></i>
         <span>Train</span>
       </button>
 
-      <button class="transport-tab" data-mode="Bus">
+      <button class="transport-switch" data-mode="Bus">
         <i class="bx bx-bus"></i>
         <span>Bus</span>
       </button>
 
-      <button class="transport-tab" data-mode="Cab">
+      <button class="transport-switch" data-mode="Cab">
         <i class="bx bx-car"></i>
         <span>Cab</span>
       </button>
 
-      <button class="transport-tab" data-mode="Metro">
+      <button class="transport-switch" data-mode="Metro">
         <i class="bx bx-subway"></i>
         <span>Metro</span>
       </button>
 
-      <button class="transport-tab" data-mode="Auto">
+      <button class="transport-switch" data-mode="Auto">
         <i class="bx bx-car"></i>
         <span>Auto</span>
       </button>
 
-      <button class="transport-tab" data-mode="Ferry">
+      <button class="transport-switch" data-mode="Ferry">
         <i class="bx bx-water"></i>
         <span>Ferry</span>
       </button>
 
-      <button class="transport-tab" data-mode="Mixed">
+      <button class="transport-switch" data-mode="Mixed">
         <i class="bx bx-transfer-alt"></i>
         <span>Mixed</span>
       </button>
@@ -1336,66 +1679,72 @@
 
     <div class="transport-layout">
 
-      <div class="transport-hero panel scroll-bottom">
 
-        <div class="transport-icon-large">
+      <div class="panel transport-feature-card scroll-bottom">
 
-          <i
-            id="transportHeroIcon"
-            class="bx bx-paper-plane"
-          ></i>
-
+        <div class="transport-feature-icon">
+          <i id="transportIcon" class="bx bx-paper-plane"></i>
         </div>
 
-        <div>
+        <span
+          class="panel-kicker"
+          id="transportKicker"
+        >
+          INTERCITY AIR
+        </span>
 
-          <span
-            class="transport-kicker"
-            id="transportHeroKicker"
-          >
-            INTERCITY AIR
+        <h3 id="transportTitle">
+          Flights for longer routes
+        </h3>
+
+        <p id="transportDescription">
+          Best for longer city-to-city movement when
+          time matters more than road comfort.
+        </p>
+
+
+        <div
+          class="transport-facts"
+          id="transportFacts"
+        ></div>
+
+
+        <div class="transport-selection-note">
+
+          <i class="bx bx-info-circle"></i>
+
+          <span>
+            Values shown here are planning estimates,
+            not live fares.
           </span>
-
-          <h3 id="transportHeroTitle">
-            Flights for longer routes
-          </h3>
-
-          <p id="transportHeroText">
-            Best for long intercity movement when time matters.
-          </p>
-
-          <div
-            class="transport-facts"
-            id="transportHeroFacts"
-          ></div>
 
         </div>
 
       </div>
 
 
-      <div class="transport-options panel scroll-scale">
+      <div class="panel transport-options-card scroll-scale">
 
-        <div class="panel-title-row">
+        <div class="card-heading">
 
           <div>
 
-            <h3>
-              Route Options
-            </h3>
+            <span class="panel-kicker">
+              SAMPLE OPTIONS
+            </span>
 
-            <p>
-              Sample planning options
-              for your selected mode.
-            </p>
+            <h3>
+              Compare your route
+            </h3>
 
           </div>
 
-          <span class="small-tag">
+          <span class="soft-label">
             DEMO DATA
           </span>
 
         </div>
+
 
         <div id="transportOptions"></div>
 
@@ -1412,129 +1761,222 @@
      06. ITINERARY
      ========================================================= -->
 
-<section id="itinerary">
+<section id="itinerary" class="product-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header split-header scroll-scale">
 
-      <span>
-        turn destinations into actual days
-      </span>
+      <div>
 
-      <h2>
-        Smart Itinerary
-      </h2>
+        <span class="section-eyebrow">
+          ITINERARY STUDIO
+        </span>
+
+        <h2>
+          Turn ideas into
+          <span>actual days.</span>
+        </h2>
+
+        <p>
+          Use destination suggestions, then add your own
+          plans and estimated activity spend.
+        </p>
+
+      </div>
+
+
+      <button
+        class="btn secondary-btn small-btn"
+        type="button"
+        id="regenerateItinerary"
+      >
+        <i class="bx bx-refresh"></i>
+        Refresh Suggestions
+      </button>
 
     </div>
 
 
-    <div class="itinerary-layout">
+    <div class="itinerary-shell">
 
-      <div class="timeline-card panel scroll-bottom">
 
-        <div class="panel-title-row">
+      <div class="panel itinerary-card scroll-bottom">
+
+        <div class="card-heading">
 
           <div>
 
+            <span class="panel-kicker">
+              CURRENT PLAN
+            </span>
+
             <h3 id="itineraryTitle">
-              Goa · 4 day plan
+              Goa · itinerary
             </h3>
 
             <p id="itinerarySubtitle">
-              Beach + local food + sunset route
+              Build a balanced travel day.
             </p>
 
           </div>
 
-          <button
-            class="btn secondary"
-            type="button"
-            id="regenerateItinerary"
+          <span
+            class="soft-label"
+            id="itineraryDayCount"
           >
-            Regenerate
-          </button>
+            0 DAYS
+          </span>
 
         </div>
+
 
         <div id="itineraryTimeline"></div>
 
       </div>
 
 
-      <div class="day-builder panel scroll-scale">
+      <div class="panel activity-builder scroll-scale">
 
-        <h3>
-          Add a plan
-        </h3>
+        <div class="card-heading">
 
-        <form id="activityForm">
+          <div>
+
+            <span class="panel-kicker">
+              ADD ACTIVITY
+            </span>
+
+            <h3>
+              Customize a day
+            </h3>
+
+            <p>
+              Add your own plan to the route.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <form id="activityForm" class="activity-form">
 
           <div class="field">
 
-            <label>Day</label>
+            <label for="activityDay">
+              Day
+            </label>
 
-            <select id="activityDay">
+            <div class="input-wrap">
 
-              <option value="1">Day 1</option>
-              <option value="2">Day 2</option>
-              <option value="3">Day 3</option>
-              <option value="4">Day 4</option>
-              <option value="5">Day 5</option>
+              <i class="bx bx-calendar"></i>
 
-            </select>
+              <select id="activityDay">
+                <option value="1">Day 1</option>
+                <option value="2">Day 2</option>
+                <option value="3">Day 3</option>
+                <option value="4">Day 4</option>
+                <option value="5">Day 5</option>
+                <option value="6">Day 6</option>
+                <option value="7">Day 7</option>
+              </select>
+
+            </div>
 
           </div>
 
 
           <div class="field">
 
-            <label>Activity</label>
+            <label for="activityName">
+              Activity
+            </label>
 
-            <input
-              id="activityName"
-              placeholder="Sunset beach walk"
-              required
-            >
+            <div class="input-wrap">
 
-          </div>
+              <i class="bx bx-edit-alt"></i>
 
+              <input
+                id="activityName"
+                placeholder="Sunset beach walk"
+                required
+              >
 
-          <div class="field">
-
-            <label>Time</label>
-
-            <input
-              id="activityTime"
-              type="time"
-              value="18:00"
-              required
-            >
+            </div>
 
           </div>
 
 
-          <div class="field">
+          <div class="two-field-row">
 
-            <label>Estimated spend</label>
+            <div class="field">
 
-            <input
-              id="activityCost"
-              type="number"
-              min="0"
-              step="100"
-              value="500"
-            >
+              <label for="activityTime">
+                Time
+              </label>
+
+              <div class="input-wrap">
+
+                <i class="bx bx-time"></i>
+
+                <input
+                  id="activityTime"
+                  type="time"
+                  value="18:00"
+                  required
+                >
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="activityCost">
+                Spend
+              </label>
+
+              <div class="input-wrap">
+
+                <i class="bx bx-rupee"></i>
+
+                <input
+                  id="activityCost"
+                  type="number"
+                  min="0"
+                  step="100"
+                  value="500"
+                >
+
+              </div>
+
+            </div>
 
           </div>
 
 
-          <button class="btn" type="submit">
+          <button
+            class="btn primary-btn full-btn"
+            type="submit"
+          >
             <i class="bx bx-plus"></i>
-            Add Activity
+            Add to itinerary
           </button>
 
         </form>
+
+
+        <div class="builder-tip">
+
+          <i class="bx bx-light-bulb"></i>
+
+          <span>
+            Tip: use your custom activities to make
+            the suggested itinerary feel personal.
+          </span>
+
+        </div>
 
       </div>
 
@@ -1549,44 +1991,51 @@
      07. STAYS
      ========================================================= -->
 
-<section id="stays">
+<section id="stays" class="product-section alternate-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header scroll-scale">
 
-      <span>
-        stay somewhere that fits the route
+      <span class="section-eyebrow">
+        STAY FINDER
       </span>
 
       <h2>
-        Stay Finder
+        Give the trip a
+        <span>place to land.</span>
       </h2>
+
+      <p>
+        Browse sample stays and instantly apply a stay
+        style to your trip.
+      </p>
 
     </div>
 
 
-    <div class="stay-controls panel scroll-scale">
+    <div class="stay-toolbar panel scroll-scale">
 
-      <div class="stay-search">
+      <div class="discover-search">
 
         <i class="bx bx-search"></i>
 
         <input
           id="staySearch"
-          placeholder="Search destination or style..."
+          type="search"
+          placeholder="Search stay or destination..."
         >
 
       </div>
 
 
       <select
-        class="control"
+        class="filter-select"
         id="stayStyleFilter"
       >
 
         <option value="all">
-          All styles
+          All stay styles
         </option>
 
         <option value="Budget">
@@ -1620,133 +2069,171 @@
      08. BUDGET
      ========================================================= -->
 
-<section id="budget">
+<section id="budget" class="product-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header scroll-scale">
 
-      <span>
-        know what the journey could cost
+      <span class="section-eyebrow">
+        BUDGET STUDIO
       </span>
 
       <h2>
-        Trip Budget
+        Know the numbers
+        <span>before you go.</span>
       </h2>
+
+      <p>
+        Adjust your reserves and keep your estimated trip
+        spending visible at all times.
+      </p>
 
     </div>
 
 
-    <div class="budget-layout">
+    <div class="budget-shell">
 
-      <div class="budget-overview panel scroll-bottom">
 
-        <div class="budget-total-label">
-          ESTIMATED TRIP COST
+      <div class="panel budget-overview-card scroll-bottom">
+
+        <div class="budget-overview-top">
+
+          <div>
+
+            <span class="panel-kicker">
+              ESTIMATED TRIP COST
+            </span>
+
+            <div
+              class="budget-total"
+              id="budgetTotal"
+            >
+              ₹0
+            </div>
+
+            <p
+              class="budget-route-label"
+              id="budgetRoute"
+            >
+              Hyderabad → Goa
+            </p>
+
+          </div>
+
+          <div class="budget-ring-wrap">
+
+            <div class="budget-mini-ring">
+              <i class="bx bx-wallet"></i>
+            </div>
+
+          </div>
+
         </div>
 
-        <div
-          class="budget-total"
-          id="budgetTotal"
-        >
-          ₹18,500
-        </div>
 
-        <div class="budget-subline">
+        <div class="budget-breakdown">
 
-          <span id="budgetDestination">
-            Hyderabad → Goa
-          </span>
+          <div class="budget-row">
 
-          <span id="budgetDays">
-            4 days
-          </span>
+            <div class="budget-row-head">
 
-        </div>
+              <span>
+                Transport
+              </span>
 
+              <strong id="budgetTransport">
+                ₹0
+              </strong>
 
-        <div class="budget-bars">
-
-          <div class="budget-item">
-
-            <div class="budget-top">
-              <span>Transport</span>
-              <strong id="budgetTransport">₹6,000</strong>
             </div>
 
-            <div class="budget-track">
-              <i
-                id="budgetTransportBar"
-                style="width:32%"
-              ></i>
+            <div class="budget-line">
+              <i id="budgetTransportBar"></i>
             </div>
 
           </div>
 
 
-          <div class="budget-item">
+          <div class="budget-row">
 
-            <div class="budget-top">
-              <span>Stay</span>
-              <strong id="budgetStay">₹5,600</strong>
+            <div class="budget-row-head">
+
+              <span>
+                Stay
+              </span>
+
+              <strong id="budgetStay">
+                ₹0
+              </strong>
+
             </div>
 
-            <div class="budget-track">
-              <i
-                id="budgetStayBar"
-                style="width:30%"
-              ></i>
-            </div>
-
-          </div>
-
-
-          <div class="budget-item">
-
-            <div class="budget-top">
-              <span>Food</span>
-              <strong id="budgetFood">₹3,200</strong>
-            </div>
-
-            <div class="budget-track">
-              <i
-                id="budgetFoodBar"
-                style="width:17%"
-              ></i>
+            <div class="budget-line">
+              <i id="budgetStayBar"></i>
             </div>
 
           </div>
 
 
-          <div class="budget-item">
+          <div class="budget-row">
 
-            <div class="budget-top">
-              <span>Local transport</span>
-              <strong id="budgetLocal">₹1,600</strong>
+            <div class="budget-row-head">
+
+              <span>
+                Food
+              </span>
+
+              <strong id="budgetFood">
+                ₹0
+              </strong>
+
             </div>
 
-            <div class="budget-track">
-              <i
-                id="budgetLocalBar"
-                style="width:9%"
-              ></i>
+            <div class="budget-line">
+              <i id="budgetFoodBar"></i>
             </div>
 
           </div>
 
 
-          <div class="budget-item">
+          <div class="budget-row">
 
-            <div class="budget-top">
-              <span>Activities</span>
-              <strong id="budgetActivities">₹2,100</strong>
+            <div class="budget-row-head">
+
+              <span>
+                Local transport
+              </span>
+
+              <strong id="budgetLocal">
+                ₹0
+              </strong>
+
             </div>
 
-            <div class="budget-track">
-              <i
-                id="budgetActivitiesBar"
-                style="width:12%"
-              ></i>
+            <div class="budget-line">
+              <i id="budgetLocalBar"></i>
+            </div>
+
+          </div>
+
+
+          <div class="budget-row">
+
+            <div class="budget-row-head">
+
+              <span>
+                Activities
+              </span>
+
+              <strong id="budgetActivities">
+                ₹0
+              </strong>
+
+            </div>
+
+            <div class="budget-line">
+              <i id="budgetActivitiesBar"></i>
             </div>
 
           </div>
@@ -1756,18 +2243,22 @@
       </div>
 
 
-      <div class="budget-tools panel scroll-scale">
+      <div class="panel budget-controls-card scroll-scale">
 
-        <div class="panel-title-row">
+        <div class="card-heading">
 
           <div>
 
+            <span class="panel-kicker">
+              RESERVE CONTROLS
+            </span>
+
             <h3>
-              Budget Controls
+              Tune the budget
             </h3>
 
             <p>
-              Adjust your reserved travel amount.
+              Changes are stored automatically.
             </p>
 
           </div>
@@ -1775,69 +2266,77 @@
         </div>
 
 
-        <div class="slider-list">
+        <div class="slider-control">
 
-          <label>
+          <div class="slider-head">
 
             <span>
               Transport reserve
             </span>
 
-            <output id="transportBudgetOutput">
-              ₹6,000
-            </output>
+            <strong id="transportBudgetOutput">
+              ₹0
+            </strong>
 
-          </label>
+          </div>
 
           <input
-            type="range"
             id="transportBudgetInput"
+            type="range"
             min="1000"
-            max="30000"
+            max="50000"
             step="500"
             value="6000"
           >
 
+        </div>
 
-          <label>
+
+        <div class="slider-control">
+
+          <div class="slider-head">
 
             <span>
               Stay reserve
             </span>
 
-            <output id="stayBudgetOutput">
-              ₹5,600
-            </output>
+            <strong id="stayBudgetOutput">
+              ₹0
+            </strong>
 
-          </label>
+          </div>
 
           <input
-            type="range"
             id="stayBudgetInput"
+            type="range"
             min="1000"
-            max="30000"
+            max="50000"
             step="500"
             value="5600"
           >
 
+        </div>
 
-          <label>
+
+        <div class="slider-control">
+
+          <div class="slider-head">
 
             <span>
               Food reserve
             </span>
 
-            <output id="foodBudgetOutput">
-              ₹3,200
-            </output>
+            <strong id="foodBudgetOutput">
+              ₹0
+            </strong>
 
-          </label>
+          </div>
 
           <input
-            type="range"
             id="foodBudgetInput"
+            type="range"
             min="500"
-            max="15000"
+            max="25000"
             step="100"
             value="3200"
           >
@@ -1845,8 +2344,28 @@
         </div>
 
 
-        <div class="estimate-note">
-          Changes are saved automatically in your browser.
+        <div class="budget-control-summary">
+
+          <span>
+            Current trip length
+          </span>
+
+          <strong id="budgetDays">
+            0 days
+          </strong>
+
+        </div>
+
+
+        <div class="budget-tip">
+
+          <i class="bx bx-info-circle"></i>
+
+          <span>
+            These are planning reserves. Actual travel
+            prices can change.
+          </span>
+
         </div>
 
       </div>
@@ -1862,94 +2381,123 @@
      09. PACKING
      ========================================================= -->
 
-<section id="packing">
+<section id="packing" class="product-section alternate-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header scroll-scale">
 
-      <span>
-        pack for the route, not for the panic
+      <span class="section-eyebrow">
+        DEPARTURE CHECKLIST
       </span>
 
       <h2>
-        Packing Studio
+        Leave the stress
+        <span>behind.</span>
       </h2>
+
+      <p>
+        Check off the essentials and track your packing progress.
+      </p>
 
     </div>
 
 
-    <div class="packing-layout">
+    <div class="packing-shell">
 
-      <div class="packing-checklist panel scroll-bottom">
 
-        <div class="panel-title-row">
+      <div class="panel packing-list-card scroll-bottom">
+
+        <div class="packing-head">
 
           <div>
 
+            <span class="panel-kicker">
+              CURRENT LIST
+            </span>
+
             <h3 id="packingTitle">
-              Goa · packing list
+              Goa packing list
             </h3>
 
             <p>
-              Tap an item when it is packed.
+              Tap an item when it is ready.
             </p>
 
           </div>
 
-          <div class="packing-progress">
+
+          <div class="packing-score">
 
             <strong id="packingPercent">
               0%
             </strong>
 
-            <small>
+            <span>
               packed
-            </small>
+            </span>
 
           </div>
 
         </div>
+
+
+        <div
+          class="packing-progress-track"
+          aria-hidden="true"
+        >
+          <i id="packingMeter"></i>
+        </div>
+
 
         <div id="packingList"></div>
 
       </div>
 
 
-      <div class="packing-summary panel scroll-scale">
+      <div class="panel packing-ready-card scroll-scale">
 
-        <div class="luggage-visual">
+        <div class="packing-visual">
 
-          <div class="luggage">
+          <div class="suitcase-visual">
 
-            <div class="luggage-handle"></div>
+            <div class="suitcase-handle"></div>
 
-            <div class="luggage-body">
-              <i class="bx bx-suitcase"></i>
+            <div class="suitcase-body">
+
+              <div class="suitcase-line"></div>
+
+              <i class="bx bx-briefcase-alt-2"></i>
+
             </div>
 
           </div>
 
         </div>
 
+
+        <span class="panel-kicker">
+          DEPARTURE STATUS
+        </span>
+
         <h3>
-          Trip-ready
+          <span id="packingReadyTitle">
+            You're getting ready.
+          </span>
         </h3>
 
         <p id="packingSummaryText">
-          Start checking items.
+          Start checking the list.
         </p>
 
-        <div class="packing-meter">
-          <i id="packingMeter"></i>
-        </div>
 
         <button
-          class="btn secondary"
+          class="btn secondary-btn full-btn"
           type="button"
           id="resetPacking"
         >
-          Reset List
+          <i class="bx bx-reset"></i>
+          Reset checklist
         </button>
 
       </div>
@@ -1965,43 +2513,100 @@
      10. MY TRIPS
      ========================================================= -->
 
-<section id="trips">
+<section id="trips" class="product-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header split-header scroll-scale">
 
-      <span>
-        your routes and future escapes
-      </span>
+      <div>
 
-      <h2>
-        My Trips
-      </h2>
+        <span class="section-eyebrow">
+          TRIP LIBRARY
+        </span>
+
+        <h2>
+          Your saved
+          <span>journeys.</span>
+        </h2>
+
+        <p>
+          Every trip you save stays available in this browser.
+        </p>
+
+      </div>
+
+
+      <a
+        href="#planner"
+        class="btn primary-btn small-btn"
+      >
+        <i class="bx bx-plus"></i>
+        New Trip
+      </a>
 
     </div>
 
 
-    <div class="trip-stats scroll-scale">
+    <div class="trip-stat-strip scroll-scale">
 
-      <div class="stat-card">
-        <span>Saved trips</span>
-        <strong id="savedTripCount">0</strong>
+      <div class="trip-stat">
+
+        <span>
+          Saved trips
+        </span>
+
+        <strong id="savedTripCount">
+          0
+        </strong>
+
+        <i class="bx bx-book-heart"></i>
+
       </div>
 
-      <div class="stat-card">
-        <span>Upcoming</span>
-        <strong id="upcomingTripCount">0</strong>
+
+      <div class="trip-stat">
+
+        <span>
+          Upcoming
+        </span>
+
+        <strong id="upcomingTripCount">
+          0
+        </strong>
+
+        <i class="bx bx-time-five"></i>
+
       </div>
 
-      <div class="stat-card">
-        <span>Planned travelers</span>
-        <strong id="plannedTravelerCount">0</strong>
+
+      <div class="trip-stat">
+
+        <span>
+          Travelers planned
+        </span>
+
+        <strong id="plannedTravelerCount">
+          0
+        </strong>
+
+        <i class="bx bx-group"></i>
+
       </div>
 
-      <div class="stat-card">
-        <span>Estimated spend</span>
-        <strong id="plannedSpend">₹0</strong>
+
+      <div class="trip-stat">
+
+        <span>
+          Estimated spend
+        </span>
+
+        <strong id="plannedSpend">
+          ₹0
+        </strong>
+
+        <i class="bx bx-wallet"></i>
+
       </div>
 
     </div>
@@ -2021,86 +2626,136 @@
      11. SETTINGS
      ========================================================= -->
 
-<section id="settings">
+<section id="settings" class="product-section alternate-section">
 
   <div class="container">
 
-    <div class="section-heading scroll-scale">
+    <div class="section-header scroll-scale">
 
-      <span>
-        make TripPilot fit the way you travel
+      <span class="section-eyebrow">
+        WORKSPACE SETTINGS
       </span>
 
       <h2>
-        Settings
+        Make TripPilot
+        <span>yours.</span>
       </h2>
+
+      <p>
+        Personalize the workspace and control local application data.
+      </p>
 
     </div>
 
 
-    <div class="settings-layout">
+    <div class="settings-shell">
 
-      <div class="panel settings-panel scroll-bottom">
 
-        <h3>
-          Traveler Profile
-        </h3>
+      <div class="panel settings-main-card scroll-bottom">
+
+        <div class="card-heading">
+
+          <div>
+
+            <span class="panel-kicker">
+              PROFILE
+            </span>
+
+            <h3>
+              Traveler preferences
+            </h3>
+
+          </div>
+
+          <span class="soft-label">
+            LOCAL
+          </span>
+
+        </div>
 
 
         <div class="form-grid">
 
           <div class="field">
 
-            <label>Name</label>
+            <label for="settingsName">
+              Name
+            </label>
 
-            <input
-              id="settingsName"
-              value="Mahi"
-            >
+            <div class="input-wrap">
+              <i class="bx bx-user"></i>
 
-          </div>
-
-
-          <div class="field">
-
-            <label>Home City</label>
-
-            <input
-              id="settingsHome"
-              value="Hyderabad"
-            >
+              <input
+                id="settingsName"
+                value="Mahi"
+              >
+            </div>
 
           </div>
 
 
           <div class="field">
 
-            <label>Preferred stay</label>
+            <label for="settingsHome">
+              Home city
+            </label>
 
-            <select id="settingsStay">
+            <div class="input-wrap">
+              <i class="bx bx-home-alt"></i>
 
-              <option>Budget</option>
-              <option selected>Comfort</option>
-              <option>Premium</option>
-
-            </select>
+              <input
+                id="settingsHome"
+                value="Hyderabad"
+              >
+            </div>
 
           </div>
 
 
           <div class="field">
 
-            <label>Default transport</label>
+            <label for="settingsStay">
+              Preferred stay
+            </label>
 
-            <select id="settingsTransport">
+            <div class="input-wrap">
 
-              <option>Flight</option>
-              <option>Train</option>
-              <option>Bus</option>
-              <option>Cab</option>
-              <option>Mixed</option>
+              <i class="bx bx-building"></i>
 
-            </select>
+              <select id="settingsStay">
+
+                <option>Budget</option>
+                <option selected>Comfort</option>
+                <option>Premium</option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="settingsTransport">
+              Default transport
+            </label>
+
+            <div class="input-wrap">
+
+              <i class="bx bx-trip"></i>
+
+              <select id="settingsTransport">
+
+                <option>Flight</option>
+                <option>Train</option>
+                <option>Bus</option>
+                <option>Cab</option>
+                <option>Mixed</option>
+
+              </select>
+
+            </div>
 
           </div>
 
@@ -2110,163 +2765,139 @@
         <div class="settings-actions">
 
           <button
-            class="btn"
+            class="btn primary-btn"
             type="button"
             id="saveSettings"
           >
             <i class="bx bx-save"></i>
-            Save Preferences
+            Save preferences
           </button>
 
           <button
-            class="btn secondary"
+            class="btn secondary-btn"
+            type="button"
+            id="exportJSON"
+          >
+            <i class="bx bx-data"></i>
+            Export data
+          </button>
+
+          <button
+            class="btn danger-btn"
             type="button"
             id="clearData"
           >
-            Clear Local Data
+            <i class="bx bx-trash"></i>
+            Clear local data
           </button>
-
-        </div>
-
-
-        <div class="notice">
-
-          TripPilot runs entirely in your browser.
-          Saved trips, planner data, packing state
-          and preferences use LocalStorage.
-
-          There is no live booking, payment,
-          airline, railway, or hotel API connected
-          to this portfolio project.
 
         </div>
 
       </div>
 
 
-      <div class="panel scroll-scale">
-
-        <h3>
-          Quick Links
-        </h3>
+      <div class="settings-side">
 
 
-        <div class="quick-actions">
+        <div class="panel settings-card scroll-scale">
 
-          <a href="#command-center" class="quick-action">
-
-            <i class="bx bx-dashboard"></i>
+          <div class="card-heading">
 
             <div>
 
-              <b>
-                Command Center
-              </b>
+              <span class="panel-kicker">
+                APPEARANCE
+              </span>
 
-              <small>
-                View trip readiness
-              </small>
-
-            </div>
-
-          </a>
-
-
-          <a href="#discover" class="quick-action">
-
-            <i class="bx bx-compass"></i>
-
-            <div>
-
-              <b>
-                Discover
-              </b>
-
-              <small>
-                Browse destinations
-              </small>
+              <h3>
+                Workspace theme
+              </h3>
 
             </div>
 
-          </a>
+          </div>
 
 
-          <a href="#transport" class="quick-action">
+          <div class="appearance-row">
 
-            <i class="bx bx-trip"></i>
-
-            <div>
-
-              <b>
-                Transport
-              </b>
-
-              <small>
-                Flight · Train · Bus · Road
-              </small>
-
+            <div class="appearance-preview dark-preview">
+              <i class="bx bx-moon"></i>
+              Dark
             </div>
 
-          </a>
-
-
-          <a href="#budget" class="quick-action">
-
-            <i class="bx bx-wallet"></i>
-
-            <div>
-
-              <b>
-                Budget
-              </b>
-
-              <small>
-                Calculate trip cost
-              </small>
-
+            <div class="appearance-preview light-preview">
+              <i class="bx bx-sun"></i>
+              Light
             </div>
 
-          </a>
+          </div>
 
 
-          <a href="#packing" class="quick-action">
-
-            <i class="bx bx-suitcase"></i>
-
-            <div>
-
-              <b>
-                Packing
-              </b>
-
-              <small>
-                Complete checklist
-              </small>
-
-            </div>
-
-          </a>
-
-
-          <a href="#trips" class="quick-action">
-
-            <i class="bx bx-book-heart"></i>
-
-            <div>
-
-              <b>
-                My Trips
-              </b>
-
-              <small>
-                Open saved routes
-              </small>
-
-            </div>
-
-          </a>
+          <button
+            class="btn secondary-btn full-btn"
+            type="button"
+            id="settingsThemeToggle"
+          >
+            <i class="bx bx-palette"></i>
+            Switch theme
+          </button>
 
         </div>
+
+
+        <div class="panel settings-card scroll-bottom">
+
+          <div class="card-heading">
+
+            <div>
+
+              <span class="panel-kicker">
+                PRODUCT NOTES
+              </span>
+
+              <h3>
+                About TripPilot
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-note-list">
+
+            <div>
+              <i class="bx bx-check-shield"></i>
+              <span>
+                Data stays in your browser.
+              </span>
+            </div>
+
+            <div>
+              <i class="bx bx-server"></i>
+              <span>
+                No TripPilot backend is required.
+              </span>
+            </div>
+
+            <div>
+              <i class="bx bx-credit-card"></i>
+              <span>
+                No payment or booking flow is connected.
+              </span>
+            </div>
+
+            <div>
+              <i class="bx bx-code-alt"></i>
+              <span>
+                Built with HTML, CSS and JavaScript.
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
 
       </div>
 
@@ -2276,23 +2907,144 @@
 
 </section>
 
+</main>
+
 
 <!-- =========================================================
      FOOTER
      ========================================================= -->
 
-<footer>
+<footer class="site-footer">
 
-  <div>
-    TripPilot · Interactive Travel Planner · GitHub Pages ready
-  </div>
+  <div class="container">
 
-  <div class="footer-note">
-    Destination photography uses selected Unsplash images.
+    <div class="footer-main">
+
+      <div class="footer-brand">
+
+        <a href="#home" class="logo">
+          Trip<span>Pilot.</span>
+        </a>
+
+        <p>
+          A browser-based travel planning workspace
+          designed for planning, organizing and
+          preparing your next journey.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <div>
+
+          <span>
+            Product
+          </span>
+
+          <a href="#command-center">
+            Dashboard
+          </a>
+
+          <a href="#discover">
+            Discover
+          </a>
+
+          <a href="#planner">
+            Plan Trip
+          </a>
+
+          <a href="#trips">
+            My Trips
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Planning
+          </span>
+
+          <a href="#transport">
+            Transport
+          </a>
+
+          <a href="#itinerary">
+            Itinerary
+          </a>
+
+          <a href="#stays">
+            Stays
+          </a>
+
+          <a href="#budget">
+            Budget
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Workspace
+          </span>
+
+          <a href="#packing">
+            Packing
+          </a>
+
+          <a href="#settings">
+            Settings
+          </a>
+
+          <a href="#home">
+            Home
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-divider"></div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 TripPilot. All rights reserved.
+      </span>
+
+      <span>
+        Built by K. Sai Mahendra
+      </span>
+
+      <span>
+        HTML · CSS · JavaScript · LocalStorage
+      </span>
+
+    </div>
+
+    <p class="footer-disclaimer">
+      TripPilot is a portfolio travel-planning application.
+      Transport, stay and budget values are planning estimates
+      and are not live booking or payment data.
+    </p>
+
   </div>
 
 </footer>
 
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
 
 <div
   class="toast"
