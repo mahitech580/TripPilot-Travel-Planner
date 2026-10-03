@@ -5710,7 +5710,12 @@ if(document.readyState==="loading"){
           '<small>1 '+escapeHTML(from)+' = '+escapeHTML(data.rate.toFixed(4))+' '+escapeHTML(to)+'</small>' +
           '<div class="desk-currency-rate-note"><span>Rate date</span><strong>'+escapeHTML(data.date)+'</strong></div></div>' +
           '<div class="desk-provider-note"><i class="bx bx-refresh"></i>Reference rate from Frankfurter. Exchange prices can move; verify the rate with your payment or FX provider before exchanging money.</div></div>';
-        deskRecentWrite({service:"currency",signature:from+"|"+to+"|"+amount,label:amount+" "+from+" → "+to});
+        deskRecentWrite({
+          service:"currency",
+          signature:from+"|"+to+"|"+amount,
+          label:amount+" "+from+" → "+to,
+          values:deskCaptureValues()
+        });
         return;
       }catch(error){
         result.innerHTML='<div class="desk-result-empty"><div class="desk-result-icon"><i class="bx bx-error"></i></div><span class="panel-kicker">RATE UNAVAILABLE</span><h3>Could not refresh the rate</h3><p>Check your connection and try again.</p></div>';
@@ -5751,16 +5756,43 @@ if(document.readyState==="loading"){
 
     $("travelDeskResult").innerHTML=deskResultHtml(summary,deskProviderLinks[deskService]);
     var signature=JSON.stringify(summary.rows)+"|"+summary.title+"|"+summary.subtitle;
-    deskRecentWrite({service:deskService,signature:signature,label:summary.title+" · "+summary.subtitle});
+    deskRecentWrite({
+      service:deskService,
+      signature:signature,
+      label:summary.title+" · "+summary.subtitle,
+      summary:summary,
+      values:deskCaptureValues()
+    });
     showToast("Search preview ready. Continue to the live provider.");
   }
 
+  function deskApplyValues(values){
+    if(!values) return;
+    Object.keys(values).forEach(function(id){
+      var node=$(id);
+      if(node) node.value=values[id];
+    });
+  }
+
+  function deskCaptureValues(){
+    var values={};
+    var fields=$("travelDeskFields");
+    if(!fields) return values;
+    fields.querySelectorAll("input,select").forEach(function(node){
+      if(node.id) values[node.id]=node.value;
+    });
+    return values;
+  }
+
   function deskLoadState(item){
-    deskService=item.service;
+    deskService=item.service || "flight";
     document.querySelectorAll(".desk-tab").forEach(function(btn){
       btn.classList.toggle("active",btn.dataset.deskService===deskService);
     });
+    $("deskKicker").textContent=deskServiceMeta[deskService].kicker;
+    $("deskTitle").textContent=deskServiceMeta[deskService].title;
     deskRenderFields();
+    deskApplyValues(item.values || {});
     var box=$("travelDeskResult");
     if(box) box.innerHTML=deskResultHtml(item.summary || {
       title:item.label,subtitle:"Saved search",rows:[],note:"This saved search is a local planning shortcut. Start a fresh live search to refresh current inventory."
@@ -5784,7 +5816,7 @@ if(document.readyState==="loading"){
     $("travelDeskSearch").addEventListener("click",deskSearch);
     $("travelDeskSave").addEventListener("click",function(){
       var label=deskService==="currency" ? ((deskVal("deskAmount")||"100")+" "+(deskVal("deskFromCurrency")||"INR")+" → "+(deskVal("deskToCurrency")||"USD")) : ((deskVal("deskFrom")||deskVal("deskHotelCity")||deskVal("deskDestination")||deskVal("deskInsuranceDestination")||"Trip")+" → "+(deskVal("deskTo")||"search"));
-      var item={service:deskService,signature:Date.now().toString(),label:label};
+      var item={service:deskService,signature:Date.now().toString(),label:label,values:deskCaptureValues()};
       deskRecentWrite(item);
       showToast("Search saved locally.");
     });
@@ -5950,4 +5982,71 @@ if(document.readyState==="loading"){
       if(sync) sync.textContent="Live sync failed";
     }
   };
+})();
+
+/* =========================================================
+   TRAVEL INSPIRATION CONTROLLER
+   ========================================================= */
+(function(){
+  var key="trippilot_inspiration_v1";
+
+  function readSaved(){
+    try{
+      var raw=localStorage.getItem(key);
+      var arr=raw?JSON.parse(raw):[];
+      return Array.isArray(arr)?arr:[];
+    }catch(error){return []}
+  }
+
+  function writeSaved(arr){
+    try{localStorage.setItem(key,JSON.stringify(arr));}catch(error){}
+  }
+
+  function renderSaved(){
+    var saved=readSaved();
+    var counter=$("savedInspirationCount");
+    if(counter) counter.textContent=String(saved.length);
+    document.querySelectorAll("[data-inspiration-save]").forEach(function(btn){
+      var name=btn.dataset.inspirationSave;
+      var active=saved.includes(name);
+      btn.classList.toggle("saved",active);
+      var icon=btn.querySelector("i");
+      if(icon) icon.className=active ? "bx bxs-heart" : "bx bx-heart";
+    });
+  }
+
+  function toggle(name){
+    var saved=readSaved();
+    var index=saved.indexOf(name);
+    if(index>=0){
+      saved.splice(index,1);
+      showToast(name+" removed from saved ideas.");
+    }else{
+      saved.push(name);
+      showToast(name+" saved to your inspiration list.");
+    }
+    writeSaved(saved);
+    renderSaved();
+  }
+
+  function plan(name){
+    if(destinationData[name]){
+      state.trip.destination=name;
+      syncPlannerForm();
+      saveState();
+      renderAll();
+      navigateTo("planner");
+      showToast(name+" added to your trip.");
+    }
+  }
+
+  document.querySelectorAll("[data-inspiration-save]").forEach(function(btn){
+    btn.addEventListener("click",function(){toggle(btn.dataset.inspirationSave);});
+  });
+
+  document.querySelectorAll("[data-inspiration-plan]").forEach(function(btn){
+    btn.addEventListener("click",function(){plan(btn.dataset.inspirationPlan);});
+  });
+
+  renderSaved();
 })();
