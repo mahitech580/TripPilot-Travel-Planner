@@ -318,13 +318,28 @@ Remote destination photography is requested at high resolution, the inspiration 
 The Travel Desk, live travel context, planner, itinerary, stays, budget, packing, saved trips, settings, theme switching and local reset remain part of the same GitHub Pages-friendly HTML/CSS/JavaScript application.
 
 
-## 🖼️ 2026 Visual Refresh — Destination Studio & Stay Finder
+## 🖼️ Destination Studio & Stay Finder — final visual refresh
 
-Destination Studio now includes a dedicated featured-city presentation for **Hyderabad, Mumbai and Bengaluru**, with large destination photographs, city context and one-click planning actions. The normal destination grid remains available underneath for all supported places and filters.
+### Destination Studio
 
-Stay Finder now begins with a hospitality-focused visual rail showing coastal resort, city-view, calm interior and premium-room moods before the searchable stay cards.
+Destination Studio is now one clean, image-led destination gallery. It includes:
 
-The final hero has also been corrected for light mode: the travel photograph remains clearly visible instead of being washed out by a near-white overlay. Dark mode keeps a deeper cinematic layer, while light mode uses a lighter contrast veil and dark typography.
+**Hyderabad · Mumbai · Bengaluru · Goa · Manali · Jaipur · Alappuzha · Delhi · Kochi · Udaipur · Rishikesh · Munnar · Hampi**
 
-Remote photography is requested at high resolution and loaded lazily. A client-side image fallback prevents failed remote requests from breaking the visual layout.
+Every place has its own high-resolution travel photograph, category, location, short description, trip-length hint and a working **Plan** action. Hyderabad, Mumbai and Bengaluru are positioned first in the collection and receive stronger visual emphasis through the first three cards.
+
+The destination search and travel-style filters remain fully interactive, so the refreshed gallery does not replace any planner behavior.
+
+### Stay Finder
+
+Stay Finder keeps the same planning workflow but uses a richer hospitality visual treatment. Sample stays cover coastal, mountain, heritage, waterfront, city and premium-room moods, with search and Budget / Comfort / Premium filtering.
+
+### Image system
+
+Destination, inspiration and stay imagery is requested at high resolution and loaded responsively/lazily. Failed remote image requests are protected by TripPilot's local visual fallback so an unavailable image does not break the page.
+
+### Home hero
+
+The home page uses a cinematic mountain-travel photograph with a separate overlay treatment for each theme. Dark mode keeps a deeper cinematic layer with white content. Light mode keeps the photograph visible and uses black content with a controlled translucent readability surface instead of washing the image into a white block.
+
 
