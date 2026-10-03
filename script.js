@@ -701,7 +701,7 @@ const stayData = [
     price:3200,
     rating:4.7,
     tag:"Near beach",
-    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=82&w=900"
+    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -712,7 +712,7 @@ const stayData = [
     price:1600,
     rating:4.4,
     tag:"Short stays",
-    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=78&w=900"
+    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -723,7 +723,7 @@ const stayData = [
     price:2900,
     rating:4.6,
     tag:"Valley view",
-    image:"https://images.unsplash.com/photo-1752563269976-52342808d1ba?auto=format&fit=crop&q=82&w=900"
+    image:"https://images.unsplash.com/photo-1752563269976-52342808d1ba?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -734,7 +734,7 @@ const stayData = [
     price:4800,
     rating:4.8,
     tag:"Heritage feel",
-    image:"https://images.unsplash.com/photo-1729448148484-da3ca27685b3?auto=format&fit=crop&q=82&w=900"
+    image:"https://images.unsplash.com/photo-1729448148484-da3ca27685b3?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -745,7 +745,7 @@ const stayData = [
     price:3600,
     rating:4.8,
     tag:"Waterfront",
-    image:"https://images.unsplash.com/photo-1686890365648-f6dcfe922942?auto=format&fit=crop&q=82&w=900"
+    image:"https://images.unsplash.com/photo-1686890365648-f6dcfe922942?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -756,7 +756,7 @@ const stayData = [
     price:2200,
     rating:4.3,
     tag:"Transit-friendly",
-    image:"https://images.unsplash.com/photo-1632162935151-92afb3bf941b?auto=format&fit=crop&q=80&w=900"
+    image:"https://images.unsplash.com/photo-1632162935151-92afb3bf941b?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -767,7 +767,7 @@ const stayData = [
     price:6200,
     rating:4.9,
     tag:"Lake district",
-    image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=82&w=900"
+    image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -778,7 +778,7 @@ const stayData = [
     price:1800,
     rating:4.5,
     tag:"Near river",
-    image:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&q=82&w=900"
+    image:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&q=92&w=3840"
   },
 
   {
@@ -789,7 +789,7 @@ const stayData = [
     price:3100,
     rating:4.7,
     tag:"Hill views",
-    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&q=82&w=900"
+    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&q=92&w=3840"
   }
 
 ];
@@ -4277,19 +4277,22 @@ function clearData(){
 
   const confirmed =
     window.confirm(
-      "Clear all TripPilot local data? This will remove saved trips, budget changes, activities, packing progress and preferences."
+      "Clear all TripPilot local data? This removes saved trips, budget changes, activities, packing progress, travel searches, inspiration saves and live-session cache."
     );
-
 
   if(!confirmed){
     return;
   }
 
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
-
+  [
+    STORAGE_KEY,
+    "trippilot_desk_recent_v1",
+    "trippilot_inspiration_v1",
+    "trippilot_live_cache_v1"
+  ].forEach(function(key){
+    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
+  });
 
   location.reload();
 
@@ -5185,18 +5188,18 @@ if(
    ========================================================= */
 
 const productionDestinationImages = {
-  Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=86",
-  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=86",
-  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1200&q=86",
-  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=86",
-  Mumbai:"https://images.unsplash.com/photo-1567157577867-05ccb1388d6c?auto=format&fit=crop&w=1200&q=86",
-  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f890b?auto=format&fit=crop&w=1200&q=86",
-  Delhi:"https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=86",
-  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&w=1200&q=86",
-  Udaipur:"https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&w=1200&q=86",
-  Rishikesh:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=86",
-  Munnar:"https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=86",
-  Hampi:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=86"
+  Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=3840&q=92",
+  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=3840&q=92",
+  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=3840&q=92",
+  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=3840&q=92",
+  Mumbai:"https://images.unsplash.com/photo-1567157577867-05ccb1388d6c?auto=format&fit=crop&w=3840&q=92",
+  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f890b?auto=format&fit=crop&w=3840&q=92",
+  Delhi:"https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=3840&q=92",
+  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&w=3840&q=92",
+  Udaipur:"https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&w=3840&q=92",
+  Rishikesh:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=3840&q=92",
+  Munnar:"https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=3840&q=92",
+  Hampi:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=3840&q=92"
 };
 
 Object.entries(productionDestinationImages).forEach(function(entry){
@@ -5433,12 +5436,12 @@ async function liveRoute(origin,destination){
   if(liveOriginMarker) liveOriginMarker.remove();
   if(liveDestinationMarker) liveDestinationMarker.remove();
 
-  liveOriginMarker=L.circleMarker([origin.latitude,origin.longitude],{radius:8,color:"#ff514f",weight:3,fillColor:"#ff514f",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(origin.name)+"</strong><br>Origin");
-  liveDestinationMarker=L.circleMarker([destination.latitude,destination.longitude],{radius:8,color:"#35d58f",weight:3,fillColor:"#35d58f",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(destination.name)+"</strong><br>Destination");
+  liveOriginMarker=L.circleMarker([origin.latitude,origin.longitude],{radius:8,color:"#a33631",weight:3,fillColor:"#a33631",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(origin.name)+"</strong><br>Origin");
+  liveDestinationMarker=L.circleMarker([destination.latitude,destination.longitude],{radius:8,color:"#1f8a5a",weight:3,fillColor:"#1f8a5a",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(destination.name)+"</strong><br>Destination");
 
   if(data.code==="Ok" && data.routes && data.routes.length){
     var route=data.routes[0];
-    liveRouteLayer=L.geoJSON(route.geometry,{style:{color:"#ff514f",weight:5,opacity:.83,dashArray:"9 7"}}).addTo(map);
+    liveRouteLayer=L.geoJSON(route.geometry,{style:{color:"#a33631",weight:5,opacity:.83,dashArray:"9 7"}}).addTo(map);
     var bounds=L.latLngBounds([[origin.latitude,origin.longitude],[destination.latitude,destination.longitude]]);
     route.geometry.coordinates.forEach(function(pair){bounds.extend([pair[1],pair[0]]);});
     map.fitBounds(bounds.pad(.12));
@@ -5552,14 +5555,14 @@ if(document.readyState==="loading"){
   var deskService="flight";
   var deskRecentKey="trippilot_desk_recent_v1";
   var deskProviderLinks={
-    flight:"https://www.makemytrip.com/flights/",
-    hotel:"https://www.makemytrip.com/hotels/",
-    train:"https://www.makemytrip.com/railways/listing",
-    bus:"https://www.makemytrip.com/bus-tickets/bus-services.html",
-    cab:"https://www.makemytrip.com/cabs/",
-    activities:"https://www.makemytrip.com/activities/",
-    holidays:"https://www.makemytrip.com/holidays-india/holidays-travel-packages.html",
-    insurance:"https://www.makemytrip.com/travel-insurance/international/"
+    flight:"https://www.google.com/travel/flights",
+    hotel:"https://www.google.com/travel/search?q=hotels",
+    train:"https://www.irctc.co.in/nget/train-search",
+    bus:"https://www.redbus.in/",
+    cab:"https://www.uber.com/in/en/",
+    activities:"https://www.google.com/travel/things-to-do",
+    holidays:"https://www.thomascook.in/holidays",
+    insurance:"https://www.policybazaar.com/travel-insurance/"
   };
 
   var deskServiceMeta={
