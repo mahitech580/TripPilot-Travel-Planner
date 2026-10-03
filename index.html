@@ -29,7 +29,12 @@
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body data-production="1">
+
+<!-- Production interaction layer -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"><span></span></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
 
 <!-- =========================================================
      APP HEADER
@@ -3055,6 +3060,11 @@
 
 
 <script src="script.js"></script>
+
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
+  <i class="bx bx-up-arrow-alt"></i>
+</button>
 
 </body>
 </html>
