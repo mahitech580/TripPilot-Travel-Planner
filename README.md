@@ -307,8 +307,12 @@ The final interaction pass adds smoother press states, tactile ripple feedback, 
 
 ## ✅ Final theme and reliability pass
 
-The final release standardizes the visual system around smoke/charcoal, deep red and travel green with neutral black/white text for readability.
+The production visual system uses readable black/white theme text with smoke/charcoal surfaces and controlled rainbow editorial accents for travel-inspired motion. Rainbow color is used as a decorative and interactive layer rather than replacing primary text contrast.
 
-Dark and light themes now use their own explicit text, border, input, button, card, navigation and footer contrast rules.
+Dark mode stays white-on-smoke. Light mode stays black-on-white. Hover states add animated rainbow edges, image lift/zoom, subtle glow and smooth motion while core actions retain clear red/green semantics.
 
-The Travel Desk recent-search flow also persists and restores its input values, and the global Clear Data action clears the additional Travel Desk, inspiration and live-session stores introduced by the later product features.
+The home hero keeps the travel photography visible while a theme-aware contrast layer protects headline and paragraph readability.
+
+Remote destination photography is requested at high resolution, the inspiration gallery contains additional travel scenes, and image fallbacks prevent a failed remote image from breaking the layout.
+
+The Travel Desk, live travel context, planner, itinerary, stays, budget, packing, saved trips, settings, theme switching and local reset remain part of the same GitHub Pages-friendly HTML/CSS/JavaScript application.
