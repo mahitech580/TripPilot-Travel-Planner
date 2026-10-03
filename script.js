@@ -5297,7 +5297,7 @@ Object.entries(productionDestinationImages).forEach(function(entry){
 });
 
 getDestinationCards = function(){
-  Object.entries(destinationData).map(function(entry){
+  return Object.entries(destinationData).map(function(entry){
     var name=entry[0], data=entry[1];
     return (
       '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
