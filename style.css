@@ -8138,3 +8138,377 @@ body.light-mode .navlist a:hover{
 }
 
 /* End final visual system */
+
+
+/* =========================================================
+   FINAL PRODUCT PASS — 8 SECTION TRAVEL EXPERIENCE
+   Smooth SaaS/PAAS presentation, cinematic photography,
+   readable dark/light themes, tasteful rainbow motion.
+   ========================================================= */
+
+/* Main information architecture */
+.page-group-section{
+  position:relative;
+  padding:0 !important;
+  overflow:hidden;
+  scroll-margin-top:84px;
+}
+.page-group-section + .page-group-section{
+  border-top:1px solid rgba(102,112,106,.18);
+}
+body:not(.light-mode) .page-group-section + .page-group-section{
+  border-top-color:rgba(255,255,255,.075);
+}
+.page-group-section > [data-subsection]{
+  position:relative;
+  padding-block:92px !important;
+}
+.page-group-section > [data-subsection] + [data-subsection]{
+  padding-top:76px !important;
+}
+.page-group-section > [data-subsection]:last-child{
+  padding-bottom:98px !important;
+}
+.page-group-section .section-header{
+  margin-bottom:38px;
+}
+
+/* Header: cleaner, more SaaS-like navigation */
+#header{
+  min-height:72px !important;
+}
+.navlist{
+  flex:1 1 auto;
+  justify-content:center;
+  max-width:none !important;
+  gap:3px !important;
+}
+.navlist a{
+  padding:9px 12px !important;
+  font-size:.69rem !important;
+  white-space:nowrap;
+}
+@media(max-width:1180px){
+  .navlist a{padding:8px 8px !important;font-size:.62rem !important}
+}
+@media(max-width:980px){
+  .navlist{max-width:100% !important}
+}
+
+/* Hero background — one strong image that works in both themes */
+#home-content.home-section{
+  min-height:790px !important;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  isolation:isolate;
+  background:none !important;
+}
+#home-content.home-section::after{
+  content:"";
+  position:absolute;
+  inset:-4%;
+  z-index:0;
+  background:
+    url("https://images.unsplash.com/photo-1689085383734-32c6d88221a7?auto=format&fit=crop&w=3840&q=92")
+    center 48% / cover no-repeat;
+  transform:scale(1.03);
+  will-change:transform;
+  animation:heroKenBurns 24s cubic-bezier(.2,.65,.2,1) infinite alternate;
+}
+#home-content.home-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,
+      rgba(11,15,13,.92) 0%,
+      rgba(11,15,13,.73) 34%,
+      rgba(11,15,13,.45) 64%,
+      rgba(11,15,13,.56) 100%);
+}
+body.light-mode #home-content.home-section::before{
+  background:
+    linear-gradient(90deg,
+      rgba(255,255,255,.94) 0%,
+      rgba(255,255,255,.86) 32%,
+      rgba(255,255,255,.58) 62%,
+      rgba(255,255,255,.46) 100%);
+}
+#home-content.home-section > .container{
+  position:relative;
+  z-index:3;
+  width:min(92%,1450px) !important;
+  margin-inline:auto;
+}
+#home-content .hero-grid{
+  grid-template-columns:minmax(0,1fr) minmax(460px,.98fr) !important;
+  gap:clamp(28px,4vw,70px) !important;
+  align-items:center;
+}
+#home-content .hero-copy{
+  justify-self:start;
+  max-width:700px !important;
+}
+#home-content .hero-copy h1{
+  max-width:10ch !important;
+  font-size:clamp(3.6rem,6.4vw,6.15rem) !important;
+  text-shadow:0 12px 34px rgba(0,0,0,.16);
+}
+#home-content .hero-description{
+  max-width:650px !important;
+  font-size:1rem !important;
+}
+#home-content .hero-product{
+  width:100%;
+  max-width:710px;
+  justify-self:end;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+body.light-mode #home-content .hero-product{
+  background:rgba(255,255,255,.88) !important;
+  border-color:rgba(11,15,13,.10) !important;
+}
+body:not(.light-mode) #home-content .hero-product{
+  background:rgba(20,25,22,.72) !important;
+  border-color:rgba(255,255,255,.13) !important;
+}
+#home-content .announcement-bar{
+  max-width:none;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+body.light-mode #home-content .announcement-bar{
+  background:rgba(255,255,255,.78) !important;
+}
+
+/* Cinematic accent line behind the hero */
+#home-content .hero-trust-row{
+  position:relative;
+}
+#home-content .hero-trust-row::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-12px;
+  width:88px;
+  height:2px;
+  border-radius:99px;
+  background:var(--rainbow);
+  background-size:260% 100%;
+  animation:rainbowShift 7s linear infinite;
+}
+
+/* Rainbow is selective, never the body text */
+#home-content .hero-copy h1 span,
+.page-group-section .section-header h2 span,
+.logo span{
+  background:var(--rainbow) !important;
+  background-size:260% 100% !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  color:transparent !important;
+  animation:rainbowShift 9s linear infinite !important;
+}
+
+/* Smooth section rhythm / subtle separators */
+.page-group-section .product-section{
+  background:transparent !important;
+}
+.page-group-section .alternate-section{
+  background:linear-gradient(180deg,rgba(102,112,106,.025),transparent 42%,rgba(102,112,106,.018)) !important;
+}
+body.light-mode .page-group-section .alternate-section{
+  background:linear-gradient(180deg,rgba(102,112,106,.045),transparent 42%,rgba(102,112,106,.025)) !important;
+}
+
+/* SaaS card motion and depth */
+.panel,
+.hero-shortcut,
+.transport-option,
+.trip-stat,
+.destination-card,
+.stay-card,
+.desk-discovery-card,
+.inspiration-mini{
+  will-change:transform;
+}
+.panel,
+.hero-shortcut,
+.transport-option,
+.trip-stat,
+.destination-card,
+.stay-card,
+.desk-discovery-card,
+.inspiration-mini{
+  transition:
+    transform .38s cubic-bezier(.2,.8,.2,1),
+    box-shadow .38s ease,
+    border-color .28s ease,
+    background .28s ease !important;
+}
+.panel:hover,
+.hero-shortcut:hover,
+.transport-option:hover,
+.trip-stat:hover,
+.destination-card:hover,
+.stay-card:hover,
+.desk-discovery-card:hover,
+.inspiration-mini:hover{
+  transform:translateY(-7px) !important;
+}
+
+/* Rainbow hover edge, not rainbow-filled cards */
+.panel:hover,
+.hero-shortcut:hover,
+.transport-option:hover,
+.trip-stat:hover,
+.destination-card:hover,
+.stay-card:hover,
+.desk-discovery-card:hover,
+.inspiration-mini:hover{
+  border-image:var(--rainbow) 1 !important;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.13),
+    0 0 34px rgba(90,169,247,.06) !important;
+}
+body.light-mode .panel:hover,
+body.light-mode .hero-shortcut:hover,
+body.light-mode .transport-option:hover,
+body.light-mode .trip-stat:hover,
+body.light-mode .destination-card:hover,
+body.light-mode .stay-card:hover,
+body.light-mode .desk-discovery-card:hover,
+body.light-mode .inspiration-mini:hover{
+  box-shadow:
+    0 24px 60px rgba(11,15,13,.09),
+    0 0 34px rgba(72,184,121,.06) !important;
+}
+
+/* Rich buttons */
+.btn{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.18) 50%,transparent 80%);
+  transform:translateX(-120%);
+  pointer-events:none;
+  z-index:-1;
+}
+.btn:hover::before{
+  animation:buttonSheen .72s ease;
+}
+.primary-btn{
+  background:linear-gradient(135deg,#a33631,#8f2d28) !important;
+}
+.primary-btn:hover{
+  box-shadow:0 16px 36px rgba(163,54,49,.22),0 0 26px rgba(90,169,247,.07) !important;
+}
+.secondary-btn:hover,
+.live-reset-btn:hover,
+.desk-save-button:hover{
+  background:#66706a !important;
+}
+
+/* Image presentation */
+.destination-image,
+.stay-image,
+.inspiration-feature img,
+.inspiration-mini img,
+.travel-gallery-card img{
+  transform:scale(1.01);
+  will-change:transform;
+}
+.destination-card:hover .destination-image,
+.stay-card:hover .stay-image,
+.inspiration-feature:hover img,
+.inspiration-mini:hover img,
+.travel-gallery-card:hover img{
+  transform:scale(1.075) !important;
+}
+.destination-image::after,
+.stay-image::after{
+  content:"";
+}
+
+/* Live section breathing motion */
+.live-weather-panel,
+.live-map-panel{
+  animation:softEntrance 1s cubic-bezier(.2,.8,.2,1) both;
+}
+.live-map-panel{animation-delay:.08s}
+.live-weather-panel:hover,
+.live-map-panel:hover{
+  transform:translateY(-4px);
+}
+
+/* Focus states */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+  outline:3px solid rgba(90,169,247,.28) !important;
+  outline-offset:3px;
+}
+body.light-mode a:focus-visible,
+body.light-mode button:focus-visible,
+body.light-mode input:focus-visible,
+body.light-mode select:focus-visible,
+body.light-mode textarea:focus-visible{
+  outline-color:rgba(72,184,121,.30) !important;
+}
+
+/* Motion library */
+@keyframes heroKenBurns{
+  0%{transform:scale(1.03) translate3d(0,0,0)}
+  100%{transform:scale(1.10) translate3d(-1.5%, -1%, 0)}
+}
+@keyframes softEntrance{
+  0%{opacity:0;transform:translateY(12px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+@keyframes buttonSheen{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(120%)}
+}
+
+@media(max-width:1100px){
+  #home-content.home-section{min-height:auto !important}
+  #home-content .hero-grid{grid-template-columns:1fr !important}
+  #home-content .hero-product{justify-self:stretch;max-width:none}
+  #home-content .hero-copy h1{max-width:12ch !important}
+}
+@media(max-width:720px){
+  #home-content.home-section{min-height:auto !important;padding-top:98px !important}
+  #home-content .hero-grid{gap:34px !important}
+  #home-content .hero-copy h1{font-size:clamp(2.8rem,13vw,4.4rem) !important}
+  #home-content .hero-product{max-width:none}
+  #home-content.home-section::before{
+    background:linear-gradient(180deg,rgba(255,255,255,.93),rgba(255,255,255,.62)) !important;
+  }
+  body:not(.light-mode) #home-content.home-section::before{
+    background:linear-gradient(180deg,rgba(11,15,13,.84),rgba(11,15,13,.48)) !important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #home-content.home-section::after,
+  #home-content .hero-copy h1 span,
+  .page-group-section .section-header h2 span,
+  .logo span,
+  #home-content .hero-product,
+  .live-weather-panel,
+  .live-map-panel{
+    animation:none !important;
+  }
+}
