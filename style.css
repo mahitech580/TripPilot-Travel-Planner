@@ -6110,3 +6110,12 @@ body.light-mode .toast{
     top:64px;
   }
 }
+
+/* Slow hero Ken-Burns movement without blurring the photograph. */
+.home-section{
+  animation:homeKenBurns 26s ease-in-out infinite alternate;
+}
+@keyframes homeKenBurns{
+  from{background-position:50% 50%,50% 50%,50% 50%}
+  to{background-position:54% 48%,50% 50%,54% 48%}
+}

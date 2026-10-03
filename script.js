@@ -1884,14 +1884,18 @@ function renderDestinations(){
     .forEach(
       card => {
 
+        const destinationName =
+          card.dataset.name;
+
         const name =
-          card.dataset.name
+          destinationName
             .toLowerCase();
 
         const type =
           card.dataset.type;
 
-        const info = destinationData[name] || {};
+        const info =
+          destinationData[destinationName] || {};
         const haystack =
           (name + " " + (info.label || "") + " " + (info.state || "")).toLowerCase();
 
