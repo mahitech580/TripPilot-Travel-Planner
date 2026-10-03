@@ -10335,3 +10335,72 @@ body:not(.light-mode) #authGate .auth-panel h2{
     transition:none !important;
   }
 }
+
+
+/* =========================================================
+   FINAL AUTH LIGHT-PANEL TEXT GUARANTEE
+   The entire login/register form side uses readable dark ink
+   on white, regardless of global theme cascade.
+   ========================================================= */
+#authGate .auth-panel,
+#authGate .auth-panel h2,
+#authGate .auth-panel p,
+#authGate .auth-panel label,
+#authGate .auth-panel span,
+#authGate .auth-panel small,
+#authGate .auth-panel strong,
+#authGate .auth-panel .auth-field,
+#authGate .auth-panel .auth-check,
+#authGate .auth-panel .auth-footer-note{
+  color:#0b0f0d !important;
+}
+#authGate .auth-panel .auth-panel-kicker{
+  color:#1f8a5a !important;
+}
+#authGate .auth-panel .auth-panel-top p,
+#authGate .auth-panel .auth-footer-note{
+  color:#505a55 !important;
+}
+#authGate .auth-panel .auth-input-wrap{
+  background:#ffffff !important;
+  color:#0b0f0d !important;
+}
+#authGate .auth-panel .auth-input-wrap input{
+  color:#0b0f0d !important;
+  -webkit-text-fill-color:#0b0f0d !important;
+}
+#authGate .auth-panel .auth-input-wrap input::placeholder{
+  color:#7a847e !important;
+  -webkit-text-fill-color:#7a847e !important;
+}
+#authGate .auth-panel .auth-input-wrap > i,
+#authGate .auth-panel .auth-password-toggle{
+  color:#66706a !important;
+}
+#authGate .auth-panel .auth-password-toggle:hover{
+  color:#0b0f0d !important;
+  background:#eef1ef !important;
+}
+#authGate .auth-panel .auth-switch-btn{
+  color:#505a55 !important;
+}
+#authGate .auth-panel .auth-switch-btn.active{
+  color:#ffffff !important;
+}
+#authGate .auth-panel .auth-live-dot{
+  color:#1f754e !important;
+}
+#authGate .auth-panel .auth-live-dot i{
+  color:inherit !important;
+}
+#authGate .auth-panel .auth-message{
+  color:#a33631 !important;
+}
+#authGate .auth-panel .auth-message.success{
+  color:#1f754e !important;
+}
+#authGate .auth-panel .auth-submit,
+#authGate .auth-panel .auth-submit span,
+#authGate .auth-panel .auth-submit i{
+  color:#ffffff !important;
+}
