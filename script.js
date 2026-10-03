@@ -215,7 +215,7 @@ const destinationData = {
     distance:620,
     subtitle:"Charminar, Golconda, biryani and a modern tech-city pulse.",
     imageClass:"hyderabad",
-    image:"https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+    image:"https://images.unsplash.com/photo-1750834115164-8c2658f18dd0?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Charminar, Hyderabad",
     featured:true
   },
@@ -227,7 +227,7 @@ const destinationData = {
     distance:710,
     subtitle:"Marine Drive sunsets, heritage landmarks and coastal city energy.",
     imageClass:"mumbai",
-    image:"https://images.unsplash.com/photo-1753806390564-347dae2483d3?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+    image:"https://images.unsplash.com/photo-1529253355930-347a3b4a3435?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Mumbai cityscape at sunset",
     featured:true
   },
@@ -239,7 +239,7 @@ const destinationData = {
     distance:570,
     subtitle:"Vidhana Soudha, green spaces, cafés and Bengaluru city life.",
     imageClass:"bengaluru",
-    image:"https://images.unsplash.com/photo-1588416936097-41850ab3d86d?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+    image:"https://images.unsplash.com/photo-1644779504736-ed346f96a7bf?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Vidhana Soudha, Bengaluru",
     featured:true
   },
@@ -251,7 +251,7 @@ const destinationData = {
     distance:660,
     subtitle:"Beaches, cafés and easy coastal days.",
     imageClass:"goa",
-    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Manali:{
@@ -261,7 +261,7 @@ const destinationData = {
     distance:1900,
     subtitle:"Mountain roads, viewpoints and cool-weather stays.",
     imageClass:"manali",
-    image:"https://images.unsplash.com/photo-1752563269976-52342808d1ba?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Jaipur:{
@@ -271,7 +271,7 @@ const destinationData = {
     distance:1580,
     subtitle:"Forts, markets, architecture and food.",
     imageClass:"jaipur",
-    image:"https://images.unsplash.com/photo-1729448148484-da3ca27685b3?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Alappuzha:{
@@ -281,7 +281,7 @@ const destinationData = {
     distance:1250,
     subtitle:"Houseboats, waterways and slower travel.",
     imageClass:"alappuzha",
-    image:"https://images.unsplash.com/photo-1686890365648-f6dcfe922942?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Delhi:{
@@ -291,7 +291,7 @@ const destinationData = {
     distance:1570,
     subtitle:"History, museums, monuments and food.",
     imageClass:"delhi",
-    image:"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Kochi:{
@@ -301,7 +301,7 @@ const destinationData = {
     distance:1090,
     subtitle:"Fort Kochi, waterfront culture and relaxed food trails.",
     imageClass:"alappuzha",
-    image:"https://images.unsplash.com/photo-1686890365648-f6dcfe922942?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Udaipur:{
@@ -311,7 +311,7 @@ const destinationData = {
     distance:1700,
     subtitle:"Lakes, palaces and slower heritage days.",
     imageClass:"udaipur",
-    image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Rishikesh:{
@@ -321,7 +321,7 @@ const destinationData = {
     distance:1800,
     subtitle:"River views, outdoor activities and hill escapes.",
     imageClass:"rishikesh",
-    image:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Munnar:{
@@ -331,7 +331,7 @@ const destinationData = {
     distance:1120,
     subtitle:"Tea landscapes, hills and cool mornings.",
     imageClass:"munnar",
-    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1672219386269-486cbbe9a50f?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   Hampi:{
@@ -341,7 +341,7 @@ const destinationData = {
     distance:610,
     subtitle:"Historic ruins, landscapes and relaxed exploration.",
     imageClass:"hampi",
-    image:"https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   }
 
 }
@@ -1917,26 +1917,7 @@ function renderDestinations(){
 }
 
 
-function bindFeaturedDestinationActions(){
-  var root=$("discover");
-  if(!root || root.dataset.featuredBound==="1") return;
-  root.dataset.featuredBound="1";
-  root.addEventListener("click",function(event){
-    var button=event.target.closest("[data-featured-plan]");
-    if(!button) return;
-    var destination=button.dataset.featuredPlan;
-    if(!destinationData[destination]) return;
-    state.trip.destination=destination;
-    syncPlannerForm();
-    saveState();
-    renderAll();
-    navigateTo("planner");
-    showToast(destination+" added to your trip.");
-  });
-}
-
 function initDestinationFilters(){
-  bindFeaturedDestinationActions();
 
   document
     .querySelectorAll(
@@ -5263,19 +5244,19 @@ const destinationImageFallbacks = {
 };
 
 const productionDestinationImages = {
-  Hyderabad:"https://images.unsplash.com/photo-1522099556433-a5f8ac730391?auto=format&fit=crop&w=3840&q=92",
-  Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=3840&q=92",
-  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=3840&q=92",
-  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=3840&q=92",
-  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=3840&q=92",
-  Mumbai:"https://images.unsplash.com/photo-1567157577867-05ccb1388d6c?auto=format&fit=crop&w=3840&q=92",
-  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=3840&q=92",
-  Delhi:"https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=3840&q=92",
-  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&w=3840&q=92",
-  Udaipur:"https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&w=3840&q=92",
-  Rishikesh:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=3840&q=92",
-  Munnar:"https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=3840&q=92",
-  Hampi:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=3840&q=92"
+  Hyderabad:"https://images.unsplash.com/photo-1750834115164-8c2658f18dd0?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Mumbai:"https://images.unsplash.com/photo-1529253355930-347a3b4a3435?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Bengaluru:"https://images.unsplash.com/photo-1644779504736-ed346f96a7bf?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Goa:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Delhi:"https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Udaipur:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Rishikesh:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Munnar:"https://images.unsplash.com/photo-1672219386269-486cbbe9a50f?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Hampi:"https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&fm=jpg&q=92&w=3840",
 };
 
 var TRAVEL_IMAGE_FALLBACK =
@@ -5321,7 +5302,7 @@ getDestinationCards = function(){
     return (
       '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
         '<div class="destination-image">' +
-          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || destinationImageFallbacks[name] || TRAVEL_IMAGE_FALLBACK) + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
+          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || destinationImageFallbacks[name] || TRAVEL_IMAGE_FALLBACK) + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=TRAVEL_IMAGE_FALLBACK;">' +
         '</div>' +
         '<div class="destination-overlay"></div>' +
         '<div class="destination-content">' +
