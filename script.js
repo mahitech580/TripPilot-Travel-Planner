@@ -253,6 +253,15 @@ const destinationData = {
     imageClass:"mumbai"
   },
 
+  Hyderabad:{
+    type:"city",
+    label:"City",
+    state:"Telangana",
+    distance:620,
+    subtitle:"Old City heritage, food trails and a fast-growing modern core.",
+    imageClass:"hyderabad"
+  },
+
   Bengaluru:{
     type:"city",
     label:"City",
@@ -5188,12 +5197,13 @@ if(
    ========================================================= */
 
 const productionDestinationImages = {
+  Hyderabad:"https://images.unsplash.com/photo-1522099556433-a5f8ac730391?auto=format&fit=crop&w=3840&q=92",
   Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=3840&q=92",
   Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=3840&q=92",
   Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=3840&q=92",
   Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=3840&q=92",
   Mumbai:"https://images.unsplash.com/photo-1567157577867-05ccb1388d6c?auto=format&fit=crop&w=3840&q=92",
-  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f890b?auto=format&fit=crop&w=3840&q=92",
+  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=3840&q=92"",
   Delhi:"https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=3840&q=92",
   Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&w=3840&q=92",
   Udaipur:"https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&w=3840&q=92",
@@ -5201,6 +5211,36 @@ const productionDestinationImages = {
   Munnar:"https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=3840&q=92",
   Hampi:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=3840&q=92"
 };
+
+const TRAVEL_IMAGE_FALLBACK =
+  "data:image/svg+xml;charset=UTF-8," +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">' +
+      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0" stop-color="#0b0f0d"/>' +
+        '<stop offset=".48" stop-color="#1f8a5a"/>' +
+        '<stop offset="1" stop-color="#a33631"/>' +
+      '</linearGradient></defs>' +
+      '<rect width="1600" height="900" fill="url(#g)"/>' +
+      '<circle cx="1220" cy="220" r="150" fill="rgba(255,255,255,.12)"/>' +
+      '<path d="M0 720 L350 410 L570 610 L850 300 L1240 700 L1450 500 L1600 720 V900 H0Z" fill="rgba(0,0,0,.28)"/>' +
+      '<text x="80" y="800" fill="white" font-family="Arial,sans-serif" font-size="52" font-weight="700">TripPilot</text>' +
+    '</svg>'
+  );
+
+function installTravelImageFallbacks(){
+  document.querySelectorAll('img[src*="images.unsplash.com"]').forEach(function(img){
+    if(img.dataset.fallbackBound==="1") return;
+    img.dataset.fallbackBound="1";
+    img.addEventListener("error",function(){
+      if(img.dataset.fallbackUsed==="1") return;
+      img.dataset.fallbackUsed="1";
+      img.src=TRAVEL_IMAGE_FALLBACK;
+      img.removeAttribute("srcset");
+      img.classList.add("image-fallback-active");
+    },{once:true});
+  });
+}
 
 Object.entries(productionDestinationImages).forEach(function(entry){
   var name=entry[0], url=entry[1];
@@ -5213,7 +5253,7 @@ getDestinationCards = function(){
     return (
       '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
         '<div class="destination-image">' +
-          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || "") + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" referrerpolicy="no-referrer">' +
+          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || TRAVEL_IMAGE_FALLBACK) + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
         '</div>' +
         '<div class="destination-overlay"></div>' +
         '<div class="destination-content">' +
@@ -6088,6 +6128,12 @@ if(document.readyState==="loading"){
     if(!node || node.tagName!=="IMG") return;
     node.classList.add("broken-image");
     if(node.parentElement) node.parentElement.classList.add("image-fallback");
+    if(node.dataset && node.dataset.fallbackUsed!=="1" && typeof TRAVEL_IMAGE_FALLBACK==="string"){
+      node.dataset.fallbackUsed="1";
+      node.src=TRAVEL_IMAGE_FALLBACK;
+      node.removeAttribute("srcset");
+      node.classList.add("image-fallback-active");
+    }
   },true);
 
   document.addEventListener("click",function(event){
