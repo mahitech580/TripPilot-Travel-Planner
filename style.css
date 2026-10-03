@@ -8697,3 +8697,17 @@ body.light-mode .destination-card.featured-city::after{
 .destination-image.bengaluru{
   background-image:url("https://images.unsplash.com/photo-1741375870964-093181f9993a?auto=format&fit=crop&fm=jpg&q=88&w=2200");
 }
+
+/* FINAL IMAGE REFRESH — DESTINATION STUDIO + STAY FINDER */
+#discover,#stays{overflow:hidden;isolation:isolate;}
+#discover::before,#stays::before{content:"";position:absolute;inset:0;z-index:-2;background-position:center;background-size:cover;background-repeat:no-repeat;transform:scale(1.03);opacity:.42;filter:saturate(.98) contrast(1.02);}
+#discover::after,#stays::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;}
+#discover::before{background-image:url("https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=92&w=3840");}
+#stays::before{background-image:url("https://images.unsplash.com/photo-1776761363365-ad83248b93df?auto=format&fit=crop&fm=jpg&q=92&w=3840");}
+#discover::after{background:linear-gradient(180deg,rgba(11,15,13,.90) 0%,rgba(11,15,13,.76) 22%,rgba(11,15,13,.88) 72%,rgba(11,15,13,.96) 100%);}
+#stays::after{background:linear-gradient(180deg,rgba(11,15,13,.90) 0%,rgba(11,15,13,.78) 22%,rgba(11,15,13,.90) 72%,rgba(11,15,13,.97) 100%);}
+#discover > .container,#stays > .container{position:relative;z-index:2;}
+body.light-mode #discover::before,body.light-mode #stays::before{opacity:.32;filter:saturate(.98) contrast(1.03) brightness(.96);}
+body.light-mode #discover::after{background:linear-gradient(180deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.68) 25%,rgba(255,255,255,.82) 70%,rgba(255,255,255,.93) 100%);}
+body.light-mode #stays::after{background:linear-gradient(180deg,rgba(255,255,255,.86) 0%,rgba(255,255,255,.70) 25%,rgba(255,255,255,.84) 70%,rgba(255,255,255,.94) 100%);}
+body.light-mode #discover .panel,body.light-mode #stays .panel{box-shadow:0 22px 54px rgba(42,67,88,.12);}
