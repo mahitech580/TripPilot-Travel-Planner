@@ -6348,7 +6348,7 @@ input[type="range"]{accent-color:var(--travel-red)!important}
 .live-search-wrap i{color:var(--travel-red);font-size:1.18rem}
 .live-search-wrap input{width:100%;border:0;outline:0;background:transparent;color:#ffffff}
 .live-search-wrap input::placeholder{color:#66706a}
-.live-search-btn{background:linear-gradient(135deg,var(--travel-green-deep),var(--travel-green))!important;color:#1f8a5a!important;font-weight:800!important;border:0!important}
+.live-search-btn{background:linear-gradient(135deg,var(--travel-green-deep),var(--travel-green))!important;color:#ffffff!important;font-weight:800!important;border:0!important}
 .live-reset-btn{background:rgba(255,255,255,.035)!important;border:1px solid rgba(255,255,255,.08)!important;color:#ffffff!important}
 .live-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:18px}
 .live-weather-panel,.live-map-panel{min-height:510px;border-radius:24px!important;overflow:hidden}
@@ -6461,7 +6461,7 @@ body.light-mode .live-map-panel{background:#ffffff!important}body.light-mode .tr
 .desk-preview-row span{color:#66706a}.desk-preview-row strong{color:#ffffff;text-align:right}
 .desk-provider-note{margin-top:19px;padding:14px;border-radius:14px;background:rgba(163,54,49,.045);border:1px solid rgba(163,54,49,.13);color:#a9b1ac;font-size:.69rem;line-height:1.65}
 .desk-provider-note i{color:var(--travel-red);margin-right:5px}
-.desk-open-provider{display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:15px;width:100%;min-height:46px;border-radius:12px;background:linear-gradient(135deg,var(--travel-green-deep),var(--travel-green));color:#1f8a5a;font-weight:800;font-size:.77rem}
+.desk-open-provider{display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:15px;width:100%;min-height:46px;border-radius:12px;background:linear-gradient(135deg,var(--travel-green-deep),var(--travel-green));color:#ffffff;font-weight:800;font-size:.77rem}
 .desk-recent{padding:22px 25px;margin-top:16px}
 .text-button{background:transparent;color:#a9b1ac;cursor:pointer;font-size:.7rem;font-weight:700}
 .text-button:hover{color:var(--travel-red)}
@@ -6560,7 +6560,7 @@ body.light-mode .live-map-panel{background:#ffffff!important}body.light-mode .tr
   border-radius:11px;border:1px solid rgba(31,138,90,.2);
   background:rgba(31,138,90,.1);color:#ffffff;font-size:.7rem;font-weight:800;cursor:pointer;
 }
-.inspiration-plan:hover{background:var(--travel-green);color:#1f8a5a}
+.inspiration-plan:hover{background:var(--travel-green);color:#ffffff}
 .inspiration-save,.inspiration-mini-save{
   display:grid;place-items:center;width:39px;height:39px;border-radius:11px;
   border:1px solid rgba(255,255,255,.12);background:rgba(11,15,13,.52);
@@ -6836,14 +6836,14 @@ select option{background:#0b0f0d;color:#ffffff}
 }
 .pack-item:hover,.packing-item:hover{background:var(--ui-hover)!important;border-color:rgba(102,112,106,.34)!important}
 .pack-item.done{background:var(--ui-green-soft)!important;border-color:rgba(31,138,90,.22)!important}
-.pack-item.done .pack-check{background:var(--ui-green)!important;color:#1f8a5a!important}
+.pack-item.done .pack-check{background:var(--ui-green)!important;color:#ffffff!important}
 .footer,.site-footer{background:#0b0f0d!important;border-top-color:var(--ui-border)!important}
 .footer a{color:#a9b1ac!important}.footer a:hover{color:var(--ui-green)!important}
 .footer::before{background:linear-gradient(90deg,transparent,var(--ui-red),var(--ui-green),transparent)!important}
 .toast{background:rgba(11,15,13,.96)!important;color:#ffffff!important;border-color:rgba(31,138,90,.24)!important}
 .live-signal{color:#ffffff!important;background:var(--ui-red-soft)!important;border-color:rgba(163,54,49,.24)!important}
 .live-pulse{background:var(--ui-green)!important;box-shadow:0 0 0 5px rgba(31,138,90,.07),0 0 16px rgba(31,138,90,.24)!important}
-.live-search-btn{background:linear-gradient(135deg,var(--ui-green-deep),var(--ui-green))!important;color:#1f8a5a!important}
+.live-search-btn{background:linear-gradient(135deg,var(--ui-green-deep),var(--ui-green))!important;color:#ffffff!important}
 .live-weather-panel,.live-map-panel,.desk-result-panel{color:var(--ui-text)!important}
 .live-weather-location strong,.live-condition,.live-map-head h3,.live-loading strong{color:#ffffff!important}
 .live-weather-location small,.live-feels,.live-source-note,.map-foot,.live-loading small{color:var(--ui-muted)!important}
@@ -6865,7 +6865,7 @@ select option{background:#0b0f0d;color:#ffffff}
 .desk-preview-status{color:var(--ui-green)!important;background:var(--ui-green-soft)!important;border-color:rgba(31,138,90,.2)!important}
 .desk-provider-note{background:var(--ui-red-soft)!important;border-color:rgba(163,54,49,.15)!important;color:#e5e9e6!important}
 .desk-provider-note i{color:var(--ui-red-hover)!important}
-.desk-open-provider{background:linear-gradient(135deg,#1f8a5a,var(--ui-green))!important;color:#1f8a5a!important}
+.desk-open-provider{background:linear-gradient(135deg,#1f8a5a,var(--ui-green))!important;color:#ffffff!important}
 .desk-recent-item,.desk-discovery-card{
   color:#e5e9e6!important;background:rgba(255,255,255,.025)!important;border-color:var(--ui-border)!important;
 }
@@ -6878,7 +6878,7 @@ select option{background:#0b0f0d;color:#ffffff}
 .inspiration-counter span i{color:var(--ui-red)!important}
 .inspiration-tag{color:var(--ui-green)!important;background:rgba(11,15,13,.7)!important}
 .inspiration-plan{background:var(--ui-green-soft)!important;border-color:rgba(31,138,90,.2)!important;color:#ffffff!important}
-.inspiration-plan:hover{background:var(--ui-green)!important;color:#1f8a5a!important}
+.inspiration-plan:hover{background:var(--ui-green)!important;color:#ffffff!important}
 .inspiration-save,.inspiration-mini-save{color:#ffffff!important;background:rgba(11,15,13,.58)!important;border-color:var(--ui-border)!important}
 .inspiration-save.saved,.inspiration-mini-save.saved{color:var(--ui-red)!important;background:var(--ui-red-soft)!important;border-color:rgba(163,54,49,.26)!important}
 .back-to-top{background:rgba(11,15,13,.92)!important;color:#ffffff!important;border-color:var(--ui-border)!important}
@@ -7239,7 +7239,7 @@ body.light-mode .hero-product .hero-route-point{
 }
 
 body.light-mode .hero-product .hero-route-point i{
-  color:var(--fp-green);
+  color:#ffffff;
   background:#1f8a5a;
   border-color:#1f8a5a;
 }
@@ -7250,7 +7250,7 @@ body.light-mode .hero-product .hero-route-point.destination i{
 
 body.light-mode .live-pill,
 body.light-mode .soft-label{
-  color:var(--fp-green);
+  color:#ffffff;
   background:#1f8a5a;
   border-color:#1f8a5a;
 }
@@ -9601,3 +9601,21 @@ body.light-mode .live-search-wrap input{
 .live-offline-card .btn{
   min-width:150px;
 }
+
+
+/* FINAL CASCADE SAFETY — explicit readable text on every filled control */
+.live-search-btn,.live-search-btn i,
+.desk-open-provider,.desk-open-provider i,
+.primary-btn,.primary-btn i,
+.destination-button,.destination-button i,
+.stay-action,.stay-action i,
+.pack-item.done .pack-check,
+.profile-avatar,.mini-avatar{color:#fff !important}
+.live-search-btn,.desk-open-provider{background:#1f8a5a !important;border-color:#1f8a5a !important}
+.live-search-btn:hover,.desk-open-provider:hover{background:#66706a !important;border-color:#66706a !important}
+.primary-btn,.destination-button,.stay-action{background:#a33631 !important;border-color:#a33631 !important}
+.primary-btn:hover,.destination-button:hover,.stay-action:hover{background:#7f2925 !important;border-color:#7f2925 !important}
+.filter-tab.active,.transport-tab.active,.desk-tab.active,.transport-switch.active{color:#fff !important;background:#a33631 !important;border-color:#a33631 !important}
+.filter-tab.active i,.transport-tab.active i,.desk-tab.active i,.transport-switch.active i{color:#fff !important}
+body.light-mode .filter-tab.active,body.light-mode .transport-tab.active,body.light-mode .desk-tab.active,body.light-mode .transport-switch.active{color:#0b0f0d !important;background:#f7e9e8 !important;border-color:#d8aaa6 !important}
+body.light-mode .filter-tab.active i,body.light-mode .transport-tab.active i,body.light-mode .desk-tab.active i,body.light-mode .transport-switch.active i{color:#a33631 !important}
