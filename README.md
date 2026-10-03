@@ -303,13 +303,9 @@ Travel Desk searches can now retain their form values locally. Selecting a recen
 
 ## 🖼️ Final visual layer
 
-The visual system uses destination photography, hospitality photography and a cinematic home image to create a more realistic travel-product presentation. Images are responsive, lazy-loaded and animated on hover, with theme-aware contrast layers for both dark and light modes.
+TripPilot uses destination photography, hospitality imagery and a cinematic home backdrop as part of the product experience rather than as decorative placeholders.
 
-Featured city imagery covers Hyderabad, Mumbai and Bengaluru, while Stay Finder uses a broader mix of resort and hotel-room photography. The visual cards retain their planning actions instead of acting as static decoration.
-
-### Visual asset sources
-
-The featured Hyderabad, Mumbai and Bengaluru photographs and the selected hospitality photographs were checked against their corresponding Unsplash photo pages. The selected source pages describe the images as free to use under the Unsplash License. citeturn437790view0turn202947view0turn202947view1turn263471view1turn263471view2turn979196view0turn979196view1turn979196view2turn979196view3
+The visual treatment uses image zoom, smooth hover lift, layered gradients, soft glass surfaces and theme-aware overlays so the same photography remains readable in both dark and light themes.
 
 ## ✅ Final theme and reliability pass
 
