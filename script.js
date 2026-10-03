@@ -5802,3 +5802,152 @@ if(document.readyState==="loading"){
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",deskInit,{once:true});
   else deskInit();
 })();
+
+
+/* =========================================================
+   TRAVEL DESK QA POLISH + LIVE AIR QUALITY
+   ========================================================= */
+(function(){
+  function deskSnapshot(){
+    var fields=$("travelDeskFields");
+    if(!fields) return {};
+    var snap={};
+    fields.querySelectorAll("input,select").forEach(function(node){
+      if(node.id) snap[node.id]=node.value;
+    });
+    return snap;
+  }
+
+  function deskApplySnapshot(snap){
+    if(!snap) return;
+    Object.keys(snap).forEach(function(id){
+      var node=$(id);
+      if(node) node.value=snap[id];
+    });
+  }
+
+  if(typeof deskRecentRead==="function"){
+    // Upgrade the existing loader without changing its public UI.
+    deskLoadState=function(item){
+      deskService=item.service || "flight";
+      document.querySelectorAll(".desk-tab").forEach(function(btn){
+        btn.classList.toggle("active",btn.dataset.deskService===deskService);
+      });
+      if($("deskKicker")) $("deskKicker").textContent=deskServiceMeta[deskService].kicker;
+      if($("deskTitle")) $("deskTitle").textContent=deskServiceMeta[deskService].title;
+      deskRenderFields();
+      deskApplySnapshot(item.values || {});
+
+      if(item.summary && $("travelDeskResult")){
+        $("travelDeskResult").innerHTML=deskResultHtml(item.summary,deskProviderLinks[deskService] || "https://www.makemytrip.com/");
+      }
+      showToast("Saved search loaded.");
+    };
+
+    var originalDeskSearch=deskSearch;
+    deskSearch=async function(){
+      var result=await originalDeskSearch();
+      var snap=deskSnapshot();
+      var arr=deskRecentRead();
+      if(arr.length){
+        arr[0].values=snap;
+        localStorage.setItem(deskRecentKey,JSON.stringify(arr));
+        deskRenderRecent();
+      }
+      return result;
+    };
+
+    var originalDeskSave=deskRecentWrite;
+    deskRecentWrite=function(item){
+      if(!item.values) item.values=deskSnapshot();
+      originalDeskSave(item);
+    };
+  }
+
+  async function liveAirQuality(place){
+    var cacheKey="air:"+place.latitude.toFixed(3)+","+place.longitude.toFixed(3);
+    var cached=liveReadCache(cacheKey);
+    if(cached) return cached;
+
+    var url="https://air-quality-api.open-meteo.com/v1/air-quality" +
+      "?latitude="+encodeURIComponent(place.latitude) +
+      "&longitude="+encodeURIComponent(place.longitude) +
+      "&current=us_aqi,pm2_5,pm10&timezone=auto";
+
+    var data=await liveFetchJSON(url,10000);
+    liveWriteCache(cacheKey,data);
+    return data;
+  }
+
+  function aqiLabel(value){
+    var n=Number(value);
+    if(!Number.isFinite(n)) return "Unavailable";
+    if(n<=50) return "Good";
+    if(n<=100) return "Moderate";
+    if(n<=150) return "Sensitive groups";
+    if(n<=200) return "Unhealthy";
+    if(n<=300) return "Very unhealthy";
+    return "Hazardous";
+  }
+
+  function injectAqi(data){
+    var panel=$("liveWeatherPanel");
+    var grid=panel && panel.querySelector(".live-stat-grid");
+    if(!grid || !data || !data.current) return;
+
+    var aqi=data.current.us_aqi;
+    var pm25=data.current.pm2_5;
+    var pm10=data.current.pm10;
+    var html='<div class="live-stat live-aqi-stat"><span>US AQI</span><strong>'+ (Number.isFinite(Number(aqi)) ? Math.round(Number(aqi)) : "—") +'</strong><small>'+escapeHTML(aqiLabel(aqi))+'</small></div>';
+    html+='<div class="live-stat"><span>PM2.5</span><strong>'+ (Number.isFinite(Number(pm25)) ? Number(pm25).toFixed(1) : "—") +' μg/m³</strong></div>';
+    html+='<div class="live-stat"><span>PM10</span><strong>'+ (Number.isFinite(Number(pm10)) ? Number(pm10).toFixed(1) : "—") +' μg/m³</strong></div>';
+    grid.insertAdjacentHTML("beforeend",html);
+  }
+
+  var baseRefresh=refreshLiveTravel;
+  refreshLiveTravel=async function(force){
+    var sync=$("liveSync");
+    if(sync) sync.textContent="Syncing live data…";
+
+    var originName=state.trip.from || state.settings.home || "Hyderabad";
+    var destinationName=livePreviewPlace?.name || state.trip.destination || "Goa";
+    var requestKey=originName.trim().toLowerCase()+"|"+destinationName.trim().toLowerCase();
+
+    if(!force && requestKey===liveRequestKey && liveReadCache("geo:"+originName.toLowerCase()) && liveReadCache("geo:"+destinationName.toLowerCase())){
+      if(sync) sync.textContent="Live data cached · just now";
+      return;
+    }
+
+    liveRequestKey=requestKey;
+
+    try{
+      var results=await Promise.all([
+        liveGeocode(originName),
+        livePreviewPlace || liveGeocode(destinationName)
+      ]);
+      var origin=results[0], destination=results[1];
+
+      var weather=await liveWeather(destination);
+      var air=await liveAirQuality(destination).catch(function(){return null;});
+
+      renderLiveWeather(destination,weather);
+      injectAqi(air);
+
+      var route=await liveRoute(origin,destination);
+      updateLiveRouteText(origin,destination,route);
+
+      if(sync){
+        sync.textContent="Updated "+new Intl.DateTimeFormat("en-IN",{hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date());
+      }
+    }catch(error){
+      console.error("TripPilot live data:",error);
+      if(typeof renderLiveError==="function"){
+        renderLiveError(error && error.message==="Location not found"
+          ? "Try a city or destination name such as Goa, Dubai or Singapore."
+          : "Check your internet connection and try the live refresh again."
+        );
+      }
+      if(sync) sync.textContent="Live sync failed";
+    }
+  };
+})();
