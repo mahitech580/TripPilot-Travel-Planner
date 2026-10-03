@@ -227,7 +227,7 @@ const destinationData = {
     distance:710,
     subtitle:"Marine Drive sunsets, heritage landmarks and coastal city energy.",
     imageClass:"mumbai",
-    image:"https://images.unsplash.com/photo-1666856647637-dbc11915f258?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+    image:"https://images.unsplash.com/photo-1753806390564-347dae2483d3?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Mumbai cityscape at sunset",
     featured:true
   },
@@ -239,7 +239,7 @@ const destinationData = {
     distance:570,
     subtitle:"Vidhana Soudha, green spaces, cafés and Bengaluru city life.",
     imageClass:"bengaluru",
-    image:"https://images.unsplash.com/photo-1741375870964-093181f9993a?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+    image:"https://images.unsplash.com/photo-1588416936097-41850ab3d86d?auto=format&fit=crop&fm=jpg&q=92&w=3840",
     source:"Unsplash — Vidhana Soudha, Bengaluru",
     featured:true
   },
@@ -728,7 +728,7 @@ const stayData = [
     price:3200,
     rating:4.7,
     tag:"Near beach",
-    image:"https://images.unsplash.com/photo-1776761363365-ad83248b93df?auto=format&fit=crop&fm=jpg&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1701421016474-09b19faa9f77?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -750,7 +750,7 @@ const stayData = [
     price:2900,
     rating:4.6,
     tag:"Valley view",
-    image:"https://images.unsplash.com/photo-1637200500859-297e164f9f4b?auto=format&fit=crop&fm=jpg&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1719464515608-dcc7343fba4e?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -772,7 +772,7 @@ const stayData = [
     price:3600,
     rating:4.8,
     tag:"Waterfront",
-    image:"https://images.unsplash.com/photo-1761039265583-9489b4246454?auto=format&fit=crop&fm=jpg&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1651804279611-a0b8b4bdb4f4?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -783,7 +783,7 @@ const stayData = [
     price:2200,
     rating:4.3,
     tag:"Transit-friendly",
-    image:"https://images.unsplash.com/photo-1755613708939-d572099433ab?auto=format&fit=crop&fm=jpg&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1777016844282-46fa8713cdae?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -794,7 +794,7 @@ const stayData = [
     price:6200,
     rating:4.9,
     tag:"Lake district",
-    image:"https://images.unsplash.com/photo-1779447425044-2e25748cc77c?auto=format&fit=crop&fm=jpg&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1777016844282-46fa8713cdae?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -805,7 +805,7 @@ const stayData = [
     price:1800,
     rating:4.5,
     tag:"Near river",
-    image:"https://images.unsplash.com/photo-1780689436914-2e87323985e9?auto=format&fit=crop&fm=jpg&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1772476361154-e894ba10d757?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   },
 
   {
@@ -816,7 +816,7 @@ const stayData = [
     price:3100,
     rating:4.7,
     tag:"Hill views",
-    image:"https://images.unsplash.com/photo-1637200500859-297e164f9f4b?auto=format&fit=crop&fm=jpg&q=92&w=3840"
+    image:"https://images.unsplash.com/photo-1719464515608-dcc7343fba4e?auto=format&fit=crop&fm=jpg&q=92&w=3840"
   }
 
 ];
@@ -1917,7 +1917,26 @@ function renderDestinations(){
 }
 
 
+function bindFeaturedDestinationActions(){
+  var grid=$("destinationGrid");
+  if(!grid || grid.dataset.featuredBound==="1") return;
+  grid.dataset.featuredBound="1";
+  grid.addEventListener("click",function(event){
+    var button=event.target.closest("[data-featured-plan]");
+    if(!button) return;
+    var destination=button.dataset.featuredPlan;
+    if(!destinationData[destination]) return;
+    state.trip.destination=destination;
+    syncPlannerForm();
+    saveState();
+    renderAll();
+    navigateTo("planner");
+    showToast(destination+" added to your trip.");
+  });
+}
+
 function initDestinationFilters(){
+  bindFeaturedDestinationActions();
 
   document
     .querySelectorAll(
@@ -5297,7 +5316,13 @@ Object.entries(productionDestinationImages).forEach(function(entry){
 });
 
 getDestinationCards = function(){
-  return Object.entries(destinationData).map(function(entry){
+  var featured = `
+    <div class="destination-featured-row">
+      <article class="destination-featured-card"><img src="${destinationImageFallbacks.Hyderabad}" alt="Charminar in Hyderabad" loading="lazy" decoding="async"><div class="destination-featured-shade"></div><div class="destination-featured-copy"><span>FEATURED CITY</span><strong>Hyderabad</strong><small>Heritage + food + city life</small><button class="destination-featured-action" type="button" data-featured-plan="Hyderabad"><i class="bx bx-map-alt"></i> Plan</button></div></article>
+      <article class="destination-featured-card"><img src="${destinationImageFallbacks.Mumbai}" alt="Marine Drive in Mumbai" loading="lazy" decoding="async"><div class="destination-featured-shade"></div><div class="destination-featured-copy"><span>FEATURED CITY</span><strong>Mumbai</strong><small>Coast + skyline + culture</small><button class="destination-featured-action" type="button" data-featured-plan="Mumbai"><i class="bx bx-map-alt"></i> Plan</button></div></article>
+      <article class="destination-featured-card"><img src="${destinationImageFallbacks.Bengaluru}" alt="Vidhana Soudha in Bengaluru" loading="lazy" decoding="async"><div class="destination-featured-shade"></div><div class="destination-featured-copy"><span>FEATURED CITY</span><strong>Bengaluru</strong><small>Green spaces + cafés + culture</small><button class="destination-featured-action" type="button" data-featured-plan="Bengaluru"><i class="bx bx-map-alt"></i> Plan</button></div></article>
+    </div>`;
+  return featured + Object.entries(destinationData).map(function(entry){
     var name=entry[0], data=entry[1];
     return (
       '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
