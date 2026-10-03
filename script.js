@@ -5283,8 +5283,8 @@ async function liveWeather(place){
   var url="https://api.open-meteo.com/v1/forecast" +
     "?latitude="+encodeURIComponent(place.latitude) +
     "&longitude="+encodeURIComponent(place.longitude) +
-    "&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,precipitation" +
-    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset" +
+    "&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,precipitation,visibility,cloud_cover" +
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max" +
     "&forecast_days=5&timezone=auto";
 
   var data=await liveFetchJSON(url);
@@ -5357,8 +5357,13 @@ function renderLiveWeather(place,data){
     '<div class="live-stat-grid">' +
       '<div class="live-stat"><span>Humidity</span><strong>' + Math.round(Number(current.relative_humidity_2m || 0)) + '%</strong></div>' +
       '<div class="live-stat"><span>Wind</span><strong>' + Math.round(Number(current.wind_speed_10m || 0)) + ' km/h</strong></div>' +
-      '<div class="live-stat"><span>Precip</span><strong>' + Number(current.precipitation || 0).toFixed(1) + ' mm</strong></div>' +
-      '<div class="live-stat"><span>Timezone</span><strong>' + escapeHTML((place.timezone || "").replaceAll("_"," ")) + '</strong></div>' +
+      '<div class="live-stat"><span>Cloud cover</span><strong>' + Math.round(Number(current.cloud_cover || 0)) + '%</strong></div>' +
+      '<div class="live-stat"><span>Visibility</span><strong>' + (Number.isFinite(Number(current.visibility)) ? Math.max(0.1,Number(current.visibility)/1000).toFixed(1) : "—") + ' km</strong></div>' +
+    '</div>' +
+    '<div class="live-extra-row">' +
+      '<div class="live-stat sunrise"><span>Sunrise</span><strong>' + escapeHTML((data.daily && data.daily.sunrise && data.daily.sunrise[0]) ? data.daily.sunrise[0].slice(11,16) : "—") + '</strong></div>' +
+      '<div class="live-stat sunset"><span>Sunset</span><strong>' + escapeHTML((data.daily && data.daily.sunset && data.daily.sunset[0]) ? data.daily.sunset[0].slice(11,16) : "—") + '</strong></div>' +
+      '<div class="live-stat"><span>UV max</span><strong>' + (data.daily && data.daily.uv_index_max && data.daily.uv_index_max[0] != null ? Number(data.daily.uv_index_max[0]).toFixed(1) : "—") + '</strong></div>' +
     '</div>' +
     '<div class="live-forecast">' + forecast + '</div>';
 }
@@ -6049,4 +6054,33 @@ if(document.readyState==="loading"){
   });
 
   renderSaved();
+})();
+
+/* =========================================================
+   FINAL MICRO-INTERACTION + REMOTE IMAGE FALLBACK
+   ========================================================= */
+(function(){
+  if(window.__tripPilotMicroReady) return;
+  window.__tripPilotMicroReady=true;
+
+  document.addEventListener("error",function(event){
+    var node=event.target;
+    if(!node || node.tagName!=="IMG") return;
+    node.classList.add("broken-image");
+    if(node.parentElement) node.parentElement.classList.add("image-fallback");
+  },true);
+
+  document.addEventListener("click",function(event){
+    var button=event.target.closest(".btn,.desk-tab,.filter-tab,.transport-tab,.destination-button,.stay-action,.inspiration-plan,.inspiration-save,.inspiration-mini-save");
+    if(!button) return;
+    if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var rect=button.getBoundingClientRect();
+    var dot=document.createElement("span");
+    dot.className="ripple-dot";
+    dot.style.left=(event.clientX-rect.left)+"px";
+    dot.style.top=(event.clientY-rect.top)+"px";
+    if(getComputedStyle(button).position==="static") button.style.position="relative";
+    button.appendChild(dot);
+    window.setTimeout(function(){dot.remove();},620);
+  },{passive:true});
 })();
