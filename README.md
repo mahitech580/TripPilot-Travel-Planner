@@ -253,6 +253,23 @@ This project is intended for learning, personal development and portfolio demons
 
 **Plan smarter. Travel better. ✈️**
 
+## 🔐 Local Login & Registration
+
+TripPilot now opens with an animated account gate for **Sign in** and **Create account**.
+
+### How it works on GitHub Pages
+
+The account layer is intentionally browser-local so it works on a static GitHub Pages deployment without Python, SQL or a hosted backend.
+
+- Accounts are stored in the browser under a dedicated TripPilot local-storage key.
+- Passwords are hashed with the Web Crypto API when available.
+- The signed-in session can be kept in local storage or session storage.
+- A small sign-out control is available after login.
+- Existing TripPilot planner data remains separate from authentication data.
+- No payment, email-verification or server-side account service is simulated.
+
+This is a **portfolio/demo authentication layer**, not server-side security. A production application that needs real account security should move authentication, password storage and session management to a trusted backend.
+
 ## 🧳 Travel Desk
 
 TripPilot includes a dedicated Travel Desk for planning across:
