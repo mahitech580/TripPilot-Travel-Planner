@@ -26,6 +26,12 @@
   rel="stylesheet"
 >
 
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIINfQ1/QT9k9P5xXQ6kR9CzXqgJYz7CqI="
+  crossorigin=""
+>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -199,8 +205,7 @@
         </div>
 
         <h1>
-          Travel planning,
-          <span>without the chaos.</span>
+          Go further.<br><span>Plan the journey.</span>
         </h1>
 
         <div class="hero-rotator">
@@ -582,6 +587,54 @@
 
 </section>
 
+
+<!-- =========================================================
+     02. LIVE TRAVEL
+     ========================================================= -->
+<section id="live-travel" class="product-section live-travel-section">
+  <div class="container">
+    <div class="section-header split-header live-section-header scroll-scale">
+      <div>
+        <span class="section-eyebrow live-eyebrow">LIVE TRAVEL INTELLIGENCE</span>
+        <h2>Know the place <span>before you go.</span></h2>
+        <p>Current destination conditions, local time and a live route view, pulled from public travel data and refreshed automatically.</p>
+      </div>
+      <div class="live-status-cluster">
+        <span class="live-signal"><i class="live-pulse"></i> LIVE DATA</span>
+        <span class="live-sync" id="liveSync">Connecting…</span>
+      </div>
+    </div>
+    <div class="live-toolbar panel scroll-scale">
+      <div class="live-search-wrap">
+        <i class="bx bx-search"></i>
+        <input id="livePlaceSearch" type="search" autocomplete="off" placeholder="Preview any destination — Goa, Dubai, Singapore…" aria-label="Preview a destination">
+      </div>
+      <button class="btn live-search-btn" id="livePlaceButton" type="button"><i class="bx bx-current-location"></i> Preview place</button>
+      <button class="btn live-reset-btn" id="liveResetButton" type="button"><i class="bx bx-refresh"></i> Current trip</button>
+    </div>
+    <div class="live-grid">
+      <article class="panel live-weather-panel scroll-bottom" id="liveWeatherPanel">
+        <div class="live-loading">
+          <span class="live-loader"></span>
+          <div><strong>Loading live destination data</strong><small>Fetching current conditions and local time…</small></div>
+        </div>
+      </article>
+      <article class="panel live-map-panel scroll-scale">
+        <div class="live-map-head">
+          <div>
+            <span class="panel-kicker">LIVE ROUTE VIEW</span>
+            <h3 id="liveRouteTitle">Hyderabad → Goa</h3>
+            <p id="liveRouteMeta">Road-routing reference · waiting for coordinates</p>
+          </div>
+          <a class="map-external-link" id="liveOpenMaps" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer"><i class="bx bx-link-external"></i> Open map</a>
+        </div>
+        <div id="tripMap" class="trip-map" aria-label="Interactive travel map"></div>
+        <div class="map-foot"><span><i class="bx bx-map-pin"></i> Origin</span><span><i class="bx bx-flag"></i> Destination</span><span><i class="bx bx-road"></i> Road route reference</span></div>
+      </article>
+    </div>
+    <div class="live-source-note">Live weather: Open-Meteo · Location data: GeoNames via Open-Meteo · Map tiles: © OpenStreetMap contributors · Routing: OSRM</div>
+  </div>
+</section>
 
 <!-- =========================================================
      02. COMMAND CENTER
@@ -3059,6 +3112,11 @@
 ></div>
 
 
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
 <script src="script.js"></script>
 
 
