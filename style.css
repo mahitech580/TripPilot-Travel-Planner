@@ -8590,3 +8590,99 @@ body:not(.light-mode) #home-content .hero-product{
     background:rgba(11,15,13,.58);
   }
 }
+
+
+/* =========================================================
+   FINAL VISUAL QA — LIGHT MODE + DESTINATION STUDIO
+   ========================================================= */
+body.light-mode #home-content.home-section::before{
+  background:
+    linear-gradient(90deg,
+      rgba(255,255,255,.78) 0%,
+      rgba(255,255,255,.58) 30%,
+      rgba(255,255,255,.24) 62%,
+      rgba(255,255,255,.12) 100%) !important;
+}
+body.light-mode #home-content.home-section::after{
+  filter:saturate(1.04) contrast(1.02) brightness(.96);
+}
+body.light-mode #home-content .hero-copy{
+  background:rgba(255,255,255,.64) !important;
+  border:1px solid rgba(42,67,88,.10);
+  box-shadow:0 22px 55px rgba(42,67,88,.10);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  padding:24px 26px;
+  border-radius:24px;
+}
+body.light-mode #home-content .hero-copy h1,
+body.light-mode #home-content .hero-description,
+body.light-mode #home-content .hero-rotator,
+body.light-mode #home-content .trust-item{
+  color:var(--text) !important;
+}
+body.light-mode #home-content .announcement-bar{
+  background:rgba(255,255,255,.72) !important;
+  color:var(--text);
+}
+body.light-mode #home-content .hero-mini-stats{
+  border-top-color:rgba(42,67,88,.10);
+}
+
+.destination-photo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  z-index:0;
+  filter:saturate(.94) contrast(1.01);
+  transition:transform .7s var(--ease),filter .5s ease;
+}
+.destination-card:hover .destination-photo{
+  transform:scale(1.08);
+  filter:saturate(1.06) contrast(1.03);
+}
+.destination-card .destination-image{
+  z-index:0;
+  pointer-events:none;
+}
+.destination-card .destination-overlay,
+.destination-card .destination-content{
+  z-index:2;
+}
+.destination-card.featured-city{
+  border-color:rgba(31,138,90,.24);
+}
+.destination-card.featured-city::after{
+  content:"FEATURED CITY";
+  position:absolute;
+  top:13px;
+  left:13px;
+  z-index:4;
+  padding:6px 8px;
+  border-radius:999px;
+  background:rgba(11,15,13,.70);
+  border:1px solid rgba(255,255,255,.16);
+  color:#fff;
+  font-size:.43rem;
+  font-weight:800;
+  letter-spacing:1px;
+  backdrop-filter:blur(8px);
+}
+body.light-mode .destination-card.featured-city::after{
+  background:rgba(255,255,255,.84);
+  border-color:rgba(42,67,88,.12);
+  color:#2a4358;
+}
+@media(max-width:980px){
+  .destination-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:760px){
+  .destination-grid{grid-template-columns:repeat(2,1fr);}
+  body.light-mode #home-content .hero-copy{padding:20px;border-radius:20px;}
+}
+@media(max-width:520px){
+  .destination-grid{grid-template-columns:1fr;}
+}
