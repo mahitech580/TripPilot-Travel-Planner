@@ -9204,3 +9204,19 @@ body.light-mode #home-content .hero-copy{
 body.light-mode #home-content .hero-product{
   background:rgba(255,255,255,.82) !important;
 }
+
+/* FINAL DESTINATION GALLERY FINISH */
+[data-subsection="discover"] .destination-grid{
+  margin-top:28px !important;
+}
+[data-subsection="discover"] .destination-card{
+  position:relative;
+}
+[data-subsection="discover"] .destination-card:nth-child(1) .destination-image img,
+[data-subsection="discover"] .destination-card:nth-child(2) .destination-image img,
+[data-subsection="discover"] .destination-card:nth-child(3) .destination-image img{
+  filter:saturate(1.08) contrast(1.04);
+}
+[data-subsection="discover"] .destination-card:nth-child(n+4) .destination-content h3{
+  font-size:1.32rem !important;
+}
