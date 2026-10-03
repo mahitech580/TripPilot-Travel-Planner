@@ -9039,3 +9039,168 @@ body.light-mode [data-subsection="stays"]{
 .stay-feature-card:hover{
   transform:translateY(-8px) !important;
 }
+
+
+/* =========================================================
+   FINAL DESTINATION STUDIO — all places, one clean gallery
+   ========================================================= */
+[data-subsection="discover"]{
+  overflow:hidden !important;
+}
+.destination-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:18px !important;
+  align-items:stretch;
+}
+.destination-grid .destination-card{
+  min-height:390px !important;
+  border-radius:24px !important;
+  overflow:hidden !important;
+  isolation:isolate;
+  box-shadow:0 18px 46px rgba(11,15,13,.12) !important;
+}
+.destination-grid .destination-card:nth-child(-n+3){
+  min-height:455px !important;
+}
+.destination-grid .destination-card:nth-child(1){
+  grid-column:span 2;
+}
+.destination-grid .destination-card:nth-child(1) .destination-image{
+  min-height:455px;
+}
+.destination-grid .destination-card .destination-image{
+  height:100% !important;
+}
+.destination-grid .destination-card .destination-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform:scale(1.015);
+  transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .6s ease;
+}
+.destination-grid .destination-card:hover .destination-image img{
+  transform:scale(1.075);
+  filter:saturate(1.08) contrast(1.05);
+}
+.destination-grid .destination-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  border-radius:inherit;
+  padding:1px;
+  background:var(--rainbow);
+  background-size:260% 100%;
+  opacity:0;
+  transition:opacity .35s ease;
+  animation:rainbowShift 11s linear infinite;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+.destination-grid .destination-card:hover::before{
+  opacity:.62;
+}
+.destination-grid .destination-card .destination-overlay{
+  position:absolute !important;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,rgba(11,15,13,.03) 15%,rgba(11,15,13,.28) 50%,rgba(11,15,13,.88) 100%) !important;
+}
+.destination-grid .destination-card .destination-content{
+  position:absolute !important;
+  left:22px;
+  right:22px;
+  bottom:20px;
+  z-index:4;
+}
+.destination-grid .destination-card .destination-content h3{
+  color:#fff !important;
+  font-size:clamp(1.45rem,2.3vw,2rem) !important;
+}
+.destination-grid .destination-card .destination-content p{
+  color:#edf3ef !important;
+  max-width:620px;
+}
+.destination-grid .destination-card .destination-chip{
+  color:#a6e8c5 !important;
+}
+.destination-grid .destination-card .destination-meta{
+  color:#d4ded9 !important;
+}
+.destination-grid .destination-card .destination-button{
+  background:#a33631 !important;
+  color:#fff !important;
+}
+.destination-grid .destination-card .destination-button:hover{
+  background:#7f2925 !important;
+  transform:translateY(-2px);
+}
+@media(max-width:1000px){
+  .destination-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  .destination-grid .destination-card:nth-child(1){grid-column:auto}
+  .destination-grid .destination-card:nth-child(-n+3){min-height:410px !important}
+  .destination-grid .destination-card:nth-child(1) .destination-image{min-height:410px}
+}
+@media(max-width:720px){
+  .destination-grid{grid-template-columns:1fr !important}
+  .destination-grid .destination-card,
+  .destination-grid .destination-card:nth-child(-n+3){
+    min-height:355px !important;
+  }
+  .destination-grid .destination-card:nth-child(1) .destination-image{min-height:355px}
+}
+
+/* Stay Finder image cards use the same polished image treatment. */
+.stay-grid .stay-card{
+  overflow:hidden !important;
+}
+.stay-grid .stay-card .stay-image{
+  height:235px !important;
+  overflow:hidden;
+}
+.stay-grid .stay-card .stay-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.01);
+  transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .55s ease;
+}
+.stay-grid .stay-card:hover .stay-image img{
+  transform:scale(1.07);
+  filter:saturate(1.06) contrast(1.04);
+}
+
+/* Light mode: image stays visible, text is protected by the card overlays. */
+body.light-mode [data-subsection="discover"] .destination-grid .destination-card{
+  box-shadow:0 18px 46px rgba(11,15,13,.10) !important;
+}
+body.light-mode [data-subsection="stays"] .stay-grid .stay-card{
+  box-shadow:0 18px 46px rgba(11,15,13,.08) !important;
+}
+
+/* FINAL HOME LIGHT MODE — stop washing out the background photograph. */
+body.light-mode #home-content.home-section{
+  background-image:
+    linear-gradient(90deg,rgba(255,255,255,.30) 0%,rgba(255,255,255,.20) 46%,rgba(255,255,255,.12) 76%,rgba(255,255,255,.18) 100%),
+    url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=92") !important;
+  background-size:cover !important;
+  background-position:center !important;
+}
+body.light-mode #home-content.home-section::after{
+  opacity:.10 !important;
+}
+body.light-mode #home-content.home-section::before{
+  background:linear-gradient(90deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.12) 52%,rgba(255,255,255,.08) 100%) !important;
+}
+body.light-mode #home-content .hero-copy{
+  background:rgba(255,255,255,.68) !important;
+  border-color:rgba(11,15,13,.10) !important;
+  box-shadow:0 22px 60px rgba(11,15,13,.10) !important;
+}
+body.light-mode #home-content .hero-product{
+  background:rgba(255,255,255,.82) !important;
+}
