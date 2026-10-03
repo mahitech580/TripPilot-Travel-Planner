@@ -5565,6 +5565,11 @@ function initLiveMap(){
 
   try{
     liveMapInstance=L.map(node,{zoomControl:true,scrollWheelZoom:false,attributionControl:true});
+    renderMapPreviewFallback(
+      state.trip.from || "Hyderabad",
+      state.trip.destination || "Goa",
+      "Loading interactive map…"
+    );
     var tiles=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
       maxZoom:19,
       attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
