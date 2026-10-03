@@ -4306,28 +4306,45 @@ function applyTheme(){
     state.settings.theme ===
     "light";
 
-
   document.body.classList.toggle(
     "light-mode",
     light
   );
 
+  document.body.dataset.theme =
+    light ? "light" : "dark";
+
+  const meta =
+    document.querySelector(
+      'meta[name="theme-color"]'
+    );
+
+  if(meta){
+    meta.setAttribute(
+      "content",
+      light ? "#f1f3f1" : "#080909"
+    );
+  }
 
   const icon =
     $("themeToggle")
       .querySelector("i");
 
-
-  if(light){
-
+  if(icon){
     icon.className =
-      "bx bx-sun";
+      light
+        ? "bx bx-sun"
+        : "bx bx-moon";
+  }
 
-  }else{
+  const settingsToggle =
+    $("settingsThemeToggle");
 
-    icon.className =
-      "bx bx-moon";
-
+  if(settingsToggle){
+    settingsToggle.setAttribute(
+      "aria-pressed",
+      String(light)
+    );
   }
 
 }
