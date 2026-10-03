@@ -5232,15 +5232,19 @@ if(
    ========================================================= */
 
 const destinationImageFallbacks = {
-  Hyderabad:"https://images.unsplash.com/photo-1522099556433-a5f8ac730391?auto=format&fit=crop&w=3840&q=92",
-  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=3840&q=92",
-  Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=3840&q=92",
-  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=3840&q=92",
-  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=3840&q=92",
-  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=3840&q=92",
-  Udaipur:"https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&w=3840&q=92",
-  Rishikesh:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=3840&q=92",
-  Munnar:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=3840&q=92"
+  Hyderabad:"https://images.unsplash.com/photo-1750834115164-8c2658f18dd0?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Mumbai:"https://images.unsplash.com/photo-1529253355930-347a3b4a3435?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Bengaluru:"https://images.unsplash.com/photo-1644779504736-ed346f96a7bf?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Goa:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Delhi:"https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Udaipur:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Rishikesh:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Munnar:"https://images.unsplash.com/photo-1672219386269-486cbbe9a50f?auto=format&fit=crop&fm=jpg&q=92&w=3840",
+  Hampi:"https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&fm=jpg&q=92&w=3840",
 };
 
 const productionDestinationImages = {
