@@ -5161,3 +5161,362 @@ if(
     }
   });
 })();
+
+
+/* =========================================================
+   LIVE TRAVEL + TRAVEL EDITORIAL ENHANCEMENTS
+   ========================================================= */
+
+const productionDestinationImages = {
+  Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=86",
+  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=86",
+  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1200&q=86",
+  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=86",
+  Mumbai:"https://images.unsplash.com/photo-1567157577867-05ccb1388d6c?auto=format&fit=crop&w=1200&q=86",
+  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f890b?auto=format&fit=crop&w=1200&q=86",
+  Delhi:"https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=86",
+  Kochi:"https://images.unsplash.com/photo-1590077428593-a55bb07c4665?auto=format&fit=crop&w=1200&q=86",
+  Udaipur:"https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&w=1200&q=86",
+  Rishikesh:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=86",
+  Munnar:"https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=86",
+  Hampi:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=86"
+};
+
+Object.entries(productionDestinationImages).forEach(function(entry){
+  var name=entry[0], url=entry[1];
+  if(destinationData[name]) destinationData[name].imageUrl=url;
+});
+
+getDestinationCards = function(){
+  return Object.entries(destinationData).map(function(entry){
+    var name=entry[0], data=entry[1];
+    return (
+      '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
+        '<div class="destination-image">' +
+          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || "") + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" referrerpolicy="no-referrer">' +
+        '</div>' +
+        '<div class="destination-overlay"></div>' +
+        '<div class="destination-content">' +
+          '<span class="destination-chip">' + escapeHTML(data.label) + ' · ' + escapeHTML(data.state) + '</span>' +
+          '<h3>' + escapeHTML(name) + '</h3>' +
+          '<p>' + escapeHTML(data.subtitle) + '</p>' +
+          '<div class="destination-meta"><span>' + data.distance.toLocaleString("en-IN") + ' km reference</span><span>2–5 days</span></div>' +
+          '<button class="destination-button" type="button" data-plan-destination="' + escapeHTML(name) + '">Plan ' + escapeHTML(name) + '</button>' +
+        '</div>' +
+      '</article>'
+    );
+  }).join("");
+};
+
+var LIVE_CACHE_KEY = "trippilot_live_cache_v1";
+var LIVE_CACHE_TTL = 10 * 60 * 1000;
+var liveMapInstance = null;
+var liveRouteLayer = null;
+var liveOriginMarker = null;
+var liveDestinationMarker = null;
+var livePreviewPlace = null;
+var liveRequestKey = "";
+var liveRefreshTimer = null;
+
+function liveReadCache(key){
+  try{
+    var raw=sessionStorage.getItem(LIVE_CACHE_KEY);
+    if(!raw) return null;
+    var store=JSON.parse(raw);
+    var item=store[key];
+    if(!item || Date.now()-item.savedAt>LIVE_CACHE_TTL) return null;
+    return item.data;
+  }catch(error){ return null; }
+}
+
+function liveWriteCache(key,data){
+  try{
+    var raw=sessionStorage.getItem(LIVE_CACHE_KEY);
+    var store=raw ? JSON.parse(raw) : {};
+    store[key]={savedAt:Date.now(),data:data};
+    sessionStorage.setItem(LIVE_CACHE_KEY,JSON.stringify(store));
+  }catch(error){}
+}
+
+async function liveFetchJSON(url,timeout){
+  var controller=new AbortController();
+  var timer=setTimeout(function(){controller.abort();},timeout || 12000);
+  try{
+    var response=await fetch(url,{signal:controller.signal,cache:"no-store"});
+    if(!response.ok) throw new Error("HTTP "+response.status);
+    return await response.json();
+  }finally{
+    clearTimeout(timer);
+  }
+}
+
+async function liveGeocode(query){
+  var normalized=query.trim();
+  var cacheKey="geo:"+normalized.toLowerCase();
+  var cached=liveReadCache(cacheKey);
+  if(cached) return cached;
+
+  var url="https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(normalized)+"&count=1&language=en&format=json";
+  var data=await liveFetchJSON(url);
+  if(!data.results || !data.results.length) throw new Error("Location not found");
+
+  var place=data.results[0];
+  var result={
+    name:place.name,
+    admin1:place.admin1 || "",
+    country:place.country || "",
+    countryCode:place.country_code || "",
+    latitude:Number(place.latitude),
+    longitude:Number(place.longitude),
+    timezone:place.timezone || "auto"
+  };
+
+  liveWriteCache(cacheKey,result);
+  return result;
+}
+
+async function liveWeather(place){
+  var cacheKey="weather:"+place.latitude.toFixed(3)+","+place.longitude.toFixed(3);
+  var cached=liveReadCache(cacheKey);
+  if(cached) return cached;
+
+  var url="https://api.open-meteo.com/v1/forecast" +
+    "?latitude="+encodeURIComponent(place.latitude) +
+    "&longitude="+encodeURIComponent(place.longitude) +
+    "&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,precipitation" +
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset" +
+    "&forecast_days=5&timezone=auto";
+
+  var data=await liveFetchJSON(url);
+  liveWriteCache(cacheKey,data);
+  return data;
+}
+
+function liveWeatherMeta(code,isDay){
+  var c=Number(code);
+  if(c===0) return {label:"Clear sky",icon:isDay ? "bx-sun" : "bx-moon"};
+  if([1,2].includes(c)) return {label:"Partly cloudy",icon:isDay ? "bx-sun" : "bx-cloud"};
+  if(c===3) return {label:"Overcast",icon:"bx-cloud"};
+  if([45,48].includes(c)) return {label:"Foggy",icon:"bx-cloud"};
+  if([51,53,55,56,57].includes(c)) return {label:"Drizzle",icon:"bx-cloud-drizzle"};
+  if([61,63,65,66,67].includes(c)) return {label:"Rain",icon:"bx-cloud-rain"};
+  if([71,73,75,77,85,86].includes(c)) return {label:"Snow",icon:"bx-cloud-snow"};
+  if([80,81,82].includes(c)) return {label:"Rain showers",icon:"bx-cloud-rain"};
+  if([95,96,99].includes(c)) return {label:"Thunderstorm",icon:"bx-cloud-lightning"};
+  return {label:"Changing conditions",icon:"bx-cloud"};
+}
+
+function liveLocalTime(timezone){
+  try{
+    return new Intl.DateTimeFormat("en-IN",{timeZone:timezone,weekday:"short",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date());
+  }catch(error){
+    return new Intl.DateTimeFormat("en-IN",{weekday:"short",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date());
+  }
+}
+
+function liveDayLabel(value,timezone){
+  try{
+    return new Intl.DateTimeFormat("en-IN",{timeZone:timezone,weekday:"short"}).format(new Date(value+"T12:00:00"));
+  }catch(error){ return value.slice(5); }
+}
+
+function renderLiveWeather(place,data){
+  var panel=$("liveWeatherPanel");
+  if(!panel) return;
+
+  var current=data.current || {};
+  var meta=liveWeatherMeta(current.weather_code,current.is_day !== 0);
+  var daily=data.daily || {};
+  var forecast=(daily.time || []).map(function(date,index){
+    var m=liveWeatherMeta(daily.weather_code && daily.weather_code[index],true);
+    var high=Math.round(Number((daily.temperature_2m_max && daily.temperature_2m_max[index]) != null ? daily.temperature_2m_max[index] : 0));
+    var low=Math.round(Number((daily.temperature_2m_min && daily.temperature_2m_min[index]) != null ? daily.temperature_2m_min[index] : 0));
+    var rain=Math.round(Number((daily.precipitation_probability_max && daily.precipitation_probability_max[index]) != null ? daily.precipitation_probability_max[index] : 0));
+    return '<div class="live-forecast-card">' +
+      '<div class="day">' + escapeHTML(index===0 ? "Today" : liveDayLabel(date,place.timezone)) + '</div>' +
+      '<div class="icon"><i class="bx ' + m.icon + '"></i></div>' +
+      '<strong>' + high + '° / ' + low + '°</strong>' +
+      '<small>' + rain + '% rain</small>' +
+      '</div>';
+  }).join("");
+
+  panel.innerHTML=
+    '<div class="live-weather-top">' +
+      '<div class="live-weather-location">' +
+        '<span class="live-location-icon"><i class="bx bx-map-pin"></i></span>' +
+        '<div><strong>' + escapeHTML(place.name) + '</strong><small>' + escapeHTML(place.admin1 || place.country) + '</small></div>' +
+      '</div>' +
+      '<span class="live-weather-badge">CURRENT CONDITIONS</span>' +
+    '</div>' +
+    '<div class="live-current">' +
+      '<div class="live-temp">' + Math.round(Number(current.temperature_2m || 0)) + '<sup>°C</sup></div>' +
+      '<div><div class="live-condition">' + escapeHTML(meta.label) + '</div>' +
+      '<div class="live-feels">Feels like ' + Math.round(Number(current.apparent_temperature != null ? current.apparent_temperature : current.temperature_2m || 0)) + '°C</div>' +
+      '<div class="live-time"><i class="bx bx-time-five"></i> ' + escapeHTML(liveLocalTime(place.timezone)) + '</div></div>' +
+    '</div>' +
+    '<div class="live-stat-grid">' +
+      '<div class="live-stat"><span>Humidity</span><strong>' + Math.round(Number(current.relative_humidity_2m || 0)) + '%</strong></div>' +
+      '<div class="live-stat"><span>Wind</span><strong>' + Math.round(Number(current.wind_speed_10m || 0)) + ' km/h</strong></div>' +
+      '<div class="live-stat"><span>Precip</span><strong>' + Number(current.precipitation || 0).toFixed(1) + ' mm</strong></div>' +
+      '<div class="live-stat"><span>Timezone</span><strong>' + escapeHTML((place.timezone || "").replaceAll("_"," ")) + '</strong></div>' +
+    '</div>' +
+    '<div class="live-forecast">' + forecast + '</div>';
+}
+
+function renderLiveError(message){
+  var panel=$("liveWeatherPanel");
+  if(!panel) return;
+  panel.innerHTML=
+    '<div class="live-error"><div>' +
+      '<i class="bx bx-wind"></i>' +
+      '<h3>Live travel data is temporarily unavailable</h3>' +
+      '<p>' + escapeHTML(message || "Please check your connection and try again.") + '</p>' +
+      '<button class="btn primary-btn" type="button" id="liveRetryButton"><i class="bx bx-refresh"></i> Try again</button>' +
+    '</div></div>';
+  $("liveRetryButton")?.addEventListener("click",function(){refreshLiveTravel(true);});
+}
+
+function initLiveMap(){
+  var node=$("tripMap");
+  if(!node || !window.L) return null;
+  if(liveMapInstance) return liveMapInstance;
+
+  liveMapInstance=L.map(node,{zoomControl:true,scrollWheelZoom:false});
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+  }).addTo(liveMapInstance);
+  return liveMapInstance;
+}
+
+async function liveRoute(origin,destination){
+  if(!window.L) return null;
+  var map=initLiveMap();
+  if(!map) return null;
+
+  var key=origin.latitude.toFixed(4)+","+origin.longitude.toFixed(4)+"|"+destination.latitude.toFixed(4)+","+destination.longitude.toFixed(4);
+  var cacheKey="route:"+key;
+  var data=liveReadCache(cacheKey);
+
+  if(!data){
+    var url="https://router.project-osrm.org/route/v1/driving/"+
+      origin.longitude+","+origin.latitude+";"+
+      destination.longitude+","+destination.latitude+
+      "?overview=full&geometries=geojson&alternatives=true";
+    data=await liveFetchJSON(url);
+    liveWriteCache(cacheKey,data);
+  }
+
+  if(liveRouteLayer) liveRouteLayer.remove();
+  if(liveOriginMarker) liveOriginMarker.remove();
+  if(liveDestinationMarker) liveDestinationMarker.remove();
+
+  liveOriginMarker=L.circleMarker([origin.latitude,origin.longitude],{radius:8,color:"#ff514f",weight:3,fillColor:"#ff514f",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(origin.name)+"</strong><br>Origin");
+  liveDestinationMarker=L.circleMarker([destination.latitude,destination.longitude],{radius:8,color:"#35d58f",weight:3,fillColor:"#35d58f",fillOpacity:.88}).addTo(map).bindPopup("<strong>"+escapeHTML(destination.name)+"</strong><br>Destination");
+
+  if(data.code==="Ok" && data.routes && data.routes.length){
+    var route=data.routes[0];
+    liveRouteLayer=L.geoJSON(route.geometry,{style:{color:"#ff514f",weight:5,opacity:.83,dashArray:"9 7"}}).addTo(map);
+    var bounds=L.latLngBounds([[origin.latitude,origin.longitude],[destination.latitude,destination.longitude]]);
+    route.geometry.coordinates.forEach(function(pair){bounds.extend([pair[1],pair[0]]);});
+    map.fitBounds(bounds.pad(.12));
+    return {distanceKm:route.distance/1000,durationMin:route.duration/60};
+  }
+
+  map.fitBounds(L.latLngBounds([[origin.latitude,origin.longitude],[destination.latitude,destination.longitude]]).pad(.18));
+  return null;
+}
+
+function updateLiveRouteText(origin,destination,route){
+  $("liveRouteTitle").textContent=origin.name+" → "+destination.name;
+  $("liveRouteMeta").textContent=route ?
+    "Road-routing reference · "+Math.round(route.distanceKm).toLocaleString("en-IN")+" km · "+Math.floor(route.durationMin/60)+" h "+Math.round(route.durationMin%60)+" min" :
+    "Road-routing reference · route geometry unavailable right now";
+
+  $("liveOpenMaps").href="https://www.openstreetmap.org/?mlat="+destination.latitude+"&mlon="+destination.longitude+"#map=10/"+destination.latitude+"/"+destination.longitude;
+}
+
+async function refreshLiveTravel(force){
+  var sync=$("liveSync");
+  if(sync) sync.textContent="Syncing live data…";
+
+  var originName=state.trip.from || state.settings.home || "Hyderabad";
+  var destinationName=livePreviewPlace?.name || state.trip.destination || "Goa";
+  var requestKey=originName.trim().toLowerCase()+"|"+destinationName.trim().toLowerCase();
+
+  if(!force && requestKey===liveRequestKey && liveReadCache("geo:"+originName.toLowerCase()) && liveReadCache("geo:"+destinationName.toLowerCase())){
+    if(sync) sync.textContent="Live data cached · just now";
+    return;
+  }
+
+  liveRequestKey=requestKey;
+
+  try{
+    var results=await Promise.all([liveGeocode(originName),livePreviewPlace || liveGeocode(destinationName)]);
+    var origin=results[0], destination=results[1];
+    var weather=await liveWeather(destination);
+    renderLiveWeather(destination,weather);
+    var route=await liveRoute(origin,destination);
+    updateLiveRouteText(origin,destination,route);
+    if(sync) sync.textContent="Updated "+new Intl.DateTimeFormat("en-IN",{hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date());
+  }catch(error){
+    console.error("TripPilot live data:",error);
+    renderLiveError(error && error.message==="Location not found" ? "Try a city or destination name such as Goa, Dubai or Singapore." : "Check your internet connection and try the live refresh again.");
+    if(sync) sync.textContent="Live sync failed";
+  }
+}
+
+function initLiveTravel(){
+  if(!$("liveWeatherPanel")) return;
+
+  $("livePlaceButton")?.addEventListener("click",async function(){
+    var input=$("livePlaceSearch");
+    var value=input?.value.trim();
+    if(!value){showToast("Enter a destination to preview.");return;}
+    try{
+      var place=await liveGeocode(value);
+      livePreviewPlace=place;
+      await refreshLiveTravel(true);
+      showToast(place.name+" is now in Live Travel.");
+    }catch(error){
+      showToast("That destination could not be found.");
+    }
+  });
+
+  $("livePlaceSearch")?.addEventListener("keydown",function(event){
+    if(event.key==="Enter"){event.preventDefault();$("livePlaceButton")?.click();}
+  });
+
+  $("liveResetButton")?.addEventListener("click",function(){
+    livePreviewPlace=null;
+    var input=$("livePlaceSearch");
+    if(input) input.value="";
+    refreshLiveTravel(true);
+  });
+
+  initLiveMap();
+  refreshLiveTravel(true);
+
+  clearInterval(liveRefreshTimer);
+  liveRefreshTimer=setInterval(function(){refreshLiveTravel(true);},10*60*1000);
+
+  var baseRenderAll=renderAll;
+  renderAll=function(){
+    baseRenderAll();
+    window.setTimeout(function(){refreshLiveTravel(false);},0);
+  };
+}
+
+if(typeof transportData!=="undefined" && !transportData["Self Drive"]){
+  transportData["Self Drive"]={
+    icon:"bx-car",kicker:"ROAD TRIP",title:"Self-drive flexibility",
+    description:"A private road option for flexible departure times and multi-stop travel.",
+    duration:"Route dependent",estimate:"Own / variable",color:"green"
+  };
+}
+
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",initLiveTravel,{once:true});
+}else{
+  initLiveTravel();
+}
