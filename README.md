@@ -1,254 +1,218 @@
 # ✈️ TripPilot — Travel Planning OS
 
-TripPilot is a polished, client-side travel planning product built with **HTML, CSS and vanilla JavaScript**. It is designed to feel like a real travel SaaS workspace rather than a static portfolio page.
+TripPilot is a polished, responsive travel planning web product built with HTML, CSS and vanilla JavaScript.
+
+It combines destination discovery, trip planning, route visualization, live weather context, transport planning, itineraries, stays, budgets, packing and a local trip library in one travel-focused experience.
 
 **Live demo:** https://mahitech580.github.io/TripPilot-Travel-Planner/
 
 ---
 
-## Product vision
+## Product experience
 
-TripPilot brings the practical pieces of a trip into one focused workspace:
+TripPilot is designed around:
 
-`Discover → Plan → Move → Stay → Budget → Pack → Save`
+~~~text
+Discover → Plan → Check live conditions → Map the route → Stay → Budget → Pack → Save
+~~~
 
-The current release is intentionally **static and local-first**. It requires no backend, database, login system or booking account.
+The current visual direction uses deep smoke/charcoal surfaces with red and travel-green accents, editorial destination photography, layered cards and responsive product controls.
 
----
+## Live Travel Intelligence
 
-## What is included
+The Live Travel section adds real external travel context:
+
+- Current destination weather
+- Apparent temperature
+- Humidity
+- Wind
+- Precipitation
+- Destination local time
+- Five-day outlook
+- Rain probability
+- City/location lookup
+- Interactive map
+- Origin and destination markers
+- Road-route geometry
+- Approximate road distance
+- Approximate road routing duration
+
+Open-Meteo documents continuously updated forecast data and current conditions based on 15-minute weather model data. Location search is provided by its geocoding endpoint. citeturn954473search5turn954473search9turn954473search1
+
+Leaflet provides the interactive map, while OSRM's route service provides route geometry, distance and duration from coordinates. citeturn652387search0turn652387search2
+
+## Live data vs booking data
+
+Live:
+
+- Weather
+- Local time
+- Geocoding
+- Road-route geometry
+- Road distance and route duration
+
+Not live:
+
+- Flight seat inventory
+- Railway seat inventory
+- Bus seat inventory
+- Hotel room inventory
+- Live hotel pricing
+- Payment processing
+
+Transport and accommodation amounts elsewhere in the app remain planning estimates unless a licensed live provider API is added.
+
+## Visual system
+
+The production redesign intentionally moves away from a teal-heavy generic dashboard.
+
+Primary palette:
+
+~~~text
+Smoke black / charcoal
+Deep red
+Travel green
+Soft white
+Muted gray
+~~~
+
+The colors are used across the hero, section titles, cards, CTA buttons, active states, live indicators, progress UI and map markers.
+
+## Features
 
 ### 🌍 Discover
-Search and filter destinations by travel style, inspect destination cards, and send a destination directly into the planner.
+- Search and filter destinations
+- Remote travel imagery
+- Destination context
+- One-click planning
 
-### 🗺️ Trip Planner
-Create a trip with:
+### 🗺️ Planner
 - Origin and destination
-- Start and end dates
+- Dates
 - Travelers
-- Primary transport
+- Transport
 - Stay style
 - Trip style
-
-The planner calculates an indicative trip estimate from destination, duration, travelers and preferences.
+- Indicative budget estimate
 
 ### 📊 Command Center
-A product-style operational dashboard for the current trip:
-- Route overview
-- Countdown / trip status
-- Estimated budget
-- Primary transport
-- Readiness indicator
+- Trip route
+- Countdown
+- Budget
+- Transport
+- Readiness
 - Itinerary progress
 - Packing progress
-- Suggested next action
-- Exportable trip summary
+- Next action
+- Summary export
 
 ### 🚆 Transport Hub
-Planning views for:
-- Flight
-- Train
-- Bus
-- Cab
-- Metro
-- Auto
-- Ferry
-- Mixed
-
-Transport values are planning estimates, not live inventory.
+Flight, Train, Bus, Cab, Metro, Auto, Ferry, Mixed and Self Drive.
 
 ### 📅 Itinerary Studio
-Destination templates provide suggested day coverage while the user can add custom activities with:
-- Day
-- Activity
-- Time
-- Estimated spend
+Destination templates plus custom activities with day, activity, time and spend.
 
 ### 🏨 Stay Finder
-Search sample stays by destination and stay style, then apply a stay style to the current plan.
+Sample accommodation cards searchable by destination and stay style.
 
 ### 💰 Budget Studio
-Visual budget planning across:
-- Transportation
-- Stay
-- Food
-- Local transportation
-- Activities
-
-Transport, stay and food reserves can be adjusted interactively.
+Visual categories for transportation, stay, food, local transport and activities with adjustable reserves.
 
 ### 🎒 Packing Studio
-A reusable travel checklist with completion tracking and reset support.
+Checklist completion and reset support.
 
 ### 🧳 My Trips
-A local trip library with saved-trip statistics, open/load actions and deletion.
+Local saved trip library with load/delete actions and statistics.
 
 ### ⚙️ Settings
-Workspace preferences include:
-- Name
-- Home city
-- Preferred stay style
-- Default transport
-- Dark/light appearance
-- JSON data export
-- Local data reset
+Workspace preferences, theme switching, JSON export and local reset.
 
----
+## Remote imagery
 
-## Production UI system
+Destination cards use remote Unsplash imagery for a richer travel-site presentation. Unsplash publishes free-to-use photography under its Unsplash License. citeturn609828search0turn609828search4
 
-The latest UI pass adds a stronger product identity instead of relying on generic cards:
+Images are lazy loaded on destination cards.
 
-- Premium dark/light theme system
-- Glass and layered surface treatment
-- Teal / aqua travel accent palette
-- Responsive SaaS navigation
-- Product-style hero workspace preview
-- Elevated command-center panels
-- Progress rings and data bars
-- Stronger typography hierarchy
-- Hover lift and depth states
-- Destination image zoom states
-- Scroll progress indicator
-- Back-to-top control
-- Cursor ambient glow on pointer devices
-- Active section navigation
-- Reduced-motion support
-- Mobile-specific layout tuning
-- Keyboard shortcut: press **G** outside an input to jump to the Trip Planner
+## Maps and service policies
 
-The project remains framework-free and GitHub Pages compatible.
+TripPilot uses OpenStreetMap tiles and displays attribution in the map control. OpenStreetMap states that its public tile servers are best-effort and subject to usage requirements. citeturn954473search4
 
----
+The implementation deliberately does not use the public Nominatim client-side autocomplete endpoint. Nominatim's published policy forbids client-side autocomplete and asks applications to respect request limits and caching requirements. citeturn954473search0
 
-## Technical architecture
+Live responses are cached in sessionStorage for ten minutes to reduce repeated calls.
 
-### `index.html`
-Semantic product structure, navigation, forms, cards, dashboards, planner controls, trip sections and footer.
+## Local-first architecture
 
-### `style.css`
-Design tokens, responsive layouts, dark/light themes, glass surfaces, gradients, motion, component states and mobile behavior.
+Core application state is stored in browser LocalStorage under:
 
-### `script.js`
-Application state, rendering, LocalStorage, trip calculations, search/filtering, transport switching, itinerary management, packing state, settings, exports and UX enhancements.
-
-### `README.md`
-Product documentation, deployment notes, scope and architecture.
-
----
-
-## Local-first data model
-
-TripPilot stores application state in browser LocalStorage under:
-
-```text
+~~~text
 trippilot_v2
-```
+~~~
 
-The stored client-side state can include:
-- Workspace preferences
-- Current trip
-- Budget
-- Saved trips
-- Custom itinerary activities
-- Packing progress
-- Theme preference
+Live API responses use a separate sessionStorage cache.
 
-Because this data is browser-local, clearing site/browser storage can remove saved TripPilot state.
+## Responsive design
 
----
+TripPilot is tuned for desktop, laptop, tablet and mobile layouts, including the live weather panel and interactive map.
 
-## No live booking or guaranteed pricing
+## Technologies
 
-TripPilot is a **planning product**, not a booking engine.
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- LocalStorage
+- SessionStorage
+- Leaflet 1.9.4
+- Open-Meteo
+- OSRM
+- OpenStreetMap tiles
+- Boxicons
+- Google Fonts — Poppins
+- Unsplash imagery
 
-It does not currently provide live:
-- Flight inventory
-- Railway inventory
-- Bus inventory
-- Hotel availability
-- Cab availability
-- Payment processing
-- Ticket purchases
-- Guaranteed travel prices
+## Project structure
 
-Displayed transport, stay and budget figures are sample/estimated planning values. Users should verify current availability, schedules, prices, policies and travel requirements with the relevant provider before booking.
-
-External assets such as fonts, icons and imagery are loaded from their respective third-party services.
-
----
-
-## Responsive experience
-
-TripPilot is tuned for:
-- Desktop
-- Laptop
-- Tablet
-- Mobile
-
-The layout adapts navigation, grids, forms, cards, dashboards and action controls instead of simply shrinking the desktop UI.
-
----
-
-## GitHub Pages
-
-The application is static and can be deployed directly through GitHub Pages.
-
-Repository structure:
-
-```text
+~~~text
 TripPilot-Travel-Planner/
 ├── index.html
 ├── style.css
 ├── script.js
 └── README.md
-```
+~~~
 
-Recommended GitHub Pages setup:
+## GitHub Pages
 
-`Repository → Settings → Pages → Deploy from branch → main`
+Recommended setup:
 
----
+~~~text
+Repository → Settings → Pages → Deploy from branch → main
+~~~
 
-## Scope of the project
+## Data and privacy
 
-TripPilot demonstrates:
-- Semantic HTML
-- Responsive CSS
-- Modern product UI
-- Vanilla JavaScript application architecture
-- DOM rendering
-- Event-driven interactions
-- LocalStorage persistence
-- Client-side calculations
-- Search and filtering
-- Interactive budget controls
-- Dashboard composition
-- Theme management
-- Data export
-- Responsive navigation
+The main planning state remains inside the browser. Live features make external requests for the searched destination and geographic coordinates.
 
----
+Do not enter confidential or personal information into the live destination search field.
+
+## Travel-data disclaimer
+
+Live weather and route information can change. Road routing is a map-routing reference, not live traffic intelligence.
+
+Before making actual travel arrangements, verify current schedules, fares, availability, weather warnings and provider policies with the relevant official provider.
 
 ## Future product directions
 
-Potential future versions can add real services such as:
-- Weather
-- Maps
-- Places / attractions
-- Live transport search
-- Live hotel search
+- Licensed live flight and rail APIs
+- Hotel availability and pricing
 - Currency conversion
-- Calendar sync
+- Attractions and nearby places
+- Weather alerts
+- Calendar integration
 - Cloud accounts
 - Authentication
-- PDF itineraries
-- Notifications
+- PDF itinerary generation
 - AI itinerary generation
-
-Those features would require external APIs, service integrations and/or backend infrastructure.
-
----
+- Notifications and reminders
 
 ## Author
 
@@ -258,16 +222,31 @@ GitHub: https://github.com/mahitech580
 
 LinkedIn: https://www.linkedin.com/in/mahendra-sai-kondaveeti-93438b279/
 
----
-
 ## License
 
-This repository is intended for learning, personal development and portfolio demonstration. Third-party assets remain subject to their respective licenses and terms.
+This project is intended for learning, personal development and portfolio demonstration. Third-party libraries, imagery, map data and external services remain subject to their respective licenses and terms.
 
----
+## ⭐ Project summary
 
-## Release note
-
-This production pass focuses on **product presentation + usability + visual hierarchy** while retaining the existing TripPilot planning model and GitHub Pages constraints.
+~~~text
+🌍 Destination Discovery
+✈️ Trip Planner
+🔴🟢 Live Travel Intelligence
+🌦️ Current Weather
+🕒 Destination Local Time
+🗺️ Interactive Route Map
+🚆 Transport Hub
+📅 Itinerary Studio
+🏨 Stay Finder
+💰 Budget Studio
+🎒 Packing Studio
+🧳 My Trips
+⚙️ Settings
+🌙 Dark / Light Theme
+💾 Local Persistence
+📤 Trip Summary Export
+📦 JSON Data Export
+📱 Responsive UI
+~~~
 
 **Plan smarter. Travel better. ✈️**
