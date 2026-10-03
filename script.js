@@ -1918,10 +1918,10 @@ function renderDestinations(){
 
 
 function bindFeaturedDestinationActions(){
-  var grid=$("destinationGrid");
-  if(!grid || grid.dataset.featuredBound==="1") return;
-  grid.dataset.featuredBound="1";
-  grid.addEventListener("click",function(event){
+  var root=$("discover");
+  if(!root || root.dataset.featuredBound==="1") return;
+  root.dataset.featuredBound="1";
+  root.addEventListener("click",function(event){
     var button=event.target.closest("[data-featured-plan]");
     if(!button) return;
     var destination=button.dataset.featuredPlan;
@@ -5316,13 +5316,7 @@ Object.entries(productionDestinationImages).forEach(function(entry){
 });
 
 getDestinationCards = function(){
-  var featured = `
-    <div class="destination-featured-row">
-      <article class="destination-featured-card"><img src="${destinationImageFallbacks.Hyderabad}" alt="Charminar in Hyderabad" loading="lazy" decoding="async"><div class="destination-featured-shade"></div><div class="destination-featured-copy"><span>FEATURED CITY</span><strong>Hyderabad</strong><small>Heritage + food + city life</small><button class="destination-featured-action" type="button" data-featured-plan="Hyderabad"><i class="bx bx-map-alt"></i> Plan</button></div></article>
-      <article class="destination-featured-card"><img src="${destinationImageFallbacks.Mumbai}" alt="Marine Drive in Mumbai" loading="lazy" decoding="async"><div class="destination-featured-shade"></div><div class="destination-featured-copy"><span>FEATURED CITY</span><strong>Mumbai</strong><small>Coast + skyline + culture</small><button class="destination-featured-action" type="button" data-featured-plan="Mumbai"><i class="bx bx-map-alt"></i> Plan</button></div></article>
-      <article class="destination-featured-card"><img src="${destinationImageFallbacks.Bengaluru}" alt="Vidhana Soudha in Bengaluru" loading="lazy" decoding="async"><div class="destination-featured-shade"></div><div class="destination-featured-copy"><span>FEATURED CITY</span><strong>Bengaluru</strong><small>Green spaces + cafés + culture</small><button class="destination-featured-action" type="button" data-featured-plan="Bengaluru"><i class="bx bx-map-alt"></i> Plan</button></div></article>
-    </div>`;
-  return featured + Object.entries(destinationData).map(function(entry){
+  Object.entries(destinationData).map(function(entry){
     var name=entry[0], data=entry[1];
     return (
       '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
