@@ -10,13 +10,15 @@ It combines destination discovery, trip planning, route visualization, live weat
 
 ## Product experience
 
-TripPilot is designed around:
+TripPilot is organized as a focused eight-section product experience:
 
-~~~text
-Discover → Plan → Check live conditions → Map the route → Stay → Budget → Pack → Save
-~~~
+```text
+Home → Explore → Plan → Travel → Itinerary → Budget & Pack → Trips → Settings
+```
 
-The current visual direction uses deep smoke/charcoal surfaces with red and travel-green accents, editorial destination photography, layered cards and responsive product controls.
+The home experience acts as the visual entry point and dashboard. Related tools are grouped into focused product areas instead of scattering the workspace across many standalone pages.
+
+The visual direction combines cinematic travel photography, smoke/charcoal surfaces, readable black/white theme text, controlled rainbow accents, deep red and green actions, image motion, hover depth and soft transitions.
 
 ## Live Travel Intelligence
 
