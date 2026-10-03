@@ -5821,7 +5821,7 @@ if(document.readyState==="loading"){
     var box=$("travelDeskResult");
     if(box) box.innerHTML=deskResultHtml(item.summary || {
       title:item.label,subtitle:"Saved search",rows:[],note:"This saved search is a local planning shortcut. Start a fresh live search to refresh current inventory."
-    },deskProviderLinks[deskService] || "https://www.makemytrip.com/");
+    },deskProviderLinks[deskService] || "https://www.google.com/travel/");
     showToast("Saved search loaded.");
   }
 
@@ -5896,7 +5896,7 @@ if(document.readyState==="loading"){
       deskApplySnapshot(item.values || {});
 
       if(item.summary && $("travelDeskResult")){
-        $("travelDeskResult").innerHTML=deskResultHtml(item.summary,deskProviderLinks[deskService] || "https://www.makemytrip.com/");
+        $("travelDeskResult").innerHTML=deskResultHtml(item.summary,deskProviderLinks[deskService] || "https://www.google.com/travel/");
       }
       showToast("Saved search loaded.");
     };
