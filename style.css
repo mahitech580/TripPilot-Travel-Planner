@@ -8,7 +8,6 @@
   box-sizing:border-box;
   list-style:none;
   text-decoration:none;
-  scroll-behavior:smooth;
 }
 
 :root{
@@ -174,12 +173,7 @@ body::after{
 
   z-index:-9;
 
-  animation:
-    orbitBackground
-    18s
-    ease-in-out
-    infinite
-    alternate;
+  animation:none;
 }
 
 @keyframes orbitBackground{
@@ -5843,7 +5837,7 @@ body.light-mode .destination-chip{
   --header-height:76px;
   --section-anchor:104px
 }
-html{scroll-padding-top:var(--section-anchor);scroll-behavior:smooth}
+html{scroll-padding-top:var(--section-anchor);scroll-behavior:auto}
 body{color:var(--text);background:var(--bg)}
 .page-group-section,.product-section{scroll-margin-top:var(--section-anchor)}
 .hidden{display:none !important}
@@ -6014,7 +6008,7 @@ body.light-mode .trip-map{background:linear-gradient(135deg,#edf1ee,#dfe8e1)}.tr
 /* Auth */
 .auth-gate{position:fixed;inset:0;z-index:10000 !important;display:grid;place-items:center;padding:18px;overflow:auto;background:radial-gradient(circle at 12% 14%,rgba(47,187,120,.12),transparent 25%),radial-gradient(circle at 88% 80%,rgba(184,61,53,.12),transparent 25%),#080c0a;isolation:isolate}
 .auth-gate.hidden{opacity:0;visibility:hidden;pointer-events:none}.auth-shell{position:relative;z-index:2;width:min(1120px,100%);min-height:680px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(390px,.95fr);overflow:hidden;border-radius:30px;background:#121814;box-shadow:0 36px 100px rgba(0,0,0,.40);animation:authShellIn .6s var(--ease) both}
-.auth-visual{position:relative;min-height:680px;overflow:hidden}.auth-visual-image{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,10,.14),rgba(8,12,10,.43)),url("https://images.unsplash.com/photo-1725457307624-4a64cc52d6af?auto=format&fit=crop&w=2400&q=90") center/cover no-repeat;animation:authImageDrift 16s ease-in-out infinite alternate}
+.auth-visual{position:relative;min-height:680px;overflow:hidden}.auth-visual-image{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,10,.14),rgba(8,12,10,.43)),url("https://images.unsplash.com/photo-1725457307624-4a64cc52d6af?auto=format&fit=crop&w=1600&q=76") center/cover no-repeat;animation:authImageDrift 16s ease-in-out infinite alternate}
 .auth-visual-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.10),rgba(8,12,10,.38));pointer-events:none}.auth-visual-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:42px;color:#fff}
 .auth-logo{position:absolute;left:42px;top:36px;color:#fff !important;font-size:1.65rem;font-weight:900}.auth-logo span{color:transparent !important;background:var(--rainbow);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:authRainbowText 8s linear infinite}
 .auth-visual h1{max-width:10ch;margin-top:12px;color:#fff !important;font-size:clamp(2.8rem,5vw,5.2rem);line-height:.93}.auth-visual h1 span{color:#ffd0cb !important}.auth-visual p{max-width:560px;margin-top:18px;color:#e8eeea !important;line-height:1.75}
@@ -6113,12 +6107,7 @@ body.light-mode .toast{
 
 /* Slow hero Ken-Burns movement without blurring the photograph. */
 .home-section{
-  animation:homeKenBurns 26s ease-in-out infinite alternate;
-}
-@keyframes homeKenBurns{
-  from{background-position:50% 50%,50% 50%,50% 50%}
-  to{background-position:54% 48%,50% 50%,54% 48%}
-}
+  }
 
 /* =========================================================
    HISTORIC PLACE BACKGROUNDS — FINAL SECTION EXPERIENCE
@@ -6138,13 +6127,12 @@ section.page-group-section::before{
   position:absolute;
   inset:-3%;
   z-index:-2;
-  background-image:var(--heritage-image);
+  background-image:var(--heritage-image,none);
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
   opacity:.34;
-  transform:scale(1.045);
-  animation:heritageDrift 34s ease-in-out infinite alternate;
+  transform:scale(1.02) translateZ(0);
   pointer-events:none;
 }
 
@@ -6164,37 +6152,6 @@ section.page-group-section > *{
   z-index:1;
 }
 
-#home{
-  --heritage-image:url("https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=88&w=2400");
-}
-
-#explore{
-  --heritage-image:url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&q=88&w=2400");
-}
-
-#plan{
-  --heritage-image:url("https://images.unsplash.com/photo-1776967905624-161171662d1f?auto=format&fit=crop&fm=jpg&q=88&w=2400");
-}
-
-#travel{
-  --heritage-image:url("https://images.unsplash.com/photo-1759646592665-08b660362da7?auto=format&fit=crop&fm=jpg&q=88&w=2400");
-}
-
-#itinerary{
-  --heritage-image:url("https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&q=88&w=2400");
-}
-
-#budget-ready{
-  --heritage-image:url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=88&w=2400");
-}
-
-#trips{
-  --heritage-image:url("https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=88&w=2400");
-}
-
-#settings{
-  --heritage-image:url("https://images.unsplash.com/photo-1750834115164-8c2658f18dd0?auto=format&fit=crop&fm=jpg&q=88&w=2400");
-}
 
 body.light-mode section.page-group-section::before{
   opacity:.24;
@@ -6237,14 +6194,37 @@ body.light-mode #home .section-header p{
   text-wrap:balance;
 }
 
-@keyframes heritageDrift{
-  from{transform:scale(1.045) translate3d(-.35%,-.25%,0)}
-  to{transform:scale(1.075) translate3d(.35%,.25%,0)}
-}
 
 @media(prefers-reduced-motion:reduce){
   section.page-group-section::before{
     animation:none !important;
     transform:scale(1.045);
+  }
+}
+
+
+/* =========================================================
+   PERFORMANCE PASS — SMOOTH SCROLL + LAZY SECTION MEDIA
+   ========================================================= */
+html{
+  scroll-behavior:auto !important;
+  overscroll-behavior-y:auto;
+}
+
+body::after,
+.ambient-one,
+.ambient-two{
+  animation:none !important;
+}
+
+section.page-group-section::before{
+  animation:none !important;
+  transition:none !important;
+}
+
+@media(max-width:700px){
+  section.page-group-section::before{
+    inset:-1%;
+    opacity:.22;
   }
 }
