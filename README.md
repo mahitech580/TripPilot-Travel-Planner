@@ -305,6 +305,12 @@ Travel Desk searches can now retain their form values locally. Selecting a recen
 
 TripPilot uses destination, hospitality and landscape imagery as part of the interface. Smooth hover lift, image zoom, subtle glow, cinematic gradients and theme-aware contrast layers keep the presentation visual while preserving readable content.
 
+## 🔧 Final QA hardening
+
+The final pass also audits filled controls for text visibility. Green buttons and status surfaces use white labels/icons; red active controls use white labels in dark mode and black labels on pale-red surfaces in light mode. This prevents accent-on-accent combinations that can make text appear to disappear.
+
+Live Travel now degrades gracefully when a weather, air-quality, routing, map-library or map-tile request fails. Weather data, route data and the visual route preview are independent, so one unavailable service does not blank the whole section.
+
 ## ✅ Final theme and reliability pass
 
 The production visual system uses readable black/white theme text with smoke/charcoal surfaces and controlled rainbow editorial accents for travel-inspired motion. Rainbow color is used as a decorative and interactive layer rather than replacing primary text contrast.
