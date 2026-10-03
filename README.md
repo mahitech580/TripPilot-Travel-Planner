@@ -306,3 +306,10 @@ Destination imagery is loaded remotely and lazily.
 
 Travel Desk searches can now retain their form values locally. Selecting a recent search can restore its search fields so the user can continue planning without rebuilding the form.
 
+
+
+## 🖼️ Final visual layer
+
+The finished interface now uses a larger set of travel photographs across destination discovery, inspiration cards, stays and the home experience. Remote images are lazy-loaded and have a graceful visual fallback so a failed image request does not break the card layout.
+
+The final interaction pass adds smoother press states, tactile ripple feedback, richer live-weather context and a more editorial travel presentation.
