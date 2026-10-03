@@ -5139,9 +5139,367 @@ function startTripPilot(){
 }
 
 
+
+/* =========================================================
+   33. LOCAL AUTH — LOGIN / REGISTER
+   GitHub Pages compatible; no server/database required.
+   Passwords are hashed before local storage when Web Crypto
+   is available. This is a client-side portfolio auth gate,
+   not a replacement for server-side authentication.
+   ========================================================= */
+
+const AUTH_ACCOUNT_KEY = "trippilot_accounts_v1";
+const AUTH_SESSION_KEY = "trippilot_auth_v1";
+
+function authReadJSON(storage,key,fallback){
+  try{
+    const raw=storage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  }catch(error){
+    return fallback;
+  }
+}
+
+function authWriteJSON(storage,key,value){
+  try{
+    storage.setItem(key,JSON.stringify(value));
+    return true;
+  }catch(error){
+    return false;
+  }
+}
+
+function authNormalizeEmail(value){
+  return String(value || "").trim().toLowerCase();
+}
+
+function authSimpleHash(value){
+  let hash=2166136261;
+  const text=String(value || "");
+  for(let i=0;i<text.length;i++){
+    hash^=text.charCodeAt(i);
+    hash=Math.imul(hash,16777619);
+  }
+  return "fallback-"+(hash>>>0).toString(16);
+}
+
+async function authHash(value){
+  if(window.crypto && window.crypto.subtle && window.TextEncoder){
+    const bytes=new TextEncoder().encode(String(value || ""));
+    const buffer=await window.crypto.subtle.digest("SHA-256",bytes);
+    return Array.from(new Uint8Array(buffer))
+      .map(byte=>byte.toString(16).padStart(2,"0"))
+      .join("");
+  }
+  return authSimpleHash(value);
+}
+
+function authAccounts(){
+  return authReadJSON(localStorage,AUTH_ACCOUNT_KEY,[]);
+}
+
+function authCurrentSession(){
+  return (
+    authReadJSON(sessionStorage,AUTH_SESSION_KEY,null) ||
+    authReadJSON(localStorage,AUTH_SESSION_KEY,null)
+  );
+}
+
+function authStoreSession(user,remember){
+  const session={
+    email:user.email,
+    name:user.name,
+    createdAt:Date.now()
+  };
+
+  sessionStorage.removeItem(AUTH_SESSION_KEY);
+  localStorage.removeItem(AUTH_SESSION_KEY);
+
+  return authWriteJSON(
+    remember ? localStorage : sessionStorage,
+    AUTH_SESSION_KEY,
+    session
+  );
+}
+
+function authClearSession(){
+  localStorage.removeItem(AUTH_SESSION_KEY);
+  sessionStorage.removeItem(AUTH_SESSION_KEY);
+}
+
+function authSetMessage(id,message,success){
+  const node=$(id);
+  if(!node) return;
+  node.textContent=message || "";
+  node.classList.toggle("success",!!success);
+}
+
+function authSetMode(mode){
+  const login=mode==="login";
+  const loginForm=$("authLoginForm");
+  const registerForm=$("authRegisterForm");
+  const loginTab=$("authLoginTab");
+  const registerTab=$("authRegisterTab");
+  const title=$("authTitle");
+  const subtitle=$("authSubtitle");
+
+  if(loginForm) loginForm.classList.toggle("hidden",!login);
+  if(registerForm) registerForm.classList.toggle("hidden",login);
+
+  if(loginTab){
+    loginTab.classList.toggle("active",login);
+    loginTab.setAttribute("aria-selected",String(login));
+  }
+  if(registerTab){
+    registerTab.classList.toggle("active",!login);
+    registerTab.setAttribute("aria-selected",String(!login));
+  }
+
+  if(title){
+    title.textContent=login
+      ? "Sign in to TripPilot"
+      : "Create your TripPilot account";
+  }
+  if(subtitle){
+    subtitle.textContent=login
+      ? "Continue to your saved travel workspace."
+      : "Set up a local account for this browser.";
+  }
+
+  authSetMessage("authLoginMessage","");
+  authSetMessage("authRegisterMessage","");
+}
+
+function authUpdateChrome(session){
+  const profileName=document.querySelector(".profile-name");
+  const profileAvatar=document.querySelector(".profile-avatar");
+
+  if(profileName){
+    profileName.textContent=session?.name || "Mahi";
+  }
+  if(profileAvatar){
+    const name=session?.name || "Mahi";
+    profileAvatar.textContent=name.trim().slice(0,1).toUpperCase();
+  }
+
+  document.body.classList.toggle("authenticated",!!session);
+}
+
+function authShowApp(session){
+  const gate=$("authGate");
+  const shell=$("tripAppShell");
+
+  authUpdateChrome(session);
+
+  document.body.classList.remove("auth-locked");
+
+  if(shell){
+    shell.classList.remove("auth-app-hidden");
+    shell.classList.add("auth-app-ready");
+  }
+
+  if(gate){
+    gate.classList.add("hidden");
+  }
+}
+
+function authShowGate(mode){
+  const gate=$("authGate");
+  const shell=$("tripAppShell");
+
+  authUpdateChrome(null);
+  document.body.classList.add("auth-locked");
+
+  if(shell){
+    shell.classList.add("auth-app-hidden");
+    shell.classList.remove("auth-app-ready");
+  }
+
+  if(gate){
+    gate.classList.remove("hidden");
+  }
+
+  authSetMode(mode || "login");
+}
+
+function authValidEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function authAfterSuccess(){
+  // Reload once so the existing TripPilot startup path runs exactly once.
+  // This prevents duplicate application listeners after auth changes.
+  window.location.reload();
+}
+
+async function authRegister(event){
+  event.preventDefault();
+
+  const name=$("authRegisterName")?.value.trim() || "";
+  const email=authNormalizeEmail($("authRegisterEmail")?.value);
+  const password=$("authRegisterPassword")?.value || "";
+  const confirm=$("authRegisterConfirm")?.value || "";
+  const terms=$("authTerms")?.checked;
+
+  if(name.length<2){
+    authSetMessage("authRegisterMessage","Enter your name.",false);
+    return;
+  }
+  if(!authValidEmail(email)){
+    authSetMessage("authRegisterMessage","Enter a valid email address.",false);
+    return;
+  }
+  if(password.length<6){
+    authSetMessage("authRegisterMessage","Use at least 6 characters for the password.",false);
+    return;
+  }
+  if(password!==confirm){
+    authSetMessage("authRegisterMessage","Passwords do not match.",false);
+    return;
+  }
+  if(!terms){
+    authSetMessage("authRegisterMessage","Please confirm the browser-local account notice.",false);
+    return;
+  }
+
+  const accounts=authAccounts();
+  if(accounts.some(account=>account.email===email)){
+    authSetMessage("authRegisterMessage","An account with this email already exists on this device.",false);
+    return;
+  }
+
+  const submit=event.currentTarget.querySelector(".auth-submit");
+  if(submit){
+    submit.disabled=true;
+    submit.classList.add("is-loading");
+  }
+
+  try{
+    const passwordHash=await authHash(password);
+    const account={
+      email,
+      name,
+      passwordHash,
+      createdAt:Date.now()
+    };
+
+    accounts.push(account);
+
+    if(!authWriteJSON(localStorage,AUTH_ACCOUNT_KEY,accounts)){
+      throw new Error("Storage unavailable");
+    }
+
+    authStoreSession(account,true);
+    authAfterSuccess();
+  }catch(error){
+    authSetMessage("authRegisterMessage","This browser could not save the account. Check local storage and try again.",false);
+    if(submit) submit.disabled=false;
+  }
+}
+
+async function authLogin(event){
+  event.preventDefault();
+
+  const email=authNormalizeEmail($("authLoginEmail")?.value);
+  const password=$("authLoginPassword")?.value || "";
+  const remember=$("authRemember")?.checked !== false;
+
+  if(!authValidEmail(email)){
+    authSetMessage("authLoginMessage","Enter a valid email address.",false);
+    return;
+  }
+  if(password.length<1){
+    authSetMessage("authLoginMessage","Enter your password.",false);
+    return;
+  }
+
+  const account=authAccounts().find(item=>item.email===email);
+  if(!account){
+    authSetMessage("authLoginMessage","No local account found. Create an account first.",false);
+    return;
+  }
+
+  const submit=event.currentTarget.querySelector(".auth-submit");
+  if(submit){
+    submit.disabled=true;
+    submit.classList.add("is-loading");
+  }
+
+  try{
+    const hash=await authHash(password);
+    if(hash!==account.passwordHash){
+      authSetMessage("authLoginMessage","Incorrect password. Please try again.",false);
+      if(submit) submit.disabled=false;
+      return;
+    }
+
+    authStoreSession(account,remember);
+    authAfterSuccess();
+  }catch(error){
+    authSetMessage("authLoginMessage","Unable to verify this account in the current browser.",false);
+    if(submit) submit.disabled=false;
+  }
+}
+
+function authLogout(){
+  authClearSession();
+  window.location.reload();
+}
+
+function authInit(){
+  const session=authCurrentSession();
+
+  if(session){
+    authShowApp(session);
+  }else{
+    authShowGate("login");
+  }
+
+  $("authLoginTab")?.addEventListener("click",function(){
+    authSetMode("login");
+  });
+
+  $("authRegisterTab")?.addEventListener("click",function(){
+    authSetMode("register");
+  });
+
+  $("authLoginForm")?.addEventListener("submit",authLogin);
+  $("authRegisterForm")?.addEventListener("submit",authRegister);
+
+  document.querySelectorAll("[data-toggle-password]").forEach(function(button){
+    button.addEventListener("click",function(){
+      const input=$(button.dataset.togglePassword);
+      if(!input) return;
+
+      const show=input.type==="password";
+      input.type=show ? "text" : "password";
+
+      const icon=button.querySelector("i");
+      if(icon){
+        icon.className=show ? "bx bx-hide" : "bx bx-show";
+      }
+
+      button.setAttribute(
+        "aria-label",
+        show ? "Hide password" : "Show password"
+      );
+    });
+  });
+
+  $("authLogoutButton")?.addEventListener("click",authLogout);
+}
+
 /* =========================================================
    33. BOOT
    ========================================================= */
+
+function bootTripPilot(){
+  authInit();
+
+  if(authCurrentSession()){
+    startTripPilot();
+  }
+}
 
 if(
   document.readyState ===
@@ -5150,7 +5508,7 @@ if(
 
   document.addEventListener(
     "DOMContentLoaded",
-    startTripPilot,
+    bootTripPilot,
     {
       once:true
     }
@@ -5158,7 +5516,7 @@ if(
 
 }else{
 
-  startTripPilot();
+  bootTripPilot();
 
 }
 
