@@ -10088,3 +10088,114 @@ body.authenticated .auth-logout-button{
     animation:none !important;
   }
 }
+
+
+/* =========================================================
+   AUTH FINAL CONTRAST OVERRIDE
+   Scoped to the white auth panel so the global TripPilot
+   dark-theme typography can never wash these controls out.
+   ========================================================= */
+.auth-panel,
+.auth-panel *,
+.auth-panel h1,
+.auth-panel h2,
+.auth-panel h3,
+.auth-panel h4,
+.auth-panel h5,
+.auth-panel p,
+.auth-panel label,
+.auth-panel span,
+.auth-panel strong{
+  color:#0b0f0d !important;
+}
+.auth-panel .auth-panel-kicker{
+  color:#1f8a5a !important;
+}
+.auth-panel .auth-panel-top p{
+  color:#66706a !important;
+}
+.auth-panel .auth-live-dot{
+  color:#1f754e !important;
+  background:#edf6f0 !important;
+  border-color:#c4ddce !important;
+}
+.auth-panel .auth-live-dot i{
+  background:#1f8a5a !important;
+  color:transparent !important;
+}
+.auth-panel .auth-switch{
+  background:#f2f5f2 !important;
+  border-color:#d7ded9 !important;
+}
+.auth-panel .auth-switch-btn{
+  color:#66706a !important;
+  background:transparent !important;
+}
+.auth-panel .auth-switch-btn:hover{
+  color:#0b0f0d !important;
+  background:#e8ece9 !important;
+}
+.auth-panel .auth-switch-btn.active{
+  color:#fff !important;
+  background:#a33631 !important;
+}
+.auth-panel .auth-switch-btn.active:hover{
+  color:#fff !important;
+  background:#7f2925 !important;
+}
+.auth-panel .auth-field label{
+  color:#35413b !important;
+}
+.auth-panel .auth-input-wrap{
+  background:#fff !important;
+  border-color:#cfd7d2 !important;
+}
+.auth-panel .auth-input-wrap > i{
+  color:#66706a !important;
+}
+.auth-panel .auth-input-wrap input{
+  color:#0b0f0d !important;
+  background:transparent !important;
+}
+.auth-panel .auth-input-wrap input::placeholder{
+  color:#8a938e !important;
+}
+.auth-panel .auth-password-toggle{
+  color:#66706a !important;
+  background:transparent !important;
+}
+.auth-panel .auth-password-toggle:hover{
+  color:#0b0f0d !important;
+  background:#eef1ef !important;
+}
+.auth-panel .auth-check,
+.auth-panel .auth-check span{
+  color:#505953 !important;
+}
+.auth-panel .auth-check input{
+  accent-color:#1f8a5a !important;
+}
+.auth-panel .auth-submit,
+.auth-panel .auth-submit span,
+.auth-panel .auth-submit i{
+  color:#fff !important;
+}
+.auth-panel .auth-message{
+  color:#a33631 !important;
+}
+.auth-panel .auth-message.success{
+  color:#1f754e !important;
+}
+.auth-panel .auth-footer-note,
+.auth-panel .auth-footer-note span{
+  color:#66706a !important;
+}
+.auth-panel .auth-footer-note i{
+  color:#1f8a5a !important;
+}
+.auth-panel .auth-password-toggle:focus-visible,
+.auth-panel .auth-switch-btn:focus-visible,
+.auth-panel .auth-submit:focus-visible{
+  outline:3px solid rgba(72,184,121,.28) !important;
+  outline-offset:2px;
+}
