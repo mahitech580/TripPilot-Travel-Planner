@@ -37,9 +37,9 @@ The Live Travel section adds real external travel context:
 - Approximate road distance
 - Approximate road routing duration
 
-Open-Meteo documents continuously updated forecast data and current conditions based on 15-minute weather model data. Location search is provided by its geocoding endpoint. citeturn954473search5turn954473search9turn954473search1
+Open-Meteo documents continuously updated forecast data and current conditions based on 15-minute weather model data. Location search is provided by its geocoding endpoint.
 
-Leaflet provides the interactive map, while OSRM's route service provides route geometry, distance and duration from coordinates. citeturn652387search0turn652387search2
+Leaflet provides the interactive map, while OSRM's route service provides route geometry, distance and duration from coordinates.
 
 ## Live data vs booking data
 
@@ -129,15 +129,15 @@ Workspace preferences, theme switching, JSON export and local reset.
 
 ## Remote imagery
 
-Destination cards use remote Unsplash imagery for a richer travel-site presentation. Unsplash publishes free-to-use photography under its Unsplash License. citeturn609828search0turn609828search4
+Destination cards use remote Unsplash imagery for a richer travel-site presentation. Unsplash publishes free-to-use photography under its Unsplash License.
 
 Images are lazy loaded on destination cards.
 
 ## Maps and service policies
 
-TripPilot uses OpenStreetMap tiles and displays attribution in the map control. OpenStreetMap states that its public tile servers are best-effort and subject to usage requirements. citeturn954473search4
+TripPilot uses OpenStreetMap tiles and displays attribution in the map control. OpenStreetMap states that its public tile servers are best-effort and subject to usage requirements.
 
-The implementation deliberately does not use the public Nominatim client-side autocomplete endpoint. Nominatim's published policy forbids client-side autocomplete and asks applications to respect request limits and caching requirements. citeturn954473search0
+The implementation deliberately does not use the public Nominatim client-side autocomplete endpoint. Nominatim's published policy forbids client-side autocomplete and asks applications to respect request limits and caching requirements.
 
 Live responses are cached in sessionStorage for ten minutes to reduce repeated calls.
 
