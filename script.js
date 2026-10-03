@@ -208,13 +208,50 @@ function escapeHTML(value){
 
 const destinationData = {
 
+  Hyderabad:{
+    type:"city",
+    label:"Featured City",
+    state:"Telangana",
+    distance:620,
+    subtitle:"Charminar, Golconda, biryani and a modern tech-city pulse.",
+    imageClass:"hyderabad",
+    image:"https://images.unsplash.com/photo-1741545979534-02f59c742730?auto=format&fit=crop&fm=jpg&q=88&w=2200",
+    source:"Unsplash — Charminar, Hyderabad",
+    featured:true
+  },
+
+  Mumbai:{
+    type:"city",
+    label:"Featured City",
+    state:"Maharashtra",
+    distance:710,
+    subtitle:"Marine Drive sunsets, heritage landmarks and coastal city energy.",
+    imageClass:"mumbai",
+    image:"https://images.unsplash.com/photo-1666856647637-dbc11915f258?auto=format&fit=crop&fm=jpg&q=88&w=2200",
+    source:"Unsplash — Mumbai cityscape at sunset",
+    featured:true
+  },
+
+  Bengaluru:{
+    type:"city",
+    label:"Featured City",
+    state:"Karnataka",
+    distance:570,
+    subtitle:"Vidhana Soudha, green spaces, cafés and Bengaluru city life.",
+    imageClass:"bengaluru",
+    image:"https://images.unsplash.com/photo-1741375870964-093181f9993a?auto=format&fit=crop&fm=jpg&q=88&w=2200",
+    source:"Unsplash — Vidhana Soudha, Bengaluru",
+    featured:true
+  },
+
   Goa:{
     type:"beach",
     label:"Beach",
     state:"Goa",
     distance:660,
     subtitle:"Beaches, cafés and easy coastal days.",
-    imageClass:"goa"
+    imageClass:"goa",
+    image:"https://images.unsplash.com/photo-1749753484185-30347b75988d?auto=format&fit=crop&q=92&w=3840"
   },
 
   Manali:{
@@ -223,7 +260,8 @@ const destinationData = {
     state:"Himachal Pradesh",
     distance:1900,
     subtitle:"Mountain roads, viewpoints and cool-weather stays.",
-    imageClass:"manali"
+    imageClass:"manali",
+    image:"https://images.unsplash.com/photo-1752563269976-52342808d1ba?auto=format&fit=crop&q=92&w=3840"
   },
 
   Jaipur:{
@@ -232,7 +270,8 @@ const destinationData = {
     state:"Rajasthan",
     distance:1580,
     subtitle:"Forts, markets, architecture and food.",
-    imageClass:"jaipur"
+    imageClass:"jaipur",
+    image:"https://images.unsplash.com/photo-1729448148484-da3ca27685b3?auto=format&fit=crop&q=92&w=3840"
   },
 
   Alappuzha:{
@@ -241,34 +280,8 @@ const destinationData = {
     state:"Kerala",
     distance:1250,
     subtitle:"Houseboats, waterways and slower travel.",
-    imageClass:"alappuzha"
-  },
-
-  Mumbai:{
-    type:"city",
-    label:"City",
-    state:"Maharashtra",
-    distance:710,
-    subtitle:"Coastal city energy, food and culture.",
-    imageClass:"mumbai"
-  },
-
-  Hyderabad:{
-    type:"city",
-    label:"City",
-    state:"Telangana",
-    distance:620,
-    subtitle:"Old City heritage, food trails and a fast-growing modern core.",
-    imageClass:"hyderabad"
-  },
-
-  Bengaluru:{
-    type:"city",
-    label:"City",
-    state:"Karnataka",
-    distance:570,
-    subtitle:"Cafés, city districts and nearby escapes.",
-    imageClass:"bengaluru"
+    imageClass:"alappuzha",
+    image:"https://images.unsplash.com/photo-1686890365648-f6dcfe922942?auto=format&fit=crop&q=92&w=3840"
   },
 
   Delhi:{
@@ -277,16 +290,18 @@ const destinationData = {
     state:"Delhi",
     distance:1570,
     subtitle:"History, museums, monuments and food.",
-    imageClass:"delhi"
+    imageClass:"delhi",
+    image:"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&q=92&w=3840"
   },
 
   Kochi:{
     type:"backwaters",
-    label:"Backwaters",
+    label:"Waterfront",
     state:"Kerala",
     distance:1090,
-    subtitle:"Fort Kochi, food and waterfront culture.",
-    imageClass:"alappuzha"
+    subtitle:"Fort Kochi, waterfront culture and relaxed food trails.",
+    imageClass:"alappuzha",
+    image:"https://images.unsplash.com/photo-1686890365648-f6dcfe922942?auto=format&fit=crop&q=92&w=3840"
   },
 
   Udaipur:{
@@ -295,7 +310,8 @@ const destinationData = {
     state:"Rajasthan",
     distance:1700,
     subtitle:"Lakes, palaces and slower heritage days.",
-    imageClass:"udaipur"
+    imageClass:"udaipur",
+    image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&q=92&w=3840"
   },
 
   Rishikesh:{
@@ -304,7 +320,8 @@ const destinationData = {
     state:"Uttarakhand",
     distance:1800,
     subtitle:"River views, outdoor activities and hill escapes.",
-    imageClass:"rishikesh"
+    imageClass:"rishikesh",
+    image:"https://images.unsplash.com/photo-1609920658906-8223bd289001?auto=format&fit=crop&q=92&w=3840"
   },
 
   Munnar:{
@@ -313,7 +330,8 @@ const destinationData = {
     state:"Kerala",
     distance:1120,
     subtitle:"Tea landscapes, hills and cool mornings.",
-    imageClass:"munnar"
+    imageClass:"munnar",
+    image:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&q=92&w=3840"
   },
 
   Hampi:{
@@ -322,11 +340,11 @@ const destinationData = {
     state:"Karnataka",
     distance:610,
     subtitle:"Historic ruins, landscapes and relaxed exploration.",
-    imageClass:"hampi"
+    imageClass:"hampi",
+    image:"https://images.unsplash.com/photo-1600100397608-f010f0f71dbe?auto=format&fit=crop&q=92&w=3840"
   }
 
-};
-
+}
 
 /* =========================================================
    05. TRANSPORT DATA
@@ -1718,7 +1736,7 @@ function getDestinationCards(){
       return `
 
         <article
-          class="destination-card"
+          class="destination-card ${data.featured ? 'featured-city' : ''}"
           data-destination-card
           data-name="${escapeHTML(name)}"
           data-type="${escapeHTML(data.type)}"
@@ -1731,7 +1749,17 @@ function getDestinationCards(){
                 data.imageClass
               )}
             "
-          ></div>
+            aria-hidden="true"
+          >
+            <img
+              class="destination-photo"
+              src="${escapeHTML(data.image || '')}"
+              alt="${escapeHTML(name + ' destination photo')}"
+              loading="lazy"
+              decoding="async"
+              onerror="this.style.display='none'"
+            >
+          </div>
 
           <div class="destination-overlay"></div>
 
