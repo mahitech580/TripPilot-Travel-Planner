@@ -1028,6 +1028,13 @@ const itineraryTemplates = {
     }
   ],
 
+  Hyderabad:[
+    {day:1,title:"Old City arrival",desc:"Check in, explore Charminar and settle into the city at an easy pace.",time:"15:00 → 20:00",cost:900},
+    {day:2,title:"Heritage + food trail",desc:"Build a route across historic neighbourhoods, local food and landmark stops.",time:"09:00 → 20:00",cost:1300},
+    {day:3,title:"Modern Hyderabad",desc:"Mix a relaxed city day with cafés, shopping and a sunset stop.",time:"10:00 → 19:00",cost:1500},
+    {day:4,title:"Breakfast + departure",desc:"Breakfast, checkout and return journey.",time:"08:00 → Departure",cost:800}
+  ],
+
   Bengaluru:[
     {
       day:1,
@@ -5020,6 +5027,7 @@ function renderAll(){
 
   applyTheme();
 
+  if(typeof installTravelImageFallbacks==="function") setTimeout(function(){installTravelImageFallbacks();},0);
 }
 
 
@@ -5196,6 +5204,18 @@ if(
    LIVE TRAVEL + TRAVEL EDITORIAL ENHANCEMENTS
    ========================================================= */
 
+const destinationImageFallbacks = {
+  Hyderabad:"https://images.unsplash.com/photo-1522099556433-a5f8ac730391?auto=format&fit=crop&w=3840&q=92",
+  Bengaluru:"https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=3840&q=92",
+  Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=3840&q=92",
+  Manali:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=3840&q=92",
+  Jaipur:"https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=3840&q=92",
+  Alappuzha:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=3840&q=92",
+  Udaipur:"https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&w=3840&q=92",
+  Rishikesh:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=3840&q=92",
+  Munnar:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=3840&q=92"
+};
+
 const productionDestinationImages = {
   Hyderabad:"https://images.unsplash.com/photo-1522099556433-a5f8ac730391?auto=format&fit=crop&w=3840&q=92",
   Goa:"https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=3840&q=92",
@@ -5253,7 +5273,7 @@ getDestinationCards = function(){
     return (
       '<article class="destination-card" data-destination-card data-name="' + escapeHTML(name) + '" data-type="' + escapeHTML(data.type) + '">' +
         '<div class="destination-image">' +
-          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || TRAVEL_IMAGE_FALLBACK) + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
+          '<img src="' + escapeHTML(data.imageUrl || productionDestinationImages[name] || destinationImageFallbacks[name] || TRAVEL_IMAGE_FALLBACK) + '" alt="' + escapeHTML(name) + ' travel destination" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
         '</div>' +
         '<div class="destination-overlay"></div>' +
         '<div class="destination-content">' +
