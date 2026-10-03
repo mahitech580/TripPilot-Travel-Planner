@@ -9220,3 +9220,182 @@ body.light-mode #home-content .hero-product{
 [data-subsection="discover"] .destination-card:nth-child(n+4) .destination-content h3{
   font-size:1.32rem !important;
 }
+
+
+/* FINAL LIVE SECTION FALLBACK VISUALS */
+.trip-map{
+  position:relative !important;
+  min-height:380px !important;
+  isolation:isolate;
+}
+.map-preview-fallback{
+  position:absolute;
+  inset:0;
+  z-index:500;
+  display:none;
+  overflow:hidden;
+  border-radius:inherit;
+  background:
+    radial-gradient(circle at 20% 28%,rgba(31,138,90,.16),transparent 24%),
+    radial-gradient(circle at 78% 68%,rgba(163,54,49,.15),transparent 26%),
+    linear-gradient(145deg,#101612 0%,#18211d 55%,#0d1210 100%);
+}
+.map-preview-fallback.show{display:block}
+.map-preview-grid{
+  position:absolute;
+  inset:0;
+  opacity:.23;
+  background:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(180deg,#000,transparent 95%);
+}
+.map-preview-route{
+  position:absolute;
+  left:5%;
+  top:10%;
+  width:90%;
+  height:78%;
+  overflow:visible;
+}
+.map-preview-route path{
+  fill:none;
+  stroke:#a33631;
+  stroke-width:7;
+  stroke-linecap:round;
+  stroke-dasharray:14 10;
+  animation:tripRouteDash 1.25s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(163,54,49,.24));
+}
+.map-preview-route .origin-dot{fill:#a33631}
+.map-preview-route .destination-dot{fill:#1f8a5a}
+.map-preview-route .pulse-dot{
+  fill:none;
+  stroke-width:2;
+  animation:tripRoutePulse 2.1s ease-out infinite;
+}
+.map-preview-route .origin-pulse{stroke:#a33631}
+.map-preview-route .destination-pulse{stroke:#1f8a5a;animation-delay:1s}
+.map-preview-label{
+  position:absolute;
+  z-index:3;
+  padding:8px 11px;
+  border-radius:11px;
+  color:#fff !important;
+  background:rgba(11,15,13,.78);
+  border:1px solid rgba(255,255,255,.11);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  font-size:.68rem;
+  font-weight:800;
+  box-shadow:0 12px 26px rgba(0,0,0,.16);
+}
+.map-preview-origin{left:7%;bottom:18%}
+.map-preview-destination{right:7%;top:15%}
+.map-preview-status{
+  position:absolute;
+  z-index:4;
+  left:18px;
+  bottom:18px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 10px;
+  border-radius:10px;
+  color:#dbe6e0;
+  background:rgba(11,15,13,.74);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+  font-size:.64rem;
+}
+.map-preview-status i{color:#2b9a68}
+.live-offline-card{
+  min-height:450px;
+  width:min(100%,520px);
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding:24px 26px;
+}
+.live-offline-icon{
+  width:54px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  border-radius:17px;
+  background:linear-gradient(135deg,#a33631,#7f2925);
+  box-shadow:0 14px 30px rgba(163,54,49,.20);
+  animation:tripStatusFloat 4.5s ease-in-out infinite;
+}
+.live-offline-card .live-weather-badge{margin-top:15px}
+.live-offline-card h3{margin-top:12px;font-size:1.45rem;line-height:1.2}
+.live-offline-card p{margin-top:10px;color:#c2ccc7 !important;line-height:1.72}
+.live-offline-facts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+.live-offline-facts span{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 10px;
+  border-radius:11px;
+  color:#e0e8e4 !important;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:.66rem;
+}
+.live-offline-facts i{color:#2b9a68}
+@keyframes tripRouteDash{to{stroke-dashoffset:-48}}
+@keyframes tripRoutePulse{
+  0%{transform:scale(.45);opacity:.65;transform-origin:center}
+  72%,100%{transform:scale(1.48);opacity:0;transform-origin:center}
+}
+@keyframes tripStatusFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+body.light-mode .map-preview-fallback{
+  background:
+    radial-gradient(circle at 20% 28%,rgba(31,138,90,.13),transparent 24%),
+    radial-gradient(circle at 78% 68%,rgba(163,54,49,.09),transparent 26%),
+    linear-gradient(145deg,#e8efea,#ffffff 55%,#edf2ef);
+}
+body.light-mode .map-preview-grid{
+  opacity:.16;
+  background:
+    linear-gradient(rgba(11,15,13,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(11,15,13,.06) 1px,transparent 1px);
+}
+body.light-mode .map-preview-label{
+  color:#0b0f0d !important;
+  background:rgba(255,255,255,.88);
+  border-color:#d5ddd8;
+}
+body.light-mode .map-preview-status{
+  color:#37423e !important;
+  background:rgba(255,255,255,.88);
+  border-color:#d5ddd8;
+}
+body.light-mode .live-offline-card p{color:#505a55 !important}
+body.light-mode .live-offline-facts span{
+  color:#34403a !important;
+  background:#f4f7f4;
+  border-color:#d5ddd8;
+}
+@media(max-width:760px){
+  .live-offline-card{min-height:360px;padding:20px}
+  .map-preview-route{left:2%;width:96%}
+}
+@media(prefers-reduced-motion:reduce){
+  .map-preview-route path,
+  .map-preview-route .pulse-dot,
+  .live-offline-icon{animation:none !important}
+}
