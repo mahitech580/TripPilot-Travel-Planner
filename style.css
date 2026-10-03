@@ -7754,3 +7754,387 @@ input:focus,select:focus,textarea:focus{
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important;transition-duration:.001ms !important}
 }
+
+
+/* =========================================================
+   FINAL 2026 RAINBOW + SMOKE EXPERIENCE
+   Tasteful rainbow accents, smoke surfaces, strong contrast.
+   ========================================================= */
+:root{
+  --rainbow:linear-gradient(90deg,#ff5952 0%,#ff9f43 18%,#f2cf55 34%,#48b879 50%,#5aa9f7 68%,#8d70e8 84%,#df63c9 100%);
+  --rainbow-reverse:linear-gradient(90deg,#df63c9 0%,#8d70e8 16%,#5aa9f7 32%,#48b879 50%,#f2cf55 66%,#ff9f43 82%,#ff5952 100%);
+  --rainbow-soft:linear-gradient(90deg,rgba(255,89,82,.18),rgba(255,159,67,.16),rgba(242,207,85,.14),rgba(72,184,121,.15),rgba(90,169,247,.15),rgba(141,112,232,.16),rgba(223,99,201,.16));
+  --rainbow-dark-glow:0 18px 48px rgba(90,169,247,.08),0 10px 30px rgba(223,99,201,.07);
+  --rainbow-light-glow:0 18px 48px rgba(72,184,121,.10),0 10px 30px rgba(255,89,82,.06);
+  --smoke-0:#0b0f0d;
+  --smoke-1:#141916;
+  --smoke-2:#202623;
+  --smoke-3:#66706a;
+  --paper:#ffffff;
+  --ink:#0b0f0d;
+}
+
+body{
+  background:
+    radial-gradient(circle at 12% 8%,rgba(72,184,121,.10),transparent 24%),
+    radial-gradient(circle at 88% 10%,rgba(141,112,232,.08),transparent 22%),
+    radial-gradient(circle at 50% 92%,rgba(255,89,82,.06),transparent 28%),
+    linear-gradient(145deg,var(--smoke-0),var(--smoke-1) 50%,var(--smoke-0)) !important;
+}
+
+body.light-mode{
+  background:
+    radial-gradient(circle at 8% 6%,rgba(72,184,121,.07),transparent 24%),
+    radial-gradient(circle at 90% 10%,rgba(223,99,201,.05),transparent 22%),
+    radial-gradient(circle at 48% 96%,rgba(255,159,67,.05),transparent 26%),
+    linear-gradient(145deg,#f4f6f4,#ffffff 52%,#eef1ef) !important;
+}
+
+/* Keep theme text absolute: white in dark, black in light. */
+body:not(.light-mode) h1,
+body:not(.light-mode) h2,
+body:not(.light-mode) h3,
+body:not(.light-mode) h4,
+body:not(.light-mode) h5,
+body:not(.light-mode) .navlist a,
+body:not(.light-mode) .logo,
+body:not(.light-mode) .profile-name,
+body:not(.light-mode) strong{
+  color:#fff !important;
+}
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode h4,
+body.light-mode h5,
+body.light-mode .navlist a,
+body.light-mode .logo,
+body.light-mode .profile-name,
+body.light-mode strong{
+  color:#0b0f0d !important;
+}
+body:not(.light-mode) p,
+body:not(.light-mode) small,
+body:not(.light-mode) label,
+body:not(.light-mode) .section-header p,
+body:not(.light-mode) .card-heading p,
+body:not(.light-mode) .hero-description,
+body:not(.light-mode) .trust-item{
+  color:#d9dfdc !important;
+}
+body.light-mode p,
+body.light-mode small,
+body.light-mode label,
+body.light-mode .section-header p,
+body.light-mode .card-heading p,
+body.light-mode .hero-description,
+body.light-mode .trust-item{
+  color:#505953 !important;
+}
+
+/* Rainbow editorial accents — animated but restrained. */
+.hero-copy h1 span,
+.section-header h2 span,
+.logo span{
+  background:var(--rainbow);
+  background-size:260% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent !important;
+  color:transparent !important;
+  animation:rainbowShift 8s linear infinite;
+}
+body.light-mode .hero-copy h1 span,
+body.light-mode .section-header h2 span,
+body.light-mode .logo span{
+  background:var(--rainbow-reverse);
+  background-size:260% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent !important;
+  color:transparent !important;
+}
+.section-eyebrow,
+.panel-kicker,
+.eyebrow{
+  color:#2b9a68 !important;
+}
+body.light-mode .section-eyebrow,
+body.light-mode .panel-kicker,
+body.light-mode .eyebrow{
+  color:#1f754e !important;
+}
+
+/* Header gets a thin animated rainbow travel line. */
+#header::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:2px;
+  background:var(--rainbow);
+  background-size:260% 100%;
+  animation:rainbowShift 9s linear infinite;
+  opacity:.86;
+}
+body.light-mode #header::after{
+  opacity:.72;
+}
+
+/* Hero is cinematic but the content remains readable. */
+body.light-mode .home-section::before{
+  background:
+    linear-gradient(90deg,
+      rgba(255,255,255,.97) 0%,
+      rgba(255,255,255,.92) 34%,
+      rgba(255,255,255,.70) 62%,
+      rgba(255,255,255,.40) 100%) !important;
+}
+body:not(.light-mode) .home-section::before{
+  background:
+    linear-gradient(90deg,
+      rgba(11,15,13,.84) 0%,
+      rgba(11,15,13,.63) 38%,
+      rgba(11,15,13,.36) 66%,
+      rgba(11,15,13,.44) 100%) !important;
+}
+
+/* Smoke glass surfaces. */
+body:not(.light-mode) .panel,
+body:not(.light-mode) .hero-product,
+body:not(.light-mode) .hero-shortcut,
+body:not(.light-mode) .trip-stat,
+body:not(.light-mode) .transport-option,
+body:not(.light-mode) .desk-recent,
+body:not(.light-mode) .desk-discovery-card,
+body:not(.light-mode) .inspiration-counter,
+body:not(.light-mode) .inspiration-mini{
+  background:linear-gradient(145deg,rgba(32,38,35,.95),rgba(17,22,20,.96)) !important;
+  border-color:#39423e !important;
+  box-shadow:var(--rainbow-dark-glow) !important;
+}
+body.light-mode .panel,
+body.light-mode .hero-product,
+body.light-mode .hero-shortcut,
+body.light-mode .trip-stat,
+body.light-mode .transport-option,
+body.light-mode .desk-recent,
+body.light-mode .desk-discovery-card,
+body.light-mode .inspiration-counter,
+body.light-mode .inspiration-mini,
+body.light-mode .appearance-preview{
+  background:#fff !important;
+  border-color:#d5ddd8 !important;
+  box-shadow:var(--rainbow-light-glow) !important;
+}
+
+/* Cards get a cinematic rainbow edge on hover without changing readable text. */
+.panel:hover,
+.hero-shortcut:hover,
+.destination-card:hover,
+.stay-card:hover,
+.transport-option:hover,
+.desk-discovery-card:hover,
+.inspiration-mini:hover,
+.trip-stat:hover{
+  transform:translateY(-6px) !important;
+  border-color:transparent !important;
+  background:
+    linear-gradient(#202623,#202623) padding-box,
+    var(--rainbow) border-box !important;
+  background-size:auto,240% 100%;
+  animation:rainbowShift 5s linear infinite;
+}
+body.light-mode .panel:hover,
+body.light-mode .hero-shortcut:hover,
+body.light-mode .destination-card:hover,
+body.light-mode .stay-card:hover,
+body.light-mode .transport-option:hover,
+body.light-mode .desk-discovery-card:hover,
+body.light-mode .inspiration-mini:hover,
+body.light-mode .trip-stat:hover{
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    var(--rainbow) border-box !important;
+}
+
+/* Buttons: red/green core, rainbow motion only on hover. */
+.primary-btn,
+.desk-search-button,
+.destination-button,
+.inspiration-plan{
+  color:#fff !important;
+  background:#a33631 !important;
+  border:1px solid #a33631 !important;
+  position:relative;
+  overflow:hidden;
+}
+.primary-btn:hover,
+.desk-search-button:hover,
+.destination-button:hover,
+.inspiration-plan:hover{
+  color:#fff !important;
+  background:
+    linear-gradient(#7f2925,#7f2925) padding-box,
+    var(--rainbow) border-box !important;
+  background-size:auto,250% 100%;
+  border:1px solid transparent !important;
+  box-shadow:0 14px 32px rgba(90,169,247,.10),0 8px 28px rgba(255,89,82,.10) !important;
+  animation:rainbowShift 4.5s linear infinite;
+}
+.secondary-btn,
+.live-reset-btn,
+.desk-save-button,
+.text-button{
+  color:#1f8a5a !important;
+  background:transparent !important;
+  border:1px solid #2b9a68 !important;
+  position:relative;
+  overflow:hidden;
+}
+.secondary-btn:hover,
+.live-reset-btn:hover,
+.desk-save-button:hover,
+.text-button:hover{
+  color:#fff !important;
+  background:
+    linear-gradient(#66706a,#66706a) padding-box,
+    var(--rainbow-reverse) border-box !important;
+  background-size:auto,250% 100%;
+  border:1px solid transparent !important;
+  animation:rainbowShift 4.5s linear infinite reverse;
+}
+
+/* Form controls are quiet; focus gets a rainbow ring. */
+input,select,textarea,.input-wrap,.live-search-wrap,.discover-search,.filter-select,
+.desk-fields input,.desk-fields select,.desk-fields textarea{
+  border-color:#cfd7d2 !important;
+  background:#fff !important;
+  color:#0b0f0d !important;
+}
+body:not(.light-mode) input,
+body:not(.light-mode) select,
+body:not(.light-mode) textarea,
+body:not(.light-mode) .input-wrap,
+body:not(.light-mode) .live-search-wrap,
+body:not(.light-mode) .discover-search,
+body:not(.light-mode) .filter-select,
+body:not(.light-mode) .desk-fields input,
+body:not(.light-mode) .desk-fields select,
+body:not(.light-mode) .desk-fields textarea{
+  border-color:#39433f !important;
+  background:#141916 !important;
+  color:#fff !important;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:#48b879 !important;
+  box-shadow:
+    0 0 0 3px rgba(72,184,121,.11),
+    0 0 0 1px rgba(90,169,247,.34) !important;
+}
+
+/* Live pills / badges: readable in both modes. */
+.live-pill,.soft-label,.live-weather-badge,.desk-live-badge,.product-badge{
+  background:rgba(72,184,121,.10) !important;
+  color:#1f8a5a !important;
+  border-color:rgba(72,184,121,.28) !important;
+}
+body:not(.light-mode) .live-pill,
+body:not(.light-mode) .soft-label,
+body:not(.light-mode) .live-weather-badge,
+body:not(.light-mode) .desk-live-badge,
+body:not(.light-mode) .product-badge{
+  color:#65cf9b !important;
+}
+
+/* Active navigation: no green-on-green anymore. */
+.navlist a.active{
+  color:#2b9a68 !important;
+  background:rgba(72,184,121,.10) !important;
+}
+body.light-mode .navlist a.active{
+  color:#1f754e !important;
+  background:#eef3ef !important;
+}
+.navlist a.active::after{
+  background:var(--rainbow) !important;
+  background-size:240% 100%;
+  animation:rainbowShift 5s linear infinite;
+}
+.navlist a:hover{
+  color:#1f8a5a !important;
+  background:rgba(102,112,106,.14) !important;
+}
+body.light-mode .navlist a:hover{
+  color:#0b0f0d !important;
+  background:#e8ece9 !important;
+}
+
+/* Destination / gallery imagery feels deeper and more photographic. */
+.destination-card,
+.stay-card,
+.inspiration-feature,
+.inspiration-mini,
+.travel-gallery-card{
+  overflow:hidden;
+}
+.destination-image,
+.stay-image,
+.inspiration-feature img,
+.inspiration-mini img,
+.travel-gallery-card img{
+  transition:transform .85s cubic-bezier(.2,.8,.2,1),filter .6s ease !important;
+}
+.destination-card:hover .destination-image,
+.stay-card:hover .stay-image,
+.inspiration-feature:hover img,
+.inspiration-mini:hover img,
+.travel-gallery-card:hover img{
+  transform:scale(1.07) !important;
+  filter:saturate(1.08) contrast(1.05) !important;
+}
+
+/* Hero product floats gently; status indicators breathe. */
+@keyframes rainbowShift{
+  0%{background-position:0% 50%}
+  100%{background-position:260% 50%}
+}
+@keyframes rainbowFloat{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(0,-7px,0)}
+}
+@keyframes rainbowGlow{
+  0%,100%{box-shadow:0 0 0 rgba(72,184,121,0)}
+  50%{box-shadow:0 0 24px rgba(90,169,247,.14),0 0 36px rgba(223,99,201,.07)}
+}
+.hero-product{
+  animation:rainbowFloat 9s ease-in-out infinite !important;
+}
+.status-dot,.live-pulse{
+  animation:rainbowGlow 3.2s ease-in-out infinite !important;
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-product,.status-dot,.live-pulse,.navlist a.active::after,
+  .hero-copy h1 span,.section-header h2 span,.logo span{
+    animation:none !important;
+  }
+  .panel:hover,.hero-shortcut:hover,.destination-card:hover,.stay-card:hover,
+  .transport-option:hover,.desk-discovery-card:hover,.inspiration-mini:hover,.trip-stat:hover{
+    animation:none !important;
+  }
+}
+@media(max-width:1100px){
+  .hero-copy h1 span{background-size:180% 100%}
+}
+@media(max-width:720px){
+  .hero-copy h1 span,.section-header h2 span,.logo span{
+    background-size:200% 100%;
+  }
+  .panel:hover,.hero-shortcut:hover,.destination-card:hover,.stay-card:hover,
+  .transport-option:hover,.desk-discovery-card:hover,.inspiration-mini:hover,.trip-stat:hover{
+    transform:translateY(-3px) !important;
+  }
+}
+
+/* End final visual system */
